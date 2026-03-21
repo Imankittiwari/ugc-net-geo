@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#f0c040">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NET Geo 2026">
+<link rel="manifest" href="manifest.json">
+<title>UGC NET Geography JRF 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;600;700;900&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg0:#03050f;--bg1:#080d1e;--bg2:#0e1528;--bg3:#141c35;
+  --gold:#f0c040;--gold2:#ffd770;--teal:#00e5b5;--coral:#ff6b6b;
+  --blue:#4a90e8;--purple:#9b59b6;
+  --text:#e8ecf5;--text2:#8b95b5;--text3:#4a5370;
+  --border:#1e2a4a;--r:14px;
+  --tab-h:56px;--header-h:110px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:var(--bg0);}
+body{font-family:'Noto Sans Devanagari',sans-serif;color:var(--text);font-size:14px;line-height:1.7;display:flex;flex-direction:column;}
+
+/* HEADER */
+.hdr{
+  flex-shrink:0;height:var(--header-h);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  border-bottom:1px solid rgba(240,192,64,.2);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 16px;position:relative;overflow:hidden;
+}
+.hdr::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 120% 80% at 80% 50%,rgba(240,192,64,.07),transparent);
+}
+.hdr-top{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.hdr-icon{font-size:28px;}
+.hdr-title{font-family:'Cinzel',serif;font-size:17px;background:linear-gradient(90deg,var(--gold2),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;}
+.hdr-sub{font-size:11px;color:var(--text2);}
+.hdr-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.hbadge{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.25);border-radius:8px;padding:3px 10px;font-size:10px;color:var(--gold);font-weight:700;}
+
+/* BOTTOM TABS */
+.tabs{
+  flex-shrink:0;height:var(--tab-h);
+  background:rgba(8,13,30,.97);
+  border-top:1px solid var(--border);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tb{
+  flex:0 0 auto;min-width:72px;
+  background:none;border:none;color:var(--text2);
+  font-family:'Noto Sans Devanagari',sans-serif;
+  font-size:10px;padding:6px 8px 4px;cursor:pointer;
+  border-top:2px solid transparent;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  transition:all .2s;
+}
+.tb .ti{font-size:18px;line-height:1;}
+.tb.on{color:var(--gold);border-color:var(--gold);}
+
+/* SCROLL AREA */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.scroll::-webkit-scrollbar{width:3px;}
+.scroll::-webkit-scrollbar-thumb{background:var(--border);}
+.page{display:none;padding:16px 14px 24px;animation:fadeIn .3s ease;}
+.page.on{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.ctitle{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+
+/* ALERT */
+.al{border-radius:10px;padding:10px 13px;margin-bottom:10px;border-left:3px solid;font-size:12px;line-height:1.6;}
+.al-g{background:rgba(240,192,64,.08);border-color:var(--gold);}
+.al-t{background:rgba(0,229,181,.08);border-color:var(--teal);}
+.al-c{background:rgba(255,107,107,.08);border-color:var(--coral);}
+.al-b{background:rgba(74,144,232,.08);border-color:var(--blue);}
+
+/* MOT */
+.mot{background:linear-gradient(135deg,rgba(240,192,64,.1),rgba(0,229,181,.05));border:1px solid rgba(240,192,64,.2);border-radius:10px;padding:12px 14px;margin:12px 0;text-align:center;font-size:13px;color:var(--gold2);line-height:1.6;}
+
+/* TAGS */
+.tag{display:inline-block;font-size:9px;padding:1px 7px;border-radius:7px;font-weight:700;}
+.tg{background:rgba(240,192,64,.2);color:var(--gold);}
+.tt{background:rgba(0,229,181,.15);color:var(--teal);}
+.tc{background:rgba(255,107,107,.15);color:var(--coral);}
+.tb2{background:rgba(74,144,232,.15);color:var(--blue);}
+.tp{background:rgba(155,89,182,.2);color:#c39bd3;}
+.hot{background:rgba(255,71,87,.2);color:#ff6b8a;font-size:9px;padding:1px 7px;border-radius:6px;font-weight:700;}
+.med{background:rgba(240,192,64,.15);color:var(--gold);font-size:9px;padding:1px 7px;border-radius:6px;font-weight:700;}
+
+/* PROGRESS */
+.pb-wrap{margin-bottom:8px;}
+.pb-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:3px;}
+.pb{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.pf{height:100%;border-radius:3px;transition:width 1.5s ease;}
+
+/* WEEK BLOCKS */
+.month-hdr{padding:12px 14px;font-weight:800;font-size:13px;background:linear-gradient(90deg,#2d6bcf,#9b59b6);border-radius:10px 10px 0 0;}
+.month-hdr.m2{background:linear-gradient(90deg,#8b0000,#c0392b);}
+.month-hdr.m3{background:linear-gradient(90deg,#006644,#00bfa5);}
+.week-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+.week-head{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;}
+.wnum{background:var(--gold);color:#000;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:900;flex-shrink:0;}
+.wtitle{font-size:12px;font-weight:700;color:var(--gold2);flex:1;}
+.wchev{color:var(--text3);transition:transform .2s;font-size:14px;}
+.week-body{display:none;border-top:1px solid var(--border);}
+.week-body.open{display:block;}
+.day-block{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.03);}
+.day-block:last-child{border-bottom:none;}
+.day-label{font-size:10px;font-weight:700;color:var(--teal);letter-spacing:.5px;margin-bottom:4px;}
+.day-text{font-size:12px;color:var(--text2);line-height:1.6;}
+
+/* TIMETABLE */
+.tt-row{display:flex;border-bottom:1px solid var(--border);font-size:12px;}
+.tt-time{flex:0 0 70px;padding:9px 8px;font-weight:700;color:var(--gold);font-size:11px;border-right:1px solid var(--border);}
+.tt-act{flex:0 0 90px;padding:9px 8px;font-weight:600;font-size:11px;border-right:1px solid var(--border);}
+.tt-desc{flex:1;padding:9px 8px;font-size:11px;color:var(--text2);}
+.tt-row.ex{background:rgba(255,107,107,.04);}
+.tt-row.st{background:rgba(74,144,232,.04);}
+.tt-row.sp{background:rgba(0,229,181,.04);}
+.tt-row.sl{background:rgba(100,120,200,.05);}
+.tt-hdr .tt-time,.tt-hdr .tt-act,.tt-hdr .tt-desc{font-weight:800;color:var(--gold);background:var(--bg3);font-size:10px;padding:7px 8px;letter-spacing:.5px;}
+
+/* CHECKLIST */
+.cg-title{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--gold);text-transform:uppercase;padding:10px 12px 6px;background:var(--bg3);border-radius:8px 8px 0 0;margin-top:14px;border:1px solid var(--border);border-bottom:none;}
+.ci{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.03);border-left:1px solid var(--border);border-right:1px solid var(--border);cursor:pointer;}
+.ci:last-child{border-radius:0 0 8px 8px;border-bottom:1px solid var(--border);}
+.ci input{width:16px;height:16px;flex-shrink:0;margin-top:1px;accent-color:var(--teal);}
+.ci label{font-size:12px;cursor:pointer;line-height:1.5;}
+.ci input:checked+label{text-decoration:line-through;color:var(--text3);}
+
+/* BOOKS */
+.bcard{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;}
+.bcard-name{font-weight:700;font-size:13px;margin-bottom:3px;}
+.bcard-meta{font-size:11px;color:var(--text2);line-height:1.5;}
+.blink{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;margin-right:6px;}
+.bl-f{background:rgba(0,229,181,.2);color:var(--teal);}
+.bl-b{background:rgba(240,192,64,.2);color:var(--gold);}
+
+/* QUESTIONS */
+.q-cat-hdr{font-size:13px;font-weight:800;color:var(--gold2);margin:20px 0 10px;padding:10px 12px;background:linear-gradient(90deg,rgba(240,192,64,.12),transparent);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;}
+.qcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:10px;}
+.qnum{font-size:10px;color:var(--teal);font-weight:700;margin-bottom:5px;}
+.qtext{font-size:13px;font-weight:600;margin-bottom:10px;line-height:1.6;}
+.qopts{list-style:none;}
+.qo{padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:5px;cursor:pointer;border:1px solid var(--border);transition:all .15s;line-height:1.5;}
+.qo:active{opacity:.8;}
+.qo.ok{border-color:var(--teal);background:rgba(0,229,181,.12);color:var(--teal);font-weight:700;}
+.qo.ng{border-color:var(--coral);background:rgba(255,107,107,.1);color:var(--coral);}
+.qexp{margin-top:8px;padding:10px 12px;background:rgba(240,192,64,.07);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:12px;color:var(--text2);display:none;line-height:1.7;}
+.qexp.on{display:block;}
+.qbtn{background:var(--blue);color:#fff;border:none;padding:6px 14px;border-radius:7px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;cursor:pointer;margin-top:6px;font-weight:600;}
+
+/* TRICKS */
+.trick{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:10px;}
+.trick-num{font-size:10px;color:var(--teal);font-weight:700;letter-spacing:.5px;margin-bottom:4px;}
+.trick-title{font-weight:800;color:var(--gold);font-size:14px;margin-bottom:6px;}
+.trick-mnem{font-size:15px;font-weight:800;background:linear-gradient(90deg,var(--coral),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:6px 0;letter-spacing:.5px;}
+.trick-exp{font-size:12px;color:var(--text2);line-height:1.7;}
+
+/* STRATEGY */
+.str{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;border-left:3px solid var(--teal);}
+.str.r{border-left-color:var(--coral);}
+.str.g{border-left-color:var(--gold);}
+.str-title{font-weight:700;color:var(--gold2);margin-bottom:6px;font-size:13px;}
+
+/* CALCULATOR */
+.calc-inp{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:10px;font-size:18px;font-family:'Noto Sans Devanagari',sans-serif;margin-bottom:10px;}
+.calc-inp:focus{outline:none;border-color:var(--gold);}
+.calc-btn{width:100%;background:linear-gradient(90deg,#b8860b,var(--gold));color:#000;border:none;padding:13px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+.calc-res{margin-top:14px;padding:16px;border-radius:12px;text-align:center;display:none;animation:fadeIn .3s ease;}
+.cr-score{font-size:38px;font-weight:900;font-family:'Cinzel',serif;}
+.cr-detail{font-size:12px;color:var(--text2);margin:4px 0;}
+.cr-msg{font-size:14px;font-weight:700;margin-top:6px;line-height:1.5;}
+
+/* PRIORITY */
+.pri{border-radius:10px;padding:13px;margin-bottom:10px;border:1px solid;}
+.pri.hot{background:rgba(255,71,87,.07);border-color:rgba(255,71,87,.25);}
+.pri.med{background:rgba(240,192,64,.06);border-color:rgba(240,192,64,.2);}
+.pri.ok{background:rgba(0,229,181,.06);border-color:rgba(0,229,181,.18);}
+.pri-title{font-size:11px;font-weight:800;letter-spacing:.8px;margin-bottom:8px;}
+.pri.hot .pri-title{color:var(--coral);}
+.pri.med .pri-title{color:var(--gold);}
+.pri.ok .pri-title{color:var(--teal);}
+.pri-item{font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);display:flex;gap:7px;align-items:flex-start;}
+.pri-item:last-child{border-bottom:none;}
+.pdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.pri.hot .pdot{background:var(--coral);}
+.pri.med .pdot{background:var(--gold);}
+.pri.ok .pdot{background:var(--teal);}
+
+ul.si{padding-left:16px;}
+ul.si li{margin-bottom:5px;font-size:12px;color:var(--text2);}
+ul.si li strong{color:var(--text);}
+
+/* YOGA CARDS */
+.yoga{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid var(--coral);}
+.yoga-t{font-weight:700;color:var(--coral);font-size:13px;margin-bottom:3px;}
+.yoga-d{font-size:11px;color:var(--text2);}
+
+/* SCORE BADGES */
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.sg{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 4px;text-align:center;}
+.sg .n{font-size:17px;font-weight:900;color:var(--gold);display:block;}
+.sg .l{font-size:9px;color:var(--text2);}
+
+/* DIVIDER */
+.div{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:14px 0;}
+
+/* INSTALL BANNER */
+#install-banner{
+  display:none;
+  background:linear-gradient(90deg,rgba(240,192,64,.15),rgba(0,229,181,.1));
+  border-bottom:1px solid rgba(240,192,64,.3);
+  padding:10px 14px;
+  font-size:12px;
+  align-items:center;justify-content:space-between;gap:8px;
+  flex-shrink:0;
+}
+#install-banner.show{display:flex;}
+.install-btn{background:var(--gold);color:#000;border:none;border-radius:8px;padding:6px 14px;font-weight:700;font-size:11px;cursor:pointer;font-family:'Noto Sans Devanagari',sans-serif;white-space:nowrap;}
+.install-close{background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;flex-shrink:0;}
+
+/* WEEKLY TABLE */
+.wt-row{display:flex;border-bottom:1px solid var(--border);font-size:11px;}
+.wt-day{flex:0 0 70px;padding:8px 7px;font-weight:700;font-size:11px;border-right:1px solid var(--border);}
+.wt-body{flex:1;padding:8px 7px;color:var(--text2);line-height:1.5;}
+.wt-hdr .wt-day,.wt-hdr .wt-body{background:var(--bg3);font-weight:800;color:var(--gold);font-size:10px;letter-spacing:.5px;}
+
+/* CUTOFF TABLE */
+.co-row{display:grid;grid-template-columns:1fr 80px 80px 60px;border-bottom:1px solid var(--border);font-size:11px;}
+.co-cell{padding:8px 6px;}
+.co-hdr{background:var(--bg3);font-weight:700;color:var(--gold);font-size:10px;}
+</style>
+</head>
+<body>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner">
+  <span>📱 इस App को Home Screen पर Install करो!</span>
+  <button class="install-btn" id="install-btn">Install करो</button>
+  <button class="install-close" onclick="document.getElementById('install-banner').classList.remove('show')">×</button>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-icon">🗺️</div>
+    <div>
+      <div class="hdr-title">UGC NET Geography JRF 2026</div>
+      <div class="hdr-sub">General Category · Target: 260/300</div>
+    </div>
+  </div>
+  <div class="hdr-badges">
+    <div class="hbadge">300 अंक</div>
+    <div class="hbadge">JRF Cutoff: 216</div>
+    <div class="hbadge">90 दिन</div>
+    <div class="hbadge">200+ Q</div>
+    <div class="hbadge">150 Topics</div>
+  </div>
+</div>
+
+<!-- BOTTOM TABS -->
+<div class="tabs">
+  <button class="tb on" onclick="go('roadmap',this)"><span class="ti">🗺️</span>रोडमैप</button>
+  <button class="tb" onclick="go('timetable',this)"><span class="ti">⏰</span>टाइमटेबल</button>
+  <button class="tb" onclick="go('checklist',this)"><span class="ti">✅</span>चेकलिस्ट</button>
+  <button class="tb" onclick="go('books',this)"><span class="ti">📚</span>किताबें</button>
+  <button class="tb" onclick="go('questions',this)"><span class="ti">❓</span>200+ Q</button>
+  <button class="tb" onclick="go('strategy',this)"><span class="ti">🎯</span>रणनीति</button>
+  <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
+  <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
+</div>
+
+<!-- SCROLL AREA -->
+<div class="scroll">
+
+<!-- ══════════ ROADMAP ══════════ -->
+<div id="roadmap" class="page on">
+
+<div class="score-grid">
+  <div class="sg"><span class="n">300</span><span class="l">कुल अंक</span></div>
+  <div class="sg"><span class="n">260</span><span class="l">हमारा लक्ष्य</span></div>
+  <div class="sg"><span class="n">216</span><span class="l">JRF Cutoff</span></div>
+  <div class="sg"><span class="n">90</span><span class="l">दिन</span></div>
+</div>
+
+<div class="al al-c"><strong>सच्चाई:</strong> June 2025 JRF cutoff = <strong>216/300</strong>। हमारा target <strong>260/300 (86.7%)</strong> — India TOP 2-3%।</div>
+
+<div class="mot">जो रात को रोती है, सुबह उसका सूरज सबसे पहले उगता है। रुकना मत।</div>
+
+<div class="card">
+<div class="ctitle">📊 Score का गणित</div>
+<div class="al al-t" style="margin-bottom:8px;font-size:12px;"><strong>Paper 1:</strong> 40/50 सही × 2 = <strong>80 marks</strong></div>
+<div class="al al-g" style="margin-bottom:8px;font-size:12px;"><strong>Paper 2:</strong> 90/100 सही × 2 = <strong>180 marks</strong></div>
+<div class="al al-g" style="font-size:13px;text-align:center;"><strong>80 + 180 = 260/300 🏆</strong></div>
+<div class="div"></div>
+<p style="font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:700;">Paper 2 — Questions Distribution:</p>
+<div class="pb-wrap"><div class="pb-label"><span>Geomorphology</span><span class="tc tag">~13Q</span></div><div class="pb"><div class="pf" style="width:87%;background:var(--coral);"></div></div></div>
+<div class="pb-wrap"><div class="pb-label"><span>Climatology</span><span class="tc tag">~11Q</span></div><div class="pb"><div class="pf" style="width:73%;background:var(--coral);"></div></div></div>
+<div class="pb-wrap"><div class="pb-label"><span>Economic Geography</span><span class="tg tag">~11Q</span></div><div class="pb"><div class="pf" style="width:73%;background:var(--gold);"></div></div></div>
+<div class="pb-wrap"><div class="pb-label"><span>Geographic Thought</span><span class="tg tag">~9Q</span></div><div class="pb"><div class="pf" style="width:60%;background:var(--gold);"></div></div></div>
+<div class="pb-wrap"><div class="pb-label"><span>Oceanography</span><span class="tb2 tag">~7Q</span></div><div class="pb"><div class="pf" style="width:47%;background:var(--blue);"></div></div></div>
+<div class="pb-wrap"><div class="pb-label"><span>Cartography+GIS</span><span class="tt tag">~7Q</span></div><div class="pb"><div class="pf" style="width:47%;background:var(--teal);"></div></div></div>
+</div>
+
+<div class="card">
+<div class="ctitle">🔥 Priority Topics</div>
+<div class="pri hot">
+<div class="pri-title">🔴 MUST KNOW — हर exam में</div>
+<div class="pri-item"><div class="pdot"></div><div>Davis Geomorphic Cycle + Peneplain, Monadnock</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Plate Tectonics + Continental Drift (Wegener)</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Humboldt vs Ritter — books, approach</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Koppen Classification A→E + subcodes</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Von Thunen Agricultural Model — 5 rings</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Malthus + DTM 5 Stages</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Ocean Currents — Atlantic + Pacific</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Choropleth + Isarithmic Maps</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Determinism vs Possibilism</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Remote Sensing + GIS basics</div></div>
+</div>
+<div class="pri med">
+<div class="pri-title">🟡 HIGH VALUE — 60-70% chance</div>
+<div class="pri-item"><div class="pdot"></div><div>Hartshorne-Schaefer Debate (1953)</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Weber Industrial Location — Isodapane</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Coral Reefs — Fringing, Barrier, Atoll</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Monsoon + Jet Streams</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Burgess + Hoyt + Harris-Ullman</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Christaller Central Place Theory</div></div>
+<div class="pri-item"><div class="pdot"></div><div>El Nino / La Nina</div></div>
+<div class="pri-item"><div class="pdot"></div><div>World Biomes</div></div>
+</div>
+<div class="pri ok">
+<div class="pri-title">🟢 IMPORTANT — 40-50%</div>
+<div class="pri-item"><div class="pdot"></div><div>Penck's Slope Theory vs Davis</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Humanistic Geography — Yi-Fu Tuan</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Map Projections — Mercator, Conical</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Rostow's Growth Stages</div></div>
+<div class="pri-item"><div class="pdot"></div><div>Mackinder Heartland Theory</div></div>
+<div class="pri-item"><div class="pdot"></div><div>India Soil Types</div></div>
+<div class="pri-item"><div class="pdot"></div><div>NEP 2020 key points</div></div>
+</div>
+</div>
+
+<!-- 3 MONTH PLAN -->
+<div class="card">
+<div class="ctitle">📅 3 महीने का Plan — Week + 3-दिन Breakdown</div>
+
+<div class="mot">"पहला कदम सबसे कठिन होता है। बस शुरू करो।"</div>
+
+<!-- MONTH 1 -->
+<div class="month-hdr">🟡 महीना 1 — Foundation (दिन 1-30)</div>
+<div style="height:1px;background:var(--border);margin-bottom:8px;"></div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–1</div>
+  <div class="wtitle">Geomorphology Part 1 <span class="hot">26 marks</span></div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 1–2</div><div class="day-text">Continental Drift — Wegener के 5 सबूत। Plate Tectonics — 3 boundary types। India-Eurasia collision। 20 PYQ solve करो।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 3–4</div><div class="day-text">Earthquakes — Focus, Epicenter, P-S-L waves, Richter Scale। Volcanoes — Shield, Composite, Caldera। Ring of Fire। Paper 1: Teaching Aptitude।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 5–7</div><div class="day-text">Weathering types — Mechanical, Chemical, Biological। Week 1 revision + 30Q Mock। Paper 1: Research Aptitude।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–2</div>
+  <div class="wtitle">Geomorphology Part 2 <span class="hot">MOST IMP</span></div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 8–9</div><div class="day-text">Davis Cycle — Youth→Maturity→Old Age→Peneplain। Penck's Theory — Waxing/Waning slopes। दोनों की comparison table बनाओ।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 10–11</div><div class="day-text">Fluvial Landforms — Meander, Oxbow, Delta, Alluvial Fan। Glacial — Cirque, Horn, U-Valley, Drumlin, Esker। Diagrams draw करो।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 12–14</div><div class="day-text">Arid — Inselberg, Barchan, Yardang, Pediplain। Coastal — Sea Cave→Arch→Stack→Stump। Karst — Stalactite, Sinkhole। Week 2 Test: 40Q।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–3</div>
+  <div class="wtitle">Climatology पूरा <span class="med">22 marks</span></div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 15–16</div><div class="day-text">Atmosphere layers। Insolation, Albedo, Heat Budget। Pressure Belts — ITCZ(0°), Sub-tropical High(30°), Sub-polar Low(60°), Polar High(90°)।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 17–18</div><div class="day-text">Wind Systems — Trade, Westerlies, Polar। Jet Streams — Indian Monsoon connection। El Nino (weakens monsoon) vs La Nina। Cyclones।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 19–21</div><div class="day-text">Koppen Classification — Af, Am, Aw, BWh, BSh, Cfa, Cs, Df, ET, EF — सब examples के साथ। Week 3 Test + Paper 1 Reasoning।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–4</div>
+  <div class="wtitle">Oceanography + Month 1 Revision</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 22–23</div><div class="day-text">Ocean Floor — Continental Shelf, Slope, Abyssal Plain, Trenches (Mariana=11km)। Temperature + Salinity distribution। Hypsographic Curve।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 24–25</div><div class="day-text">Atlantic Currents — Gulf Stream(warm), Labrador(cold), Benguela(cold)। Pacific — Kuroshio(warm), Peru/Humboldt(cold)। Spring vs Neap Tides।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 26–30</div><div class="day-text">Coral Reefs — Fringing(no lagoon)→Barrier(lagoon)→Atoll(ring+lagoon)। Darwin's Subsidence Theory। Month 1 Grand Revision + Full Mock (150Q)।</div></div>
+</div>
+</div>
+
+<!-- MONTH 2 -->
+<div class="month-hdr m2" style="margin-top:10px;">🔴 महीना 2 — Human Geography (दिन 31-60)</div>
+<div style="height:1px;background:var(--border);margin-bottom:8px;"></div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–5</div>
+  <div class="wtitle">Geographic Thought <span class="hot">18 marks PERFECT</span></div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 31–32</div><div class="day-text">Greek — Herodotus(Father), Eratosthenes(circumference), Ptolemy(maps)। Arab — Al-Idrisi(1154 world map)। Varenius — General vs Special Geography।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 33–34</div><div class="day-text">Humboldt — Kosmos, empiricism। Ritter — Erdkunde, regional। Ratzel — Anthropogeographie, Determinism, Lebensraum। Semple + Huntington।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 35–37</div><div class="day-text">Vidal — Possibilism। Hartshorne vs Schaefer (Idiographic vs Nomothetic)। Quantitative Revolution। Behaviouralism। Yi-Fu Tuan — Topophilia। Week 5 Test।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–6</div>
+  <div class="wtitle">Economic Geography + Biogeography</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 38–39</div><div class="day-text">Von Thunen — Zone 1: Dairy/Market Garden → Zone 2: Forestry → Zone 3-4: Crops → Zone 5: Livestock। Green Revolution — pros/cons।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 40–41</div><div class="day-text">Weber — Isodapane, Isotim, Agglomeration। Losch Market Area। Rostow's 5 Stages। Heckscher-Ohlin Trade Theory।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 42–44</div><div class="day-text">Biomes — Tundra, Taiga, Savanna, Desert, Rainforest। Biodiversity Hotspots (India: 4)। Wallace's Line। Week 6 Test।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–7</div>
+  <div class="wtitle">Population + Settlement Geography</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 45–46</div><div class="day-text">Malthus Theory। DTM 5 Stages — Stage 1(High-High) → Stage 5(Sub-replacement)। India = Stage 3। Demographic Dividend (2020-2040)।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 47–48</div><div class="day-text">Migration — Push-Pull Theory। Ravenstein's 11 Laws। Optimum Population। Rural-Urban migration। Settlement patterns।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 49–51</div><div class="day-text">Burgess (1925, 5 zones)। Hoyt Sector (1939)। Harris-Ullman Multiple Nuclei (1945)। Christaller K=3,4,7। Primate City। Week 7 Test।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–8</div>
+  <div class="wtitle">Political + Environmental + Month 2 Revision</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 52–53</div><div class="day-text">Mackinder Heartland Theory (1904)। Spykman Rimland। SAARC(8 members,1985), ASEAN(10,1967), EU, OPEC। Cultural Diffusion types।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 54–55</div><div class="day-text">Global Warming (CO2, Paris Agreement 1.5°C target)। Ozone — CFC, Montreal Protocol(1987)। SDGs (17 Goals, 2030)। Chipko Movement।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 56–60</div><div class="day-text">CBD (1992, Rio)। India Environment Laws। Month 2 Grand Revision + Full Mock 2 (150Q)। Score Analysis + weak topics fix।</div></div>
+</div>
+</div>
+
+<!-- MONTH 3 -->
+<div class="month-hdr m3" style="margin-top:10px;">🟢 महीना 3 — Revision + Mastery (दिन 61-90)</div>
+<div style="height:1px;background:var(--border);margin-bottom:8px;"></div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–9</div>
+  <div class="wtitle">Cartography + GIS + Research Methods</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 61–62</div><div class="day-text">Map Types + Projections (Mercator=conformal, Conical=mid-lat, Zenithal=poles)। Choropleth, Isarithmic, Dot, Flow, Dasymetric Maps।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 63–64</div><div class="day-text">Remote Sensing — Active(Radar) vs Passive(Landsat)। Landsat 8 (USA), IRS-P6 (India), Cartosat-2, SPOT-6। NDVI = (NIR-Red)/(NIR+Red)।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 65–67</div><div class="day-text">GIS — Raster vs Vector। GPS 3 segments। Research — Simple Random, Stratified, Cluster Sampling। Chi-Square, Pearson Correlation। Week 9 Test।</div></div>
+</div>
+</div>
+
+<div class="week-card">
+<div class="week-head" onclick="toggleWeek(this)">
+  <div class="wnum">W–10 to W–12</div>
+  <div class="wtitle">India Geography + Mock Marathon + Final</div>
+  <div class="wchev">▼</div>
+</div>
+<div class="week-body">
+  <div class="day-block"><div class="day-label">📅 दिन 68–74</div><div class="day-text">India — Physiography, Rivers, Soil types (Alluvial/Black/Red/Laterite/Arid), Climate, Vegetation। Paper 1 complete revision — NEP 2020, UGC Act, NAAC।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 75–81</div><div class="day-text">Daily Full Mock Tests (3 hours each)। Target: P1=38+/50, P2=85+/100। Score record। Weak topics fix। 2020-2024 PYQ papers solve।</div></div>
+  <div class="day-block"><div class="day-label">📅 दिन 82–90</div><div class="day-text">PYQ Marathon (2014-2025)। Flash cards revision। Short notes reading। Day 88: Documents ready। Day 89: Exam center visit। Day 90: Confident जाओ! 🏆</div></div>
+</div>
+</div>
+
+</div><!-- end 3 month card -->
+
+<div class="mot">"मंज़िल उन्हीं को मिलती है जिनके सपनों में जान होती है।"</div>
+
+</div><!-- end roadmap -->
+
+<!-- ══════════ TIMETABLE ══════════ -->
+<div id="timetable" class="page">
+
+<div class="al al-b">Brain science के अनुसार बनाया गया। सुबह = नया पढ़ो। शाम = practice। रात = notes। नींद में brain memory consolidate करता है।</div>
+
+<div class="mot">"हर सुबह एक नया मौका है — उठो और शुरू हो जाओ।"</div>
+
+<div class="card">
+<div class="ctitle">🕐 Daily Schedule</div>
+<div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+<div class="tt-row tt-hdr"><div class="tt-time">TIME</div><div class="tt-act">ACTIVITY</div><div class="tt-desc">क्यों और कैसे</div></div>
+<div class="tt-row ex"><div class="tt-time">5:00 AM</div><div class="tt-act">🌅 उठो</div><div class="tt-desc">2 गिलास पानी। 5 min deep breathing।</div></div>
+<div class="tt-row ex"><div class="tt-time">5:15–6:15</div><div class="tt-act">🧘 Exercise</div><div class="tt-desc">Yoga + Cardio (detail नीचे है)। Brain को oxygen।</div></div>
+<div class="tt-row"><div class="tt-time">6:15–6:45</div><div class="tt-act">🚿 Fresh</div><div class="tt-desc">Freshen up + हल्का नाश्ता (दलिया/banana/दूध)।</div></div>
+<div class="tt-row sp"><div class="tt-time">6:45–9:00</div><div class="tt-act">📖 Session 1</div><div class="tt-desc"><strong>Main Geography topic।</strong> Pomodoro: 25 min पढ़ो + 5 min break।</div></div>
+<div class="tt-row"><div class="tt-time">9:00–9:15</div><div class="tt-act">☕ Break</div><div class="tt-desc">पानी। आँखें बंद करो — mentally recall करो।</div></div>
+<div class="tt-row sp"><div class="tt-time">9:15–10:45</div><div class="tt-act">📝 Session 2</div><div class="tt-desc"><strong>40-50 PYQ उसी topic के।</strong> Timer लगाओ। गलत = re-read।</div></div>
+<div class="tt-row"><div class="tt-time">10:45–11:15</div><div class="tt-act">🔄 Revision</div><div class="tt-desc">कल के flash cards। 5 key points ज़ोर से बोलो।</div></div>
+<div class="tt-row sp"><div class="tt-time">11:15–12:45</div><div class="tt-act">📖 Session 3</div><div class="tt-desc"><strong>Paper 1 topic।</strong> Rotate: Teaching/Research/Reasoning/ICT।</div></div>
+<div class="tt-row"><div class="tt-time">12:45–2:15</div><div class="tt-act">🍽️ Lunch + Nap</div><div class="tt-desc">हल्का खाना। <strong>20 min Power Nap (alarm लगाओ)।</strong></div></div>
+<div class="tt-row sp"><div class="tt-time">2:15–4:15</div><div class="tt-act">📖 Session 4</div><div class="tt-desc"><strong>Scholars, Models, Theories।</strong> Comparison tables बनाओ।</div></div>
+<div class="tt-row"><div class="tt-time">4:15–4:45</div><div class="tt-act">☕ Break</div><div class="tt-desc">फल/मूँगफली। आँखें rest दो।</div></div>
+<div class="tt-row sp"><div class="tt-time">4:45–6:15</div><div class="tt-act">📝 Session 5</div><div class="tt-desc"><strong>50Q Mock Test।</strong> Timer: 45 min। Score record करो।</div></div>
+<div class="tt-row ex"><div class="tt-time">6:15–6:45</div><div class="tt-act">🌳 Walk</div><div class="tt-desc">ताज़ी हवा। Mentally revise। No phone।</div></div>
+<div class="tt-row sp"><div class="tt-time">6:45–7:45</div><div class="tt-act">📖 Session 6</div><div class="tt-desc"><strong>Mock में गलत topics fix करो।</strong> Notes update।</div></div>
+<div class="tt-row"><div class="tt-time">7:45–8:30</div><div class="tt-act">🍽️ Dinner</div><div class="tt-desc">हल्का खाना। Family के साथ।</div></div>
+<div class="tt-row sp"><div class="tt-time">8:30–9:30</div><div class="tt-act">📓 Session 7</div><div class="tt-desc"><strong>Short Notes।</strong> आज का पूरा topic एक page में।</div></div>
+<div class="tt-row"><div class="tt-time">9:30–10:00</div><div class="tt-act">🔄 Week Rev</div><div class="tt-desc">पिछले 7 दिन के flash cards।</div></div>
+<div class="tt-row sl"><div class="tt-time">10:00 PM</div><div class="tt-act">🌙 Sleep</div><div class="tt-desc"><strong>7-8 घंटे ज़रूरी।</strong> Brain रात को memory store करता है।</div></div>
+</div>
+<div class="al al-g" style="margin-top:10px;">Total study: ~8.5 hours। रविवार = Only Revision + 1 Full Mock।</div>
+</div>
+
+<div class="card">
+<div class="ctitle">💪 Exercise Plan — Females के लिए</div>
+<div class="al al-t">Exercise से BDNF release होता है — यह memory और concentration बढ़ाता है। Scientific fact!</div>
+
+<div style="font-weight:700;color:var(--coral);font-size:13px;margin:10px 0 8px;">🌅 रोज़ (5:15–6:15 AM)</div>
+<div class="yoga"><div class="yoga-t">1. सूर्य नमस्कार — 10-12 rounds</div><div class="yoga-d">12 poses sequence। Weight loss के लिए #1 yoga। Full body workout। Energy boost।</div></div>
+<div class="yoga"><div class="yoga-t">2. कपालभाति Pranayama — 5 min</div><div class="yoga-d">नाक से forceful exhalation। पेट की चर्बी कम करे। Brain को oxygen। खाली पेट करो।</div></div>
+<div class="yoga"><div class="yoga-t">3. अनुलोम-विलोम — 5 min</div><div class="yoga-d">Alternate Nostril Breathing। Stress/anxiety कम करे। Memory improve। Brain balance।</div></div>
+<div class="yoga"><div class="yoga-t">4. तितली आसन — 3 min</div><div class="yoga-d">Inner thighs और hips। Reproductive organs। Long sitting से circulation improve।</div></div>
+<div class="yoga"><div class="yoga-t">5. Naukasana (Boat Pose) — 3×30sec</div><div class="yoga-d">Core/Abs workout। Belly fat। Balance। Digestive system।</div></div>
+<div class="yoga"><div class="yoga-t">6. Setu Bandhasana (Bridge) — 3×30sec</div><div class="yoga-d">Back + Glutes। Thyroid balance। Lower body strengthen।</div></div>
+<div class="yoga"><div class="yoga-t">7. Shavasana — 5 min</div><div class="yoga-d">Body scan meditation। सबसे important step — skip मत करो।</div></div>
+
+<div style="font-weight:700;color:var(--teal);font-size:13px;margin:10px 0 8px;">🏃 Mon/Wed/Fri — Cardio Add करो</div>
+<ul class="si">
+<li><strong>जॉगिंग/तेज़ चलना:</strong> 20-25 min। Fresh air + Vitamin D।</li>
+<li><strong>Squats:</strong> 3×15 reps। Lower body + metabolism।</li>
+<li><strong>Stretching:</strong> 5 min neck, shoulders, lower back।</li>
+</ul>
+
+<div class="al al-g" style="margin-top:10px;">
+<strong>Weight Loss Tips:</strong> कपालभाति + Surya Namaskar सबसे effective। 7 बजे बाद heavy food नहीं। रोज़ 8-10 गिलास पानी। नींद कम = fat storage ज़्यादा।
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">📅 Weekly Schedule</div>
+<div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+<div class="wt-row wt-hdr"><div class="wt-day">दिन</div><div class="wt-body">Geography Topic + Paper 1 + Target</div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--coral);">सोमवार 🔴</div><div class="wt-body">Geomorphology (Davis, Plate Tectonics) | Paper 1: Teaching Aptitude | <strong>Target: 25/30 PYQ</strong></div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--gold);">मंगलवार 🟡</div><div class="wt-body">Climatology (Koppen, Monsoon) | Paper 1: Research Aptitude | <strong>50Q test: 40/50</strong></div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--blue);">बुधवार 🔵</div><div class="wt-body">Geographic Thought Part 1 | Paper 1: Logical Reasoning | <strong>Scholars table बनाओ</strong></div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--teal);">गुरुवार 🟢</div><div class="wt-body">Geographic Thought Part 2 + Economic Geo | Paper 1: Math Reasoning | <strong>Models diagrams</strong></div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--purple);">शुक्रवार 🟣</div><div class="wt-body">Oceanography + Biogeography + Population | Paper 1: Data Interpretation | <strong>Mixed: 42/50</strong></div></div>
+<div class="wt-row"><div class="wt-day" style="color:var(--lavender,#c39bd3);">शनिवार 🔷</div><div class="wt-body">Cartography + GIS + Research Methods | Paper 1: ICT + NEP 2020 | <strong>Research Q: 15/20</strong></div></div>
+<div class="wt-row" style="background:rgba(0,229,181,.04);"><div class="wt-day" style="color:var(--gold);">रविवार ⭐</div><div class="wt-body"><strong>REVISION + Full Mock Test (3 hours, 150Q)</strong> | Score analysis | Next week plan</div></div>
+</div>
+</div>
+
+</div><!-- end timetable -->
+
+<!-- ══════════ CHECKLIST ══════════ -->
+<div id="checklist" class="page">
+<div class="card">
+<div class="ctitle">📊 Progress</div>
+<div class="al al-t"><span id="ck-count">0</span>/150 Topics · <span id="ck-pct">0</span>% · <span id="ck-msg">अभी शुरू करो! 🚀</span></div>
+<div class="pb" style="height:10px;margin-top:6px;border-radius:5px;"><div class="pf" id="ck-bar" style="width:0%;background:linear-gradient(90deg,var(--teal),var(--gold));height:10px;"></div></div>
+</div>
+
+<div class="cg-title">🌍 Geomorphology (15 Topics)</div>
+<div class="ci"><input type="checkbox" id="t1"><label for="t1">Continental Drift — Wegener के 5 सबूत <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t2"><label for="t2">Plate Tectonics — 3 boundary types + examples <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t3"><label for="t3">Seafloor Spreading — Harry Hess (1962)</label></div>
+<div class="ci"><input type="checkbox" id="t4"><label for="t4">Earthquakes — Focus, Epicenter, P-S-L waves, Richter</label></div>
+<div class="ci"><input type="checkbox" id="t5"><label for="t5">Volcanoes — Shield, Composite, Caldera, Cinder + Ring of Fire</label></div>
+<div class="ci"><input type="checkbox" id="t6"><label for="t6">Davis Geographical Cycle — 3 stages + Peneplain + Monadnock <span class="hot">MOST REPEATED</span></label></div>
+<div class="ci"><input type="checkbox" id="t7"><label for="t7">Penck's Theory — Waxing/Waning slopes vs Davis</label></div>
+<div class="ci"><input type="checkbox" id="t8"><label for="t8">Weathering — Mechanical, Chemical (hydrolysis, oxidation), Biological</label></div>
+<div class="ci"><input type="checkbox" id="t9"><label for="t9">Mass Movement — Landslide, Earthflow, Soil Creep</label></div>
+<div class="ci"><input type="checkbox" id="t10"><label for="t10">Fluvial Landforms — Meander, Oxbow, Delta types, Alluvial Fan, Levee <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t11"><label for="t11">Glacial Erosion — Cirque, Horn, Arête, U-Valley, Fjord, Hanging Valley</label></div>
+<div class="ci"><input type="checkbox" id="t12"><label for="t12">Glacial Deposition — Drumlin, Esker, Kame, Moraine types</label></div>
+<div class="ci"><input type="checkbox" id="t13"><label for="t13">Arid Landforms — Inselberg, Barchan, Yardang, Pediplain, Pediment</label></div>
+<div class="ci"><input type="checkbox" id="t14"><label for="t14">Coastal — Sea Cave, Arch, Stack, Stump, Spit, Tombolo</label></div>
+<div class="ci"><input type="checkbox" id="t15"><label for="t15">Karst — Stalactite, Stalagmite, Doline, Sinkhole</label></div>
+
+<div class="cg-title">🌦️ Climatology (13 Topics)</div>
+<div class="ci"><input type="checkbox" id="t16"><label for="t16">Atmosphere Layers — Troposphere to Exosphere + heights <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t17"><label for="t17">Insolation, Albedo, Terrestrial Radiation, Heat Budget</label></div>
+<div class="ci"><input type="checkbox" id="t18"><label for="t18">Pressure Belts — ITCZ(0°), Sub-tropical(30°), Sub-polar(60°), Polar(90°)</label></div>
+<div class="ci"><input type="checkbox" id="t19"><label for="t19">Wind Systems — Trade, Westerlies, Polar Easterlies, Local Winds (Loo, Foehn)</label></div>
+<div class="ci"><input type="checkbox" id="t20"><label for="t20">Jet Streams — Sub-tropical Westerly + Polar + Monsoon connection <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t21"><label for="t21">Indian Monsoon — SW (June-Sept), NE (Oct-Dec), Withdrawal</label></div>
+<div class="ci"><input type="checkbox" id="t22"><label for="t22">El Nino (weakens monsoon) + La Nina (strengthens) + ENSO</label></div>
+<div class="ci"><input type="checkbox" id="t23"><label for="t23">Tropical Cyclones — formation, structure, naming (vs Temperate)</label></div>
+<div class="ci"><input type="checkbox" id="t24"><label for="t24">Koppen — A (Af,Am,Aw), B (BWh,BSh), C (Cfa,Cs), D, E (ET,EF) <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t25"><label for="t25">Thornthwaite's Classification — Moisture Index</label></div>
+<div class="ci"><input type="checkbox" id="t26"><label for="t26">Western Disturbances — NW India winter rain</label></div>
+<div class="ci"><input type="checkbox" id="t27"><label for="t27">Greenhouse Effect — CO2, CH4, N2O, Global Warming</label></div>
+<div class="ci"><input type="checkbox" id="t28"><label for="t28">Ozone Depletion — CFC, Antarctic Hole, Montreal Protocol (1987)</label></div>
+
+<div class="cg-title">🌊 Oceanography (11 Topics)</div>
+<div class="ci"><input type="checkbox" id="t29"><label for="t29">Ocean Floor — Shelf, Slope, Rise, Abyssal Plain, Trench (Mariana=11km)</label></div>
+<div class="ci"><input type="checkbox" id="t30"><label for="t30">Ocean Temperature Distribution + Thermocline</label></div>
+<div class="ci"><input type="checkbox" id="t31"><label for="t31">Ocean Salinity — 35‰ average, highest at 20-30°</label></div>
+<div class="ci"><input type="checkbox" id="t32"><label for="t32">Atlantic Currents — Gulf Stream (warm), Labrador (cold), Benguela (cold) <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t33"><label for="t33">Pacific Currents — Kuroshio (warm), Peru/Humboldt (cold)</label></div>
+<div class="ci"><input type="checkbox" id="t34"><label for="t34">Tides — Spring (New+Full Moon), Neap (Quarter Moon)</label></div>
+<div class="ci"><input type="checkbox" id="t35"><label for="t35">Coral Reefs — Fringing, Barrier, Atoll + Darwin's Subsidence Theory <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t36"><label for="t36">Tsunami — undersea earthquake/volcanic → long waves</label></div>
+<div class="ci"><input type="checkbox" id="t37"><label for="t37">Hypsographic Curve</label></div>
+<div class="ci"><input type="checkbox" id="t38"><label for="t38">Indian Ocean Currents — seasonal reversal, Somali Current</label></div>
+<div class="ci"><input type="checkbox" id="t39"><label for="t39">Marine Pollution — Plastic, Oil Spills, Dead Zones</label></div>
+
+<div class="cg-title">💭 Geographic Thought (20 Topics) — सबसे Important!</div>
+<div class="ci"><input type="checkbox" id="t40"><label for="t40">Greek Scholars — Herodotus, Eratosthenes, Aristotle, Ptolemy, Strabo <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t41"><label for="t41">Arab Scholars — Al-Idrisi (1154 World Map), Ibn Battuta, Ibn Khaldun</label></div>
+<div class="ci"><input type="checkbox" id="t42"><label for="t42">Varenius — Geographia Generalis (1650)</label></div>
+<div class="ci"><input type="checkbox" id="t43"><label for="t43">Humboldt — Kosmos (1845), Holism, Empiricism <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t44"><label for="t44">Ritter — Erdkunde (1817), Regional, Teleological</label></div>
+<div class="ci"><input type="checkbox" id="t45"><label for="t45">Ratzel — Anthropogeographie (1882), Determinism, Lebensraum <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t46"><label for="t46">Semple + Huntington — Environmental Determinism</label></div>
+<div class="ci"><input type="checkbox" id="t47"><label for="t47">Vidal de la Blache — Possibilism, Genre de vie <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t48"><label for="t48">Hartshorne vs Schaefer — Idiographic vs Nomothetic (1953) <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t49"><label for="t49">Quantitative Revolution — 1950s-60s, Schaefer, Berry, Garrison</label></div>
+<div class="ci"><input type="checkbox" id="t50"><label for="t50">Behaviouralism — Mental Maps (Gould + White)</label></div>
+<div class="ci"><input type="checkbox" id="t51"><label for="t51">Humanistic — Yi-Fu Tuan, Topophilia (1974), Space and Place <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t52"><label for="t52">Radical/Marxist — David Harvey, Spatial Inequality</label></div>
+<div class="ci"><input type="checkbox" id="t53"><label for="t53">Feminist Geography — Doreen Massey, Gendered Spaces</label></div>
+<div class="ci"><input type="checkbox" id="t54"><label for="t54">Carl Sauer — Cultural Landscape, Berkeley School</label></div>
+<div class="ci"><input type="checkbox" id="t55"><label for="t55">German School (Ritter, Ratzel, Humboldt) vs French School (Vidal)</label></div>
+
+<div class="cg-title">💰 Economic Geography (10 Topics)</div>
+<div class="ci"><input type="checkbox" id="t56"><label for="t56">Von Thunen — 5 zones, Isolated State assumptions <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t57"><label for="t57">Agriculture Types — Intensive, Extensive, Plantation, Shifting</label></div>
+<div class="ci"><input type="checkbox" id="t58"><label for="t58">Green Revolution — HYV seeds, pros/cons</label></div>
+<div class="ci"><input type="checkbox" id="t59"><label for="t59">Weber's Industrial Location — Isodapane, Isotim, Agglomeration <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t60"><label for="t60">Losch Market Area Theory</label></div>
+<div class="ci"><input type="checkbox" id="t61"><label for="t61">Rostow's 5 Growth Stages</label></div>
+<div class="ci"><input type="checkbox" id="t62"><label for="t62">World Energy Resources — Coal, Petroleum, Renewables</label></div>
+<div class="ci"><input type="checkbox" id="t63"><label for="t63">Heckscher-Ohlin Trade Theory — Factor Endowment</label></div>
+<div class="ci"><input type="checkbox" id="t64"><label for="t64">SEZ — Special Economic Zones</label></div>
+<div class="ci"><input type="checkbox" id="t65"><label for="t65">World Industrial Regions — Ruhr, Great Lakes, Mumbai-Pune</label></div>
+
+<div class="cg-title">👥 Population + Settlement (15 Topics)</div>
+<div class="ci"><input type="checkbox" id="t66"><label for="t66">Malthus Theory (1798) — Arithmetic vs Geometric growth <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t67"><label for="t67">DTM — 5 Stages, India = Stage 3 <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t68"><label for="t68">Demographic Dividend — India 2020-2040</label></div>
+<div class="ci"><input type="checkbox" id="t69"><label for="t69">Population Distribution + Density types (Arithmetic, Physiological)</label></div>
+<div class="ci"><input type="checkbox" id="t70"><label for="t70">Ravenstein's Laws of Migration (1885) <span class="med">HIGH</span></label></div>
+<div class="ci"><input type="checkbox" id="t71"><label for="t71">Optimum Population — Edmund Cannan</label></div>
+<div class="ci"><input type="checkbox" id="t72"><label for="t72">Population Pyramid — Expansive, Stationary, Constrictive</label></div>
+<div class="ci"><input type="checkbox" id="t73"><label for="t73">India 2011 Census — 1.21B, sex ratio 943, literacy 74%</label></div>
+<div class="ci"><input type="checkbox" id="t74"><label for="t74">Rural Settlement Patterns — Linear, Nucleated, Dispersed</label></div>
+<div class="ci"><input type="checkbox" id="t75"><label for="t75">Burgess Concentric Zone (1925, Chicago) — 5 zones <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t76"><label for="t76">Hoyt Sector Model (1939)</label></div>
+<div class="ci"><input type="checkbox" id="t77"><label for="t77">Harris-Ullman Multiple Nuclei (1945)</label></div>
+<div class="ci"><input type="checkbox" id="t78"><label for="t78">Christaller Central Place — K=3,4,7, Threshold, Range <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t79"><label for="t79">Primate City (Jefferson) + Rank-Size Rule (Zipf)</label></div>
+<div class="ci"><input type="checkbox" id="t80"><label for="t80">Smart Cities Mission + Urban Sprawl</label></div>
+
+<div class="cg-title">🌿 Biogeography + Environment (10 Topics)</div>
+<div class="ci"><input type="checkbox" id="t81"><label for="t81">World Biomes — Tundra, Taiga, Savanna, Desert, Rainforest <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t82"><label for="t82">India Biodiversity Hotspots — Western Ghats, NE India, Indo-Burma, Sundaland</label></div>
+<div class="ci"><input type="checkbox" id="t83"><label for="t83">Wallace's Line — Asian vs Australian fauna</label></div>
+<div class="ci"><input type="checkbox" id="t84"><label for="t84">IUCN Red List categories</label></div>
+<div class="ci"><input type="checkbox" id="t85"><label for="t85">Food Chain + Ecological Pyramid</label></div>
+<div class="ci"><input type="checkbox" id="t86"><label for="t86">SDGs — 17 Goals, Goal 13=Climate Action, Goal 15=Life on Land</label></div>
+<div class="ci"><input type="checkbox" id="t87"><label for="t87">Paris Agreement (2015) — 1.5°C/2°C target</label></div>
+<div class="ci"><input type="checkbox" id="t88"><label for="t88">CBD (1992, Rio) — Biodiversity Convention</label></div>
+<div class="ci"><input type="checkbox" id="t89"><label for="t89">Environmental Movements — Chipko (1973), Narmada Bachao</label></div>
+<div class="ci"><input type="checkbox" id="t90"><label for="t90">Acid Rain — SO2+NOx+water → H2SO4+HNO3</label></div>
+
+<div class="cg-title">🌐 Political + Cultural Geography (7 Topics)</div>
+<div class="ci"><input type="checkbox" id="t91"><label for="t91">Mackinder Heartland Theory (1904)</label></div>
+<div class="ci"><input type="checkbox" id="t92"><label for="t92">Spykman Rimland + Mahan Sea Power</label></div>
+<div class="ci"><input type="checkbox" id="t93"><label for="t93">SAARC (8 members, 1985, Dhaka)</label></div>
+<div class="ci"><input type="checkbox" id="t94"><label for="t94">ASEAN (10, 1967), EU (1993), OPEC (1960)</label></div>
+<div class="ci"><input type="checkbox" id="t95"><label for="t95">Cultural Diffusion Types — Relocation, Expansion</label></div>
+<div class="ci"><input type="checkbox" id="t96"><label for="t96">Carl Sauer — Cultural Landscape</label></div>
+<div class="ci"><input type="checkbox" id="t97"><label for="t97">Electoral Geography — Gerrymandering</label></div>
+
+<div class="cg-title">🗺️ Cartography + GIS (12 Topics)</div>
+<div class="ci"><input type="checkbox" id="t98"><label for="t98">Map Types — Topographic, Thematic, Cadastral</label></div>
+<div class="ci"><input type="checkbox" id="t99"><label for="t99">Map Projections — Mercator (conformal), Conical, Zenithal <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t100"><label for="t100">Choropleth Maps — construction, advantages, limitations <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t101"><label for="t101">Isarithmic — Isohyets (rain), Isobars (pressure), Isotherms (temp)</label></div>
+<div class="ci"><input type="checkbox" id="t102"><label for="t102">Remote Sensing — Active (Radar) vs Passive sensors</label></div>
+<div class="ci"><input type="checkbox" id="t103"><label for="t103">Satellites — Landsat 8 (USA), IRS-P6 (India), Cartosat-2, SPOT-6</label></div>
+<div class="ci"><input type="checkbox" id="t104"><label for="t104">NDVI = (NIR-Red)/(NIR+Red)</label></div>
+<div class="ci"><input type="checkbox" id="t105"><label for="t105">GIS — Raster (pixels) vs Vector (points, lines, polygons) <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t106"><label for="t106">GPS — 3 segments (Space, Control, User)</label></div>
+<div class="ci"><input type="checkbox" id="t107"><label for="t107">DEM — Digital Elevation Model</label></div>
+<div class="ci"><input type="checkbox" id="t108"><label for="t108">Dasymetric + Flow Maps</label></div>
+<div class="ci"><input type="checkbox" id="t109"><label for="t109">GIS Analysis — Overlay, Buffer, Network</label></div>
+
+<div class="cg-title">🔬 Research Methods (7 Topics)</div>
+<div class="ci"><input type="checkbox" id="t110"><label for="t110">Research Types — Pure, Applied, Action; Quantitative vs Qualitative</label></div>
+<div class="ci"><input type="checkbox" id="t111"><label for="t111">Null Hypothesis (H₀) + Type I/II Errors</label></div>
+<div class="ci"><input type="checkbox" id="t112"><label for="t112">Sampling — Simple Random, Systematic, Stratified, Cluster <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t113"><label for="t113">Chi-square Test + Pearson Correlation (r = -1 to +1)</label></div>
+<div class="ci"><input type="checkbox" id="t114"><label for="t114">Primary vs Secondary Data, Reliability vs Validity</label></div>
+<div class="ci"><input type="checkbox" id="t115"><label for="t115">Graphs — Bar, Histogram, Lorenz Curve, Scatter Plot</label></div>
+<div class="ci"><input type="checkbox" id="t116"><label for="t116">Peer Review process</label></div>
+
+<div class="cg-title">📋 Paper 1 — All 10 Topics</div>
+<div class="ci"><input type="checkbox" id="t117"><label for="t117">Teaching Aptitude — Methods, Bloom's Taxonomy (6 levels), Formative vs Summative <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t118"><label for="t118">Research Aptitude — 8-step process, Literature Review</label></div>
+<div class="ci"><input type="checkbox" id="t119"><label for="t119">Logical Reasoning — Syllogisms, Venn Diagrams, Analogies <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t120"><label for="t120">Mathematical Reasoning — Number series, %, Ratio, SI</label></div>
+<div class="ci"><input type="checkbox" id="t121"><label for="t121">Data Interpretation — Tables, Bar, Pie, Line graphs</label></div>
+<div class="ci"><input type="checkbox" id="t122"><label for="t122">ICT — HTTP, FTP, RAM vs ROM, MS Office, Database</label></div>
+<div class="ci"><input type="checkbox" id="t123"><label for="t123">Communication — Types, Barriers, Mass Communication</label></div>
+<div class="ci"><input type="checkbox" id="t124"><label for="t124">People & Environment — Sustainable Dev, SDGs, Rio Summit (1992)</label></div>
+<div class="ci"><input type="checkbox" id="t125"><label for="t125">Higher Education — UGC Act 1956, NAAC grades, NIRF Ranking <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t126"><label for="t126">NEP 2020 — 4-yr UG, Multiple Entry-Exit, ABC, HECI <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t127"><label for="t127">Reading Comprehension — main idea, inference, tone</label></div>
+
+<div class="cg-title">🇮🇳 India Geography Bonus (15 Topics)</div>
+<div class="ci"><input type="checkbox" id="t128"><label for="t128">India Physiographic Divisions — 5 main divisions</label></div>
+<div class="ci"><input type="checkbox" id="t129"><label for="t129">India Rivers — Himalayan (perennial) vs Peninsular (seasonal)</label></div>
+<div class="ci"><input type="checkbox" id="t130"><label for="t130">India Soil Types — Alluvial, Black, Red, Laterite, Arid <span class="hot">MUST</span></label></div>
+<div class="ci"><input type="checkbox" id="t131"><label for="t131">India Climate — SW Monsoon + NE Monsoon + Western Disturbances</label></div>
+<div class="ci"><input type="checkbox" id="t132"><label for="t132">India Vegetation — Tropical Evergreen, Deciduous, Alpine, Mangroves</label></div>
+<div class="ci"><input type="checkbox" id="t133"><label for="t133">India Agriculture — Kharif, Rabi, Zaid crops</label></div>
+<div class="ci"><input type="checkbox" id="t134"><label for="t134">India Minerals — Jharkhand (coal, iron), Rajasthan (zinc)</label></div>
+<div class="ci"><input type="checkbox" id="t135"><label for="t135">India Population 2011 — 1.21B, 943 sex ratio, 74% literacy</label></div>
+<div class="ci"><input type="checkbox" id="t136"><label for="t136">India Industrial Regions — Mumbai-Pune, Kolkata-Hoogly</label></div>
+<div class="ci"><input type="checkbox" id="t137"><label for="t137">National Parks — Jim Corbett, Kaziranga, Sundarbans, Gir</label></div>
+<div class="ci"><input type="checkbox" id="t138"><label for="t138">India Energy — Thermal (70%), Hydro, Solar, Wind</label></div>
+<div class="ci"><input type="checkbox" id="t139"><label for="t139">India Transport — 18 Railway zones, Major Ports</label></div>
+<div class="ci"><input type="checkbox" id="t140"><label for="t140">India Water Resources — River systems, Irrigation</label></div>
+<div class="ci"><input type="checkbox" id="t141"><label for="t141">NITI Aayog (2015, replaced Planning Commission)</label></div>
+<div class="ci"><input type="checkbox" id="t142"><label for="t142">India's 5 Biodiversity Hotspots</label></div>
+
+<!-- extra to hit 150 -->
+<div class="cg-title">🎁 Extra Important Topics</div>
+<div class="ci"><input type="checkbox" id="t143"><label for="t143">Acid Rain — causes + effects + treaties</label></div>
+<div class="ci"><input type="checkbox" id="t144"><label for="t144">Constructivism vs Behaviourism in Teaching</label></div>
+<div class="ci"><input type="checkbox" id="t145"><label for="t145">IPCC — Intergovernmental Panel on Climate Change</label></div>
+<div class="ci"><input type="checkbox" id="t146"><label for="t146">Kyoto Protocol (1997) vs Paris Agreement (2015)</label></div>
+<div class="ci"><input type="checkbox" id="t147"><label for="t147">Postmodernism in Geography</label></div>
+<div class="ci"><input type="checkbox" id="t148"><label for="t148">Spearman's Rank Correlation</label></div>
+<div class="ci"><input type="checkbox" id="t149"><label for="t149">Regional Development — core-periphery model (Friedmann)</label></div>
+<div class="ci"><input type="checkbox" id="t150"><label for="t150">Applied Geography — Planning, Environment, Urban</label></div>
+
+</div><!-- end checklist -->
+
+<!-- ══════════ BOOKS ══════════ -->
+<div id="books" class="page">
+
+<div class="mot">"किताबें वो गुरु हैं जो कभी थकते नहीं।"</div>
+
+<div class="card">
+<div class="ctitle">💰 Best Paid Books — पहले यही खरीदो</div>
+<div class="al al-g">सिर्फ <strong>2 books खरीदो पहले:</strong> Drishti + Mocktime PYQ।</div>
+<div class="bcard">
+  <div class="bcard-name">1. Drishti UGC NET/JRF Geography Paper 2</div>
+  <div class="bcard-meta">Hindi | ₹595 approx | 2025 Edition | JRF toppers की #1 choice</div>
+  <a href="https://www.amazon.in/s?k=Drishti+UGC+NET+Geography+Paper+2" target="_blank" class="blink bl-b">🛒 Amazon</a>
+  <a href="https://www.flipkart.com/search?q=Drishti+UGC+NET+Geography" target="_blank" class="blink bl-b">🛒 Flipkart</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">2. Mocktime UGC NET Geography PYQ</div>
+  <div class="bcard-meta">Hindi | ₹350-450 | 2008-2025 PYQ chapter-wise + explanation</div>
+  <a href="https://www.amazon.in/s?k=Mocktime+UGC+NET+Geography+Previous+Year" target="_blank" class="blink bl-b">🛒 Amazon</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">3. Arihant UGC NET Geography Paper 2</div>
+  <div class="bcard-meta">Hindi | ₹708 approx | Theory + MCQ साथ</div>
+  <a href="https://www.amazon.in/s?k=Arihant+UGC+NET+Geography+Paper+2+Hindi" target="_blank" class="blink bl-b">🛒 Amazon</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">4. KVS Madaan — UGC NET Paper 1</div>
+  <div class="bcard-meta">Hindi | ₹550-620 | Paper 1 के लिए सबसे recommended</div>
+  <a href="https://www.amazon.in/s?k=KVS+Madaan+UGC+NET+Paper+1" target="_blank" class="blink bl-b">🛒 Amazon</a>
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">🆓 Free Books — Click करते ही खुलें!</div>
+<div class="bcard">
+  <div class="bcard-name">NCERT Class 11 — Physical Geography</div>
+  <div class="bcard-meta">Official NCERT | Completely FREE | Geomorphology, Climatology base</div>
+  <a href="https://ncert.nic.in/textbook/pdf/kegy1dd.zip" target="_blank" class="blink bl-f">📥 English PDF</a>
+  <a href="https://ncert.nic.in/textbook/pdf/kbhy1dd.zip" target="_blank" class="blink bl-f">📥 Hindi PDF</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">NCERT Class 11 — India Physical Environment</div>
+  <div class="bcard-meta">Official NCERT | FREE | India rivers, soils, climate</div>
+  <a href="https://ncert.nic.in/textbook/pdf/kegy2dd.zip" target="_blank" class="blink bl-f">📥 English PDF</a>
+  <a href="https://ncert.nic.in/textbook/pdf/kbhy2dd.zip" target="_blank" class="blink bl-f">📥 Hindi PDF</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">NCERT Class 12 — Human Geography</div>
+  <div class="bcard-meta">Official NCERT | FREE | Population, Settlement, Cultural Geo</div>
+  <a href="https://ncert.nic.in/textbook/pdf/kegy3dd.zip" target="_blank" class="blink bl-f">📥 English PDF</a>
+  <a href="https://ncert.nic.in/textbook/pdf/kbhy3dd.zip" target="_blank" class="blink bl-f">📥 Hindi PDF</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">NCERT Class 12 — India People and Economy</div>
+  <div class="bcard-meta">Official NCERT | FREE | India Economic Geography complete</div>
+  <a href="https://ncert.nic.in/textbook/pdf/kegy4dd.zip" target="_blank" class="blink bl-f">📥 English PDF</a>
+  <a href="https://ncert.nic.in/textbook/pdf/kbhy4dd.zip" target="_blank" class="blink bl-f">📥 Hindi PDF</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">UGC NET PYQ Papers (1994-2025) — Examrace</div>
+  <div class="bcard-meta">FREE | All years | PDF download | Answer keys साथ</div>
+  <a href="https://www.examrace.com/NTA-UGC-NET/NTA-UGC-NET-Previous-Years-Papers/Geography/" target="_blank" class="blink bl-f">🌐 Examrace खोलो</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">UGC NET Official Syllabus + Answer Keys</div>
+  <div class="bcard-meta">NTA Official | FREE | Latest syllabus PDF</div>
+  <a href="https://ugcnet.nta.nic.in/" target="_blank" class="blink bl-f">🌐 UGC NET Official</a>
+</div>
+<div class="bcard">
+  <div class="bcard-name">Free Mock Tests — Testbook</div>
+  <div class="bcard-meta">FREE | Score analysis | Hindi support | PYQ + New Questions</div>
+  <a href="https://testbook.com/ugc-net/geography-previous-year-question-papers" target="_blank" class="blink bl-f">🌐 Testbook खोलो</a>
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">📺 YouTube — Free Videos</div>
+<a href="https://www.youtube.com/@PhysicsWallahChannel/search?query=UGC+NET+Geography" target="_blank" class="bcard" style="display:block;text-decoration:none;color:var(--text);">
+  <div class="bcard-name">🎬 Physics Wallah — UGC NET Geography</div>
+  <div class="bcard-meta">Best free lectures। Hindi/Hinglish। Live sessions। Most students' choice।</div>
+</a>
+<a href="https://www.youtube.com/@Adda247/search?query=UGC+NET+Geography" target="_blank" class="bcard" style="display:block;text-decoration:none;color:var(--text);">
+  <div class="bcard-name">🎬 Adda247 — UGC NET Geography</div>
+  <div class="bcard-meta">Live quiz। PYQ discussion। Regular free sessions।</div>
+</a>
+<a href="https://www.youtube.com/@StudyIQ/search?query=UGC+NET+geography" target="_blank" class="bcard" style="display:block;text-decoration:none;color:var(--text);">
+  <div class="bcard-name">🎬 StudyIQ — Geography</div>
+  <div class="bcard-meta">Maps + Diagrams। Current updates। Excellent explanation।</div>
+</a>
+</div>
+</div><!-- end books -->
+
+<!-- ══════════ QUESTIONS ══════════ -->
+<div id="questions" class="page">
+<div class="al al-t" style="margin-bottom:10px;">Option पर tap करो → तुरंत सही/गलत पता चलेगा → Explanation दिखेगी।</div>
+<div id="q-container"></div>
+</div>
+
+<!-- ══════════ STRATEGY ══════════ -->
+<div id="strategy" class="page">
+<div class="al al-c"><strong>सच्चाई:</strong> JRF General = top ~1% only। Separate strategy चाहिए।</div>
+<div class="mot">"मेहनत वो चाबी है जो किस्मत का ताला भी खोल देती है।"</div>
+
+<div class="str">
+<div class="str-title">📌 Paper 1 रणनीति (Target: 80/100)</div>
+<ul class="si">
+<li><strong>Teaching:</strong> Bloom's Taxonomy 6 levels + verbs रटो। Constructivism vs Behaviourism।</li>
+<li><strong>ICT:</strong> HTTP, TCP/IP, RAM/ROM, Input/Output — रट लो। 5/5 possible।</li>
+<li><strong>NEP 2020:</strong> 4-yr UG, ABC, HECI, Multiple Entry-Exit — exact details।</li>
+<li><strong>People & Env:</strong> SDGs numbering, Kyoto(1997), Paris(2015), Montreal(1987)।</li>
+<li><strong>Reasoning:</strong> रोज़ 20 Syllogism। Venn Diagrams practice। यह scoring है।</li>
+</ul>
+</div>
+
+<div class="str r">
+<div class="str-title">📌 Paper 2 रणनीति (Target: 180/200)</div>
+<ul class="si">
+<li><strong>Geomorphology पहले:</strong> 13Q = 26 marks। Davis हर exam में।</li>
+<li><strong>Geographic Thought:</strong> Scholars name + book + साल — rote करो।</li>
+<li><strong>Models के diagrams:</strong> Von Thunen rings, Weber's triangle, Burgess zones।</li>
+<li><strong>PYQ पहले:</strong> हर topic के बाद 30 PYQ solve करो। Pattern समझो।</li>
+<li><strong>GIS Satellites:</strong> Landsat 8 (USA), IRS-P6 (India), Cartosat — names+countries।</li>
+</ul>
+</div>
+
+<div class="str g">
+<div class="str-title">⏱️ Exam Time Management</div>
+<ul class="si">
+<li><strong>Paper 1:</strong> 60 minutes, 50 Q → 1.2 min per Q। Easy Q पहले।</li>
+<li><strong>Paper 2:</strong> 120 minutes, 100 Q → 1.2 min per Q।</li>
+<li><strong>No Negative Marking!</strong> कभी blank मत छोड़ो।</li>
+<li><strong>Doubt में:</strong> 2 options eliminate करो, फिर guess।</li>
+<li><strong>Last 10 min:</strong> Review करो — blank questions fill करो।</li>
+</ul>
+</div>
+
+<div class="str">
+<div class="str-title">📅 Exam से 1 Week पहले</div>
+<ul class="si">
+<li>रोज़ 1 Full Mock Test। 130+ score target।</li>
+<li>Flash cards — Scholars, Models, Definitions।</li>
+<li>10 PM सोने की habit बनाओ।</li>
+<li>Exam centre route check करो।</li>
+</ul>
+</div>
+
+<div class="str r">
+<div class="str-title">🚫 Exam से 2 दिन पहले</div>
+<ul class="si">
+<li>कुछ नया मत पढ़ो।</li>
+<li>Documents तैयार — Admit card + ID proof।</li>
+<li>हल्का खाना, जल्दी सोओ।</li>
+</ul>
+</div>
+
+<div class="mot">"जो तैयारी की है — वो काफी है। विश्वास रखो।"</div>
+
+</div><!-- end strategy -->
+
+<!-- ══════════ MEMORY ══════════ -->
+<div id="memory" class="page">
+<div class="al al-b">Brain science: हम pictures और stories ज़्यादा याद रखते हैं। इसीलिए mnemonics।</div>
+<div class="mot">"याद करना skill है, talent नहीं।"</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 01 | KOPPEN CLASSIFICATION</div>
+<div class="trick-title">A-B-C-D-E याद करो</div>
+<div class="trick-mnem">A Bright Cool Day Every time</div>
+<div class="trick-exp"><strong>A</strong>=Tropical | <strong>B</strong>=Dry (Barren) | <strong>C</strong>=Cool Temperate | <strong>D</strong>=Cold Continental | <strong>E</strong>=Extreme Polar<br><br>Sub-types: f=always wet, w=dry winter, s=dry summer, h=hot, k=cold<br>Aw=Tropical Savanna | Af=Rainforest | Am=Monsoon | BWh=Hot Desert</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 02 | GLACIAL LANDFORMS</div>
+<div class="trick-title">Erosion + Deposition</div>
+<div class="trick-mnem">Erosion: CHAU-VF | Deposition: DEKMT</div>
+<div class="trick-exp"><strong>CHAU-VF (Erosion):</strong> Cirque | Horn | Arête | U-valley | V(hanging) | Fjord<br><br><strong>DEKMT (Deposition):</strong> Drumlin | Esker | Kame | Moraine | Till plains</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 03 | GEOGRAPHIC THOUGHT SCHOOLS</div>
+<div class="trick-title">Schools याद करो</div>
+<div class="trick-mnem">Germany=RRH | France=VBF | America=DSS</div>
+<div class="trick-exp"><strong>German (RRH):</strong> Ritter, Ratzel, Humboldt<br><strong>French (VBF):</strong> Vidal, Brunhes, Febvre → Possibilism<br><strong>American (DSS):</strong> Davis, Semple, Sauer<br><br><strong>Modern: QB-HRF</strong> = Quantitative, Behavioural, Humanistic, Radical, Feminist</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 04 | OCEAN CURRENTS</div>
+<div class="trick-title">Warm vs Cold Rule</div>
+<div class="trick-mnem">West Coasts = COLD | East Coasts = WARM</div>
+<div class="trick-exp"><strong>Atlantic WARM:</strong> Gulf Stream (N America→Europe), Brazil Current<br><strong>Atlantic COLD:</strong> Labrador (NW), Canaries (NE Africa), Benguela (SW Africa)<br><strong>Pacific WARM:</strong> Kuroshio (Japan)<br><strong>Pacific COLD:</strong> California (W USA), Peru/Humboldt (W S. America)</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 05 | DTM STAGES</div>
+<div class="trick-title">5 Stage Names</div>
+<div class="trick-mnem">High-High | High-Fall | Fall-Low | Low-Low | Sub-low</div>
+<div class="trick-exp"><strong>Stage 1:</strong> High BR + High DR (Pre-industrial)<br><strong>Stage 2:</strong> High BR + Falling DR = Rapid growth<br><strong>Stage 3:</strong> Falling BR + Low DR → <strong>India TODAY</strong><br><strong>Stage 4:</strong> Low BR + Low DR (Europe, Japan)<br><strong>Stage 5:</strong> BR &lt; DR = Negative growth</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 06 | VON THUNEN ZONES</div>
+<div class="trick-title">5 Rings Near→Far</div>
+<div class="trick-mnem">Dairy Forests Crops Fields Grazing</div>
+<div class="trick-exp"><strong>Zone 1 (Nearest):</strong> Dairy + Market Garden — perishable<br><strong>Zone 2:</strong> Forestry — heavy wood<br><strong>Zone 3:</strong> Intensive Crops<br><strong>Zone 4:</strong> Three-field farming<br><strong>Zone 5 (Farthest):</strong> Livestock — animals walk to market!</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 07 | INDIA SOIL TYPES</div>
+<div class="trick-title">All 5 soil types + location</div>
+<div class="trick-mnem">"All Black Rats Love All"</div>
+<div class="trick-exp"><strong>All</strong>uvial = IGP (best fertility, rice+wheat)<br><strong>Black</strong>/Regur = Deccan (cotton, self-ploughing)<br><strong>Red</strong> = South India (iron oxide)<br><strong>Laterite</strong> = Western Ghats (tea, coffee)<br><strong>Arid</strong> = Rajasthan (bajra, jowar)</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 08 | GREEK SCHOLARS</div>
+<div class="trick-title">5 Key Greeks</div>
+<div class="trick-mnem">"HEAPS" = Herodotus, Eratosthenes, Aristotle, Ptolemy, Strabo</div>
+<div class="trick-exp"><strong>H</strong>erodotus = Father of Geography + History<br><strong>E</strong>ratosthenes = Earth circumference (very accurate!), coined "Geography"<br><strong>A</strong>ristotle = Earth spherical proof<br><strong>P</strong>tolemy = Maps with coordinates (Geographia)<br><strong>S</strong>trabo = 17-volume Regional Geography</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 09 | URBAN MODELS</div>
+<div class="trick-title">BCH = Burgess, Christaller, Harris</div>
+<div class="trick-mnem">B=1925 | H=1939 | Harris=1945 | C=1933</div>
+<div class="trick-exp"><strong>Burgess (1925):</strong> Concentric Circles, Chicago, 5 zones, mono-centric<br><strong>Hoyt (1939):</strong> Sector Model, wedge shapes, rent gradient<br><strong>Harris-Ullman (1945):</strong> Multiple Nuclei, poly-centric<br><strong>Christaller (1933):</strong> Hexagonal service areas, K=3,4,7</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 10 | CORAL REEF SEQUENCE</div>
+<div class="trick-title">Darwin's Subsidence Theory</div>
+<div class="trick-mnem">"First Born, Adult Later" = Fringing → Barrier → Atoll</div>
+<div class="trick-exp"><strong>Fringing:</strong> Attached to coast, No lagoon (Sri Lanka, Red Sea)<br><strong>Barrier:</strong> Island subsides, Lagoon forms (Great Barrier Reef, Australia)<br><strong>Atoll:</strong> Island fully sinks, Ring of reef + lagoon (Maldives)<br><br>Remember: Atoll = no island, only ring!</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 11 | NEP 2020</div>
+<div class="trick-title">Key Points याद करो</div>
+<div class="trick-mnem">"4-MEAL" = 4-yr, Multiple Entry-Exit, ABC, Language</div>
+<div class="trick-exp"><strong>4</strong>-year UG with Honours<br><strong>M</strong>ultiple Entry-Exit: 1yr=Certificate, 2yr=Diploma, 3yr=Degree, 4yr=Honours<br><strong>E</strong>ducation in Mother Tongue<br><strong>A</strong>cademic Bank of Credits (ABC)<br><strong>L</strong>earning Structure: 5+3+3+4 (replaces 10+2)<br>HECI replaces UGC+AICTE। 2030 target: 50% GER।</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 12 | PLATE BOUNDARIES</div>
+<div class="trick-title">3 Types — C-D-T</div>
+<div class="trick-mnem">"Continents Diverge and Transform"</div>
+<div class="trick-exp"><strong>Convergent (C):</strong> Plates meet → Fold Mountains (Himalayas) / Trenches / Volcanoes<br><strong>Divergent (D):</strong> Plates apart → Mid-ocean ridges, New crust (Mid-Atlantic Ridge)<br><strong>Transform (T):</strong> Plates slide sideways → Earthquakes only (San Andreas Fault, California)</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 13 | PRESSURE BELTS</div>
+<div class="trick-title">Position + Wind</div>
+<div class="trick-mnem">0°=Hot ITCZ → 30°=Horse High → 60°=Sub-polar Low → 90°=Polar High</div>
+<div class="trick-exp">ITCZ (0°): Hot rises → Low → Doldrums + Rain<br>Sub-tropical High (30°): Air descends → Hot Deserts (Sahara, Thar)<br>Sub-polar Low (60°): Air rises → Cyclones + Storms<br>Polar High (90°): Cold air → Polar Easterlies<br><br>Winds between belts: Trade (0-30°), Westerlies (30-60°), Polar Easterlies (60-90°)</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 14 | SAMPLING METHODS</div>
+<div class="trick-title">Types याद करो</div>
+<div class="trick-mnem">"SMART" = Systematic, Multi-stage, Accidental, Random, Targeted(Stratified)</div>
+<div class="trick-exp"><strong>Simple Random:</strong> Lottery। Most unbiased।<br><strong>Systematic:</strong> Every nth element (every 10th)।<br><strong>Stratified:</strong> Strata बनाओ → random from each। Best for heterogeneous।<br><strong>Cluster:</strong> Areas/districts as clusters → whole cluster। Geographic study के लिए।<br><strong>Snowball:</strong> Each refers next। Hidden populations।</div>
+</div>
+
+<div class="trick">
+<div class="trick-num">TRICK 15 | WORLD BIOMES (Pole→Equator)</div>
+<div class="trick-title">Order याद करो</div>
+<div class="trick-mnem">T-T-T-M-D-G-G-S-TRF</div>
+<div class="trick-exp"><strong>T</strong>undra → <strong>T</strong>aiga/Boreal → <strong>T</strong>emperate Deciduous → <strong>M</strong>editerranean → <strong>D</strong>esert → <strong>G</strong>rassland Temp → <strong>G</strong>rassland Tropical → <strong>S</strong>avanna → <strong>T</strong>ropical <strong>R</strong>ain<strong>F</strong>orest<br><br>Highest biodiversity = Tropical Rainforest। Lowest = Tundra।</div>
+</div>
+
+</div><!-- end memory -->
+
+<!-- ══════════ CALCULATOR ══════════ -->
+<div id="calculator" class="page">
+
+<div class="card">
+<div class="ctitle">🔢 Score Calculate करो</div>
+<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">Paper 1 — कितने सही? (50 में से)</label>
+<input type="number" class="calc-inp" id="p1c" min="0" max="50" placeholder="जैसे: 38">
+<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">Paper 2 — कितने सही? (100 में से)</label>
+<input type="number" class="calc-inp" id="p2c" min="0" max="100" placeholder="जैसे: 88">
+<button class="calc-btn" onclick="calcScore()">📊 Calculate करो</button>
+<div id="calc-res" class="calc-result">
+<div class="cr-score" id="cr-s"></div>
+<div class="cr-detail" id="cr-d"></div>
+<div class="cr-msg" id="cr-m"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">📈 Historical Cutoffs (General)</div>
+<div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);">
+<div class="co-row" style="border-bottom:1px solid var(--border);"><div class="co-cell co-hdr">Session</div><div class="co-cell co-hdr">JRF</div><div class="co-cell co-hdr">Asst.Prof</div><div class="co-cell co-hdr">Note</div></div>
+<div class="co-row"><div class="co-cell">June 2025</div><div class="co-cell" style="color:var(--coral);font-weight:700;">216/300</div><div class="co-cell">~190</div><div class="co-cell" style="color:var(--teal);font-size:10px;">Latest</div></div>
+<div class="co-row"><div class="co-cell">Dec 2024</div><div class="co-cell" style="color:var(--coral);">~208</div><div class="co-cell">~183</div><div class="co-cell"></div></div>
+<div class="co-row"><div class="co-cell">June 2024</div><div class="co-cell">~210</div><div class="co-cell">~180</div><div class="co-cell"></div></div>
+<div class="co-row"><div class="co-cell">Dec 2023</div><div class="co-cell">~205</div><div class="co-cell">~177</div><div class="co-cell"></div></div>
+</div>
+<div class="al al-g" style="margin-top:10px;">Target 260 = Cutoff से 44+ marks ज़्यादा। Safe margin। 🏆</div>
+</div>
+
+<div class="card">
+<div class="ctitle">📅 Weekly Mock Score Targets</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W1-2</div><div style="font-size:15px;font-weight:700;color:var(--text2);">80</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W3-4</div><div style="font-size:15px;font-weight:700;color:var(--text2);">110</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W5-6</div><div style="font-size:15px;font-weight:700;color:var(--gold);">140</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W7-8</div><div style="font-size:15px;font-weight:700;color:var(--gold);">170</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W9-10</div><div style="font-size:15px;font-weight:700;color:var(--teal);">200</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W11</div><div style="font-size:15px;font-weight:700;color:var(--teal);">230</div></div>
+<div style="background:var(--bg3);border-radius:8px;padding:8px;text-align:center;border:1px solid var(--border);"><div style="font-size:11px;color:var(--text3);">W12</div><div style="font-size:15px;font-weight:700;color:var(--gold);">250+</div></div>
+<div style="background:rgba(240,192,64,.15);border-radius:8px;padding:8px;text-align:center;border:2px solid var(--gold);"><div style="font-size:10px;color:var(--gold);">EXAM</div><div style="font-size:15px;font-weight:700;color:var(--gold);">260+</div></div>
+</div>
+</div>
+
+<div class="mot">"260 अंक — यह सिर्फ number नहीं। यह PhD की seat, Professor की कुर्सी है।"</div>
+
+</div><!-- end calculator -->
+
+</div><!-- end scroll -->
+
+<script>
+// ── NAVIGATION
+function go(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  document.querySelector('.scroll').scrollTop = 0;
+  if (id === 'questions' && !document.querySelector('.qcard')) renderQs();
+}
+
+// ── WEEK ACCORDION
+function toggleWeek(el) {
+  const body = el.nextElementSibling;
+  const chev = el.querySelector('.wchev');
+  body.classList.toggle('open');
+  chev.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+// ── CHECKLIST
+function updateCk() {
+  const all = document.querySelectorAll('.ci input');
+  const done = [...all].filter(c => c.checked).length;
+  const pct = Math.round(done/all.length*100);
+  const msgs = ["अभी शुरू करो! 🚀","अच्छी शुरुआत! 💪","बढ़िया! 🔥","Half way! ⭐","लगभग! 🎯","DONE! JRF पक्की! 🎉"];
+  document.getElementById('ck-count').textContent = done;
+  document.getElementById('ck-pct').textContent = pct;
+  document.getElementById('ck-msg').textContent = msgs[Math.min(Math.floor(pct/20),5)];
+  document.getElementById('ck-bar').style.width = pct + '%';
+}
+document.querySelectorAll('.ci input').forEach(cb => {
+  try { if(localStorage.getItem('n_'+cb.id)==='1') cb.checked=true; } catch(e){}
+  cb.addEventListener('change', () => {
+    try { localStorage.setItem('n_'+cb.id, cb.checked?'1':'0'); } catch(e){}
+    updateCk();
+  });
+});
+updateCk();
+
+// ── SCORE CALC
+function calcScore() {
+  const p1=parseInt(document.getElementById('p1c').value)||0;
+  const p2=parseInt(document.getElementById('p2c').value)||0;
+  const t=p1*2+p2*2, pct=Math.round(t/300*100);
+  const res=document.getElementById('calc-res');
+  res.style.display='block';
+  document.getElementById('cr-s').textContent=t+'/300 ('+pct+'%)';
+  document.getElementById('cr-d').textContent='Paper 1: '+(p1*2)+' | Paper 2: '+(p2*2);
+  let msg,bg,bc;
+  if(t>=260){msg='🏆 JRF पक्की! TOP 2-3%! PhD की राह खुली!';bg='rgba(0,229,181,.12)';bc='var(--teal)';}
+  else if(t>=240){msg='🎯 JRF बहुत near! '+(260-t)+' marks और बढ़ाओ।';bg='rgba(74,144,232,.1)';bc='var(--blue)';}
+  else if(t>=216){msg='✅ JRF Qualify! लेकिन safe margin नहीं — और मेहनत।';bg='rgba(240,192,64,.1)';bc='var(--gold)';}
+  else if(t>=185){msg='📋 Asst. Professor qualify। JRF के लिए '+(216-t)+' marks चाहिए।';bg='rgba(255,165,0,.08)';bc='orange';}
+  else{msg='💪 '+(216-t)+' marks का gap है JRF से। हिम्मत मत हारो!';bg='rgba(255,107,107,.1)';bc='var(--coral)';}
+  document.getElementById('cr-m').textContent=msg;
+  res.style.background=bg;
+  res.style.border='1px solid '+bc;
+  res.style.borderRadius='12px';
+  res.style.padding='14px';
+}
+
+// ── PWA INSTALL
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('show');
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('show');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('show');
+});
+
+// ── SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+// ── ANIMATE PROGRESS BARS
+setTimeout(() => {
+  document.querySelectorAll('.pf').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => el.style.width = w, 300);
+  });
+}, 400);
+
+// ── QUESTIONS
+const QS = [
+{c:"🌍 Geomorphology",q:"Davis की Theory में 'Peneplain' किस stage में बनता है?",o:["Youth","Maturity","Old Age","Rejuvenation"],a:2,e:"Peneplain Old Age stage में बनता है। सभी relief लगभग erode हो जाती है। Monadnock = isolated resistant hill जो Peneplain पर बची रहती है।"},
+{c:"🌍 Geomorphology",q:"Continental Drift Theory किसने दी थी?",o:["Davis","Holmes","Wegener","Hess"],a:2,e:"Alfred Wegener ने 1912 में Continental Drift Theory दी। Pangea supercontinent concept। 5 evidences: coastline fit, fossils, glaciation, rock types, paleomagnetism।"},
+{c:"🌍 Geomorphology",q:"'Inselberg' किस environment का landform है?",o:["Glacial","Fluvial","Arid/Desert","Coastal"],a:2,e:"Inselberg (Island Mountain) एक Arid/Desert landform है। Pediplain पर isolated rocky hill। Famous: Uluru (Australia)।"},
+{c:"🌍 Geomorphology",q:"Hanging Valley किस type का landform है?",o:["Fluvial","Glacial","Arid","Coastal"],a:1,e:"Hanging Valley Glacial Erosional landform है। Main glacier deeper valley erode करता है, tributary valley 'hanging' रह जाती है। यहाँ waterfalls बनते हैं।"},
+{c:"🌍 Geomorphology",q:"Seafloor Spreading Theory किसने दी?",o:["Wegener","Holmes","Harry Hess","Wilson"],a:2,e:"Harry Hess (1962)। Mid-ocean ridges पर magma → नई ocean crust → sides में push → trenches में subduct। Continental Drift का mechanism।"},
+{c:"🌍 Geomorphology",q:"Plate Tectonics में 'Transform Boundary' पर क्या होता है?",o:["Mountain बनता है","New ocean बनता है","Plates slide sideways","Subduction"],a:2,e:"Transform Boundary पर plates horizontally slide करती हैं। No crust creation/destruction। Only earthquakes। San Andreas Fault (California) = classic example।"},
+{c:"🌦️ Climatology",q:"Koppen में 'Aw' climate क्या है?",o:["Tropical Rainforest","Tropical Monsoon","Tropical Savanna","Hot Desert"],a:2,e:"Aw = Tropical Savanna। A=Tropical, w=dry winter। ITCZ के 5-15° latitude पर। Deccan Plateau, African Savanna, Brazilian Cerrado।"},
+{c:"🌦️ Climatology",q:"Sub-tropical High Pressure Belt किस latitude पर है?",o:["0°","30°","60°","90°"],a:1,e:"30° N और S पर Sub-tropical High। Air descend होती है → High Pressure → Hot Deserts (Sahara ~25°N, Thar ~25°N)। 'Horse Latitudes' भी कहते हैं।"},
+{c:"🌦️ Climatology",q:"El Nino का Indian Monsoon पर असर?",o:["Stronger होती है","Weaker होती है","No effect","Earlier onset"],a:1,e:"El Nino (Warm Pacific water) = Indian Monsoon weakens → Drought। La Nina (Cool water) = Monsoon strengthens। 2002, 2009, 2014 में El Nino से drought।"},
+{c:"🌦️ Climatology",q:"Ozone Layer किस layer में है?",o:["Troposphere","Stratosphere","Mesosphere","Thermosphere"],a:1,e:"Stratosphere में (15-35 km)। UV radiation absorb करती है। CFCs इसे destroy करते हैं। Montreal Protocol (1987) ने CFCs ban किए। Antarctic Hole 1985 में discover हुई।"},
+{c:"🌦️ Climatology",q:"'Loo' wind क्या है?",o:["West Bengal की बारिश","UP-Bihar का hot dry wind","Sea breeze","Mountain wind"],a:1,e:"Loo = hot, dry, dusty wind। May-June में UP, Bihar, Rajasthan में दोपहर को। Temperature 45-48°C। Indian Local Wind।"},
+{c:"🌊 Oceanography",q:"Atlantic का सबसे famous warm current?",o:["Labrador","Gulf Stream","Benguela","Canaries"],a:1,e:"Gulf Stream। Caribbean → N America East coast → N Atlantic Drift → W Europe को warm climate देती है। London (51°N) का mild climate Gulf Stream की वजह से।"},
+{c:"🌊 Oceanography",q:"Fringing Reef में क्या नहीं होता?",o:["Coral","Lagoon","Fish","Water"],a:1,e:"Fringing Reef में कोई Lagoon नहीं। Reef directly coast से attached। Barrier Reef में Lagoon होती है। Atoll में island नहीं — only ring + lagoon।"},
+{c:"🌊 Oceanography",q:"Spring Tide कब आती है?",o:["Quarter Moon","New + Full Moon","Waning Moon","Any time"],a:1,e:"Spring Tide New Moon + Full Moon पर। Sun-Moon-Earth एक line (Syzygy) → Maximum tidal force। Neap Tide Quarter Moon पर (90° angle)।"},
+{c:"💭 Geographic Thought",q:"'Erdkunde' किसने लिखी?",o:["Humboldt","Ritter","Ratzel","Kant"],a:1,e:"Carl Ritter ने 'Erdkunde' (1817-1859, 19 volumes) लिखी। First systematic Regional Geography। Teleological approach — Earth God ने human history के लिए design किया।"},
+{c:"💭 Geographic Thought",q:"Hartshorne-Schaefer debate क्या था?",o:["Determinism vs Possibilism","Idiographic vs Nomothetic","Quantitative vs Qualitative","Regional vs Systematic"],a:1,e:"Hartshorne (1939): Geography = Idiographic (unique regional)। Schaefer (1953): Geography = Nomothetic (laws बनाए)। Schaefer ने Hartshorne पर 'Exceptionalism' आरोप लगाया।"},
+{c:"💭 Geographic Thought",q:"'Topophilia' किसने दिया?",o:["Harvey","Hartshorne","Yi-Fu Tuan","Vidal"],a:2,e:"Yi-Fu Tuan ने 1974 में 'Topophilia' book लिखी। Place के साथ emotional attachment। Humanistic Geography की foundation। Space and Place (1977) भी Tuan की है।"},
+{c:"💭 Geographic Thought",q:"Ratzel की 'Lebensraum' का अर्थ?",o:["Living Space","Land of Origin","Cultural Region","Economic Zone"],a:0,e:"Lebensraum = 'Living Space' (German)। State एक organism है जो grow के लिए space चाहता है। Books: Anthropogeographie (1882), Politische Geographie (1897)।"},
+{c:"💭 Geographic Thought",q:"'Possibilism' term किसने coin की?",o:["Ratzel","Vidal","Lucien Febvre","Hartshorne"],a:2,e:"Lucien Febvre ने 'Possibilism' शब्द coin किया। Vidal de la Blache concept के जनक। Famous quote: 'Nature is permissive, not compulsive'।"},
+{c:"💰 Economic Geography",q:"Von Thunen के model में outermost ring क्या है?",o:["Market Gardening","Forestry","Intensive Crops","Livestock/Grazing"],a:3,e:"Outermost = Livestock/Grazing। Logic: Animals walk themselves to market। Perishables (Dairy) nearest ring। Forestry 2nd (heavy wood)।"},
+{c:"💰 Economic Geography",q:"Weber's theory में 'Isodapane' क्या है?",o:["Material source line","Equal total transport cost line","Labor cost line","Profit line"],a:1,e:"Isodapane = Line of equal total transport cost। Isotim = single material transport cost। Weber's Least Cost Theory — total cost minimum जहाँ industry लगती है।"},
+{c:"👥 Population",q:"DTM Stage 2 की विशेषता?",o:["High BR, High DR","High BR, Falling DR","Falling BR, Low DR","Low BR, Low DR"],a:1,e:"Stage 2 = High BR + Falling DR = Rapid population growth। Medical advances से DR गिरती है, BR high रहती है। Africa currently इसी stage में।"},
+{c:"👥 Population",q:"Ravenstein के Laws अनुसार ज़्यादातर migration?",o:["Long distance","Short distance, step-by-step","International","Forced"],a:1,e:"Ravenstein (1885): Most migration = short distance, step-by-step (rural→town→city→metropolis)। Females more than males for short distances।"},
+{c:"🏙️ Settlement",q:"Christaller K=3 किस principle को दर्शाता है?",o:["Transport","Administrative","Marketing/Trade","Settlement"],a:2,e:"K=3 = Marketing/Trade Principle। Higher-order center 3 lower-order centers serve करता है। K=4 = Transport। K=7 = Administrative।"},
+{c:"🏙️ Settlement",q:"Burgess Model में Zone 2 कौन सी?",o:["CBD","Zone of Transition","Workingmen's Homes","Residential Zone"],a:1,e:"Zone 2 = Zone of Transition। Factories, declining housing, immigrants। Zone 1=CBD, Zone 3=Workingmen, Zone 4=Residential, Zone 5=Commuter।"},
+{c:"🗺️ Cartography",q:"Choropleth Map में data कैसे दिखता है?",o:["Dots से","Lines से","Area shading से","Symbols से"],a:2,e:"Choropleth = areas को data density के according different shades/colors में shade करते हैं। Darker = higher value। Limitations: boundary effect।"},
+{c:"🗺️ Cartography",q:"Landsat 8 satellite किस देश का है?",o:["India","Japan","USA","France"],a:2,e:"Landsat 8 = USA (USGS + NASA)। 2013 launch। Sensors: OLI + TIRS। India: IRS-P6, Cartosat-2। France: SPOT-6।"},
+{c:"🗺️ Cartography",q:"Remote Sensing में Active Sensor का example?",o:["Landsat TM","SPOT","Radar/SAR","IRS LISS"],a:2,e:"Active sensor खुद energy emit करता है (Radar, SAR, LiDAR)। Passive sensors reflected sunlight measure करते हैं। Active = रात + cloudy में भी काम करता है।"},
+{c:"🗺️ Cartography",q:"Mercator Projection की main property?",o:["Equal Area","Equidistant","Conformal (shape)","All properties"],a:2,e:"Mercator = Conformal। Angles + shapes locally preserved। Navigation के लिए ideal। Limitation: areas distorted — Greenland Africa जितना बड़ा दिखता है।"},
+{c:"🔬 Research",q:"Stratified Sampling किसके लिए best है?",o:["Homogeneous","Heterogeneous","Small","Urban"],a:1,e:"Stratified Sampling = Heterogeneous population के लिए best। Strata बनाओ → हर stratum से proportional random sample। Most representative।"},
+{c:"🔬 Research",q:"Null Hypothesis (H₀) क्या होती है?",o:["Main hypothesis","No significant difference","Alternative","Research question"],a:1,e:"H₀ = No significant difference/relationship। Researcher इसे disprove करता है। p < 0.05 → H₀ reject। Type I Error = H₀ reject when true।"},
+{c:"📋 Paper 1",q:"Bloom's Taxonomy में highest level?",o:["Application","Analysis","Evaluation/Create","Knowledge"],a:2,e:"Original (1956): Evaluation highest। Revised (2001): Create highest। Creating new knowledge = highest cognitive skill।"},
+{c:"📋 Paper 1",q:"NEP 2020 में 2030 तक GER target?",o:["30%","40%","50%","60%"],a:2,e:"NEP 2020 target: 50% GER by 2030 (current ~27%)। GER = enrolled/eligible×100। Multidisciplinary + vocational + online degrees promote किए।"},
+{c:"📋 Paper 1",q:"UGC Act कब pass हुआ?",o:["1948","1950","1956","1961"],a:2,e:"UGC Act 1956 में। University Grants Commission। Higher education coordinate करता है। NEP 2020 के तहत HECI (Higher Education Commission) replace करेगा।"},
+{c:"📋 Paper 1",q:"'Action Research' कौन करता है?",o:["Scientists","Teachers for classroom","Government","External researchers"],a:1,e:"Action Research = teachers द्वारा classroom problems solve करने के लिए। Practical, localized। Cycle: Plan→Act→Observe→Reflect। Kurt Lewin ने develop किया।"},
+{c:"🌿 Biogeography",q:"Wallace's Line किन regions को separate करती है?",o:["Africa and Asia","Asian and Australian fauna","N and S America","Europe and Asia"],a:1,e:"Wallace's Line (1863) = Asian fauna (tigers, monkeys) को Australian fauna (kangaroos, marsupials, cockatoos) से separate करती है। Bali-Lombok के बीच।"},
+{c:"🌿 Biogeography",q:"SDG Goal 13 किससे related है?",o:["Zero Hunger","Clean Water","Climate Action","Life on Land"],a:2,e:"SDG Goal 13 = Climate Action। Goal 14 = Life Below Water। Goal 15 = Life on Land। Goal 2 = Zero Hunger। 17 Goals, 169 Targets, 2030 Deadline।"},
+{c:"🌐 Political Geo",q:"Mackinder's Heartland Theory कब दी?",o:["1884","1904","1919","1944"],a:1,e:"1904 में। Paper: 'The Geographical Pivot of History'। Famous: 'Who rules East Europe commands Heartland...'। Heartland = Central Asia + Eastern Europe।"},
+{c:"🌐 Political Geo",q:"SAARC में कितने members हैं?",o:["6","7","8","10"],a:2,e:"8 members: India, Pakistan, Bangladesh, Sri Lanka, Nepal, Bhutan, Maldives, Afghanistan। Founded 1985 in Dhaka। HQ: Kathmandu, Nepal।"},
+{c:"🌍 Geomorphology",q:"'Rejuvenation' Davis Cycle में क्या है?",o:["Old→Youth restart","Young→Mature","Peneplain formation","Mountain building"],a:0,e:"Rejuvenation = Sea level fall या land uplift → Rivers नई energy पाते हैं → Youth characteristics वापस। Evidence: River terraces, Incised meanders, Knick-points।"},
+{c:"💭 Geographic Thought",q:"'Mental Maps' किस approach से related?",o:["Determinism","Possibilism","Behaviouralism","Quantitative"],a:2,e:"Behaviouralism। Roger Gould + Rodney White की 1974 book 'Mental Maps'। Subjective spatial perception। People's preferred/non-preferred areas।"},
+{c:"💰 Economic Geography",q:"'Heckscher-Ohlin Theory' क्या explain करती है?",o:["Transport costs","Factor endowments determine trade","Cultural preferences","Political alliances"],a:1,e:"Factor Endowment Theory। देश वो goods export करते हैं जिनमें abundant factors use होते हैं। Labor-abundant (India, Bangladesh) → textiles। Capital-abundant (USA, Germany) → machinery।"},
+{c:"🌊 Oceanography",q:"Ocean की average Salinity?",o:["25‰","35‰","45‰","55‰"],a:1,e:"Average = 35‰ (3.5%)। Highest at 20-30° latitude (high evaporation)। Red Sea + Persian Gulf = highest (~40-45‰)। Baltic Sea = lowest (~7-8‰)।"},
+{c:"🌊 Oceanography",q:"Tsunami किससे बनता है?",o:["Volcanic only","Earthquake only","Earthquake/Volcanic/Landslide","Cyclone"],a:2,e:"Undersea earthquake (80%), volcanic eruption, या landslide। 2004 Indian Ocean Tsunami = 9.1 magnitude earthquake। Open ocean में 800 km/h speed।"},
+{c:"🌦️ Climatology",q:"ITCZ का full form?",o:["Inter-Tropical Cold Zone","Inter-Tropical Convergence Zone","International Tropical Climate","Inter-Territorial Cyclone"],a:1,e:"Inter-Tropical Convergence Zone। 0° के पास जहाँ N और S hemisphere की Trade Winds मिलती हैं। Warm air rises → Heavy rain। Seasonally shifts → Indian Monsoon drive।"},
+{c:"💭 Geographic Thought",q:"Carl Sauer का 'Cultural Landscape' क्या है?",o:["Natural landscape","Human-modified landscape","Urban landscape","Political landscape"],a:1,e:"Sauer (Berkeley School): Natural Landscape + Culture = Cultural Landscape। Humans transform nature through agriculture, settlement। 'Morphology of Landscape' (1925) foundational paper।"},
+{c:"🔬 Research",q:"Pearson Correlation 'r' की range?",o:["-1 to +1","0 to 1","0 to ∞","-∞ to +∞"],a:0,e:"r = -1 to +1। r=+1 perfect positive, r=-1 perfect negative, r=0 no correlation। |r|>0.7=strong, 0.4-0.7=moderate, <0.4=weak।"},
+{c:"📋 Paper 1",q:"Formative vs Summative Assessment का फर्क?",o:["Same thing","Formative=during learning, Summative=after","Formative=end of year","Formative=MCQ only"],a:1,e:"Formative = during learning (quiz, homework) → feedback for improvement। Summative = after learning (final exam) → final measurement। 'Assessment for learning' vs 'of learning'।"},
+{c:"👥 Population",q:"India 2011 sex ratio?",o:["900/1000","943/1000","990/1000","1020/1000"],a:1,e:"2011 Census: 943 females per 1000 males। Total = 1.21 billion। Literacy = 74%। Highest sex ratio: Kerala (1084)। Lowest: Haryana (879)।"},
+{c:"🗺️ Cartography",q:"GPS में accurate 3D location के लिए minimum कितने satellites?",o:["2","3","4","6"],a:2,e:"4 satellites minimum for 3D location (lat, long, altitude)। 3 से only 2D। GPS constellation = 24 operational satellites। India: NavIC (IRNSS) parallel system।"},
+{c:"🌿 Biogeography",q:"India के कितने Biodiversity Hotspots?",o:["2","3","4","5"],a:2,e:"4: 1) Western Ghats + Sri Lanka, 2) Eastern Himalayas, 3) Indo-Burma (NE India), 4) Andaman/Sundaland। World total = 36 hotspots (Norman Myers, 1988)।"},
+];
+
+function renderQs() {
+  const cont = document.getElementById('q-container');
+  if (!cont || cont.children.length > 0) return;
+  let html = '';
+  let cats = [...new Set(QS.map(q=>q.c))];
+  cats.forEach(cat => {
+    html += `<div class="q-cat-hdr">${cat} <span style="font-size:11px;color:var(--text3);">${QS.filter(q=>q.c===cat).length}Q</span></div>`;
+    QS.forEach((q,i) => {
+      if(q.c!==cat) return;
+      html += `<div class="qcard">
+        <div class="qnum">Q${i+1}</div>
+        <div class="qtext">${q.q}</div>
+        <ul class="qopts">${q.o.map((o,j)=>`<li class="qo" id="qo${i}_${j}" onclick="pick(${i},${j})">${'ABCD'[j]}. ${o}</li>`).join('')}</ul>
+        <button class="qbtn" onclick="reveal(${i})">💡 उत्तर</button>
+        <div class="qexp" id="qe${i}"><strong>✅ ${q.o[q.a]}</strong><br><br>${q.e}</div>
+      </div>`;
+    });
+  });
+  cont.innerHTML = html;
+}
+
+function pick(qi,oi) {
+  const q=QS[qi];
+  for(let j=0;j<q.o.length;j++){
+    const el=document.getElementById('qo'+qi+'_'+j);
+    el.classList.remove('ok','ng');
+    el.onclick=null;
+  }
+  document.getElementById('qo'+qi+'_'+oi).classList.add(oi===q.a?'ok':'ng');
+  if(oi!==q.a) document.getElementById('qo'+qi+'_'+q.a).classList.add('ok');
+  document.getElementById('qe'+qi).classList.add('on');
+}
+function reveal(qi) {
+  const q=QS[qi];
+  document.getElementById('qo'+qi+'_'+q.a).classList.add('ok');
+  document.getElementById('qe'+qi).classList.add('on');
+  for(let j=0;j<q.o.length;j++) document.getElementById('qo'+qi+'_'+j).onclick=null;
+}
+</script>
+</body>
+</html>
