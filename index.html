@@ -239,6 +239,25 @@ ul.si li strong{color:var(--text);}
 .co-row{display:grid;grid-template-columns:1fr 80px 80px 60px;border-bottom:1px solid var(--border);font-size:11px;}
 .co-cell{padding:8px 6px;}
 .co-hdr{background:var(--bg3);font-weight:700;color:var(--gold);font-size:10px;}
+  /* ── AI TUTOR ── */
+.mode-btn{background:var(--bg3);border:1px solid var(--border2,var(--border));color:var(--text2);padding:8px 16px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.mode-btn.active{background:rgba(240,192,64,.15);border-color:var(--gold);color:var(--gold);font-weight:700;}
+.msg-ai,.msg-user{display:flex;gap:8px;align-items:flex-end;}
+.msg-user{flex-direction:row-reverse;}
+.msg-bubble{max-width:82%;padding:10px 13px;border-radius:14px;font-size:12px;line-height:1.7;}
+.msg-bubble-ai{background:var(--bg3);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--text);}
+.msg-bubble-user{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.25);border-bottom-right-radius:4px;color:var(--text);}
+.dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:bounce .8s infinite;}
+.dot:nth-child(2){animation-delay:.15s;}
+.dot:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.quick-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:20px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;cursor:pointer;margin-bottom:5px;}
+.chat-input-area{border-top:1px solid var(--border);padding:10px;display:flex;gap:8px;background:var(--bg2);}
+#chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;resize:none;height:44px;outline:none;}
+#send-btn{background:var(--gold);color:#000;border:none;border-radius:10px;width:44px;height:44px;font-size:18px;cursor:pointer;font-weight:700;flex-shrink:0;}
+```
+
+---
 </style>
 </head>
 <body>
@@ -278,6 +297,7 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('strategy',this)"><span class="ti">🎯</span>रणनीति</button>
   <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
+  <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -286,7 +306,7 @@ ul.si li strong{color:var(--text);}
 <!-- ══════════ ROADMAP ══════════ -->
 <div id="roadmap" class="page on">
 
-<div class="score-grid">
+<div class="-grid">
   <div class="sg"><span class="n">300</span><span class="l">कुल अंक</span></div>
   <div class="sg"><span class="n">260</span><span class="l">हमारा लक्ष्य</span></div>
   <div class="sg"><span class="n">216</span><span class="l">JRF Cutoff</span></div>
@@ -1082,6 +1102,61 @@ ul.si li strong{color:var(--text);}
 
 </div><!-- end calculator -->
 
+  <!-- ══════════ AI TUTOR ══════════ -->
+<div id="aitutor" class="page">
+
+<div class="al al-t"><strong>🤖 AI Geography Tutor</strong> — कुछ भी पूछो, Quiz दो, Topic समझो। Hindi में जवाब मिलेगा।</div>
+
+<div class="mot">"सवाल पूछना कमज़ोरी नहीं — यही सच्ची पढ़ाई है।"</div>
+
+<div class="card" style="padding:12px;">
+  <div class="ctitle">⚙️ Mode चुनो</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="mode-btn active" id="mode-ask" onclick="setMode('ask')">💬 सवाल पूछो</button>
+    <button class="mode-btn" id="mode-quiz" onclick="setMode('quiz')">🧠 Quiz Mode</button>
+    <button class="mode-btn" id="mode-explain" onclick="setMode('explain')">📖 Topic Explain</button>
+  </div>
+  <div id="mode-hint" style="font-size:11px;color:var(--text2);margin-top:8px;">कोई भी Geography question पूछो — Hindi में जवाब मिलेगा।</div>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden;">
+  <div id="chat-box" style="height:350px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;">
+    <div class="msg-ai">
+      <div class="msg-bubble msg-bubble-ai">
+        नमस्ते! 🙏 मैं तुम्हारा UGC NET Geography AI Tutor हूँ।<br><br>
+        पूछ सकते हो:<br>
+        • <strong>Davis Cycle क्या है?</strong><br>
+        • <strong>Koppen समझाओ examples के साथ</strong><br>
+        • या <strong>Quiz Mode</strong> ON करो — मैं questions पूछूँगा! 🎯
+      </div>
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <textarea id="chat-input" placeholder="यहाँ लिखो... (Enter = भेजो)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg();}"></textarea>
+    <button id="send-btn" onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ctitle">⚡ Quick Questions — tap करो</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;">
+    <button class="quick-btn" onclick="quickAsk('Davis Cycle के तीन stages क्या हैं? Simple Hindi में।')">Davis Cycle</button>
+    <button class="quick-btn" onclick="quickAsk('Koppen Classification का पूरा chart बताओ examples के साथ।')">Koppen</button>
+    <button class="quick-btn" onclick="quickAsk('Von Thunen के 5 rings याद करने का आसान trick बताओ।')">Von Thunen</button>
+    <button class="quick-btn" onclick="quickAsk('Hartshorne और Schaefer का debate simple Hindi में बताओ।')">Hartshorne-Schaefer</button>
+    <button class="quick-btn" onclick="quickAsk('Ocean Currents warm और cold कैसे पहचानें? List बनाओ।')">Ocean Currents</button>
+    <button class="quick-btn" onclick="quickAsk('मुझसे Geomorphology पर 3 MCQ questions पूछो। UGC NET level।')">🧠 Quiz: Geo</button>
+    <button class="quick-btn" onclick="quickAsk('मुझसे Geographic Thought पर 3 MCQ questions पूछो।')">🧠 Quiz: Thought</button>
+    <button class="quick-btn" onclick="quickAsk('DTM के 5 stages को story की तरह समझाओ।')">DTM Story</button>
+  </div>
+</div>
+
+</div>
+<!-- ══════════ END AI TUTOR ══════════ -->
+```
+
+---
+
 </div><!-- end scroll -->
 
 <script>
@@ -1263,6 +1338,110 @@ function pick(qi,oi) {
   document.getElementById('qo'+qi+'_'+oi).classList.add(oi===q.a?'ok':'ng');
   if(oi!==q.a) document.getElementById('qo'+qi+'_'+q.a).classList.add('ok');
   document.getElementById('qe'+qi).classList.add('on');
+}
+  // ══════════════════════════════════
+//  AI TUTOR
+// ══════════════════════════════════
+
+// ⚠️ Step 1: Cloudflare Worker URL यहाँ डालो
+// ⚠️ Step 2: अभी के लिए DEMO MODE में काम करेगा
+const WORKER_URL = 'YOUR_WORKER_URL_HERE';
+
+let chatHistory = [];
+let currentMode = 'ask';
+
+const SYSTEM_PROMPTS = {
+  ask: `तुम UGC NET Geography के expert Hindi tutor हो। हर जवाब Hindi में दो (technical terms जैसे Davis Cycle, Koppen English में रख सकते हो)। जवाब clear और examples के साथ दो। अंत में एक related follow-up question ज़रूर पूछो।`,
+  quiz: `तुम UGC NET Geography के Quiz Master हो। Rules: 1) एक MCQ question पूछो (UGC NET level)। 2) Student का जवाब आने पर बताओ सही/गलत। 3) 2-3 lines explanation दो। 4) तुरंत अगला question पूछो। 5) Score track करो। Hindi में बात करो।`,
+  explain: `तुम UGC NET Geography के teacher हो। Topic explain करते वक्त: 1) Simple 1-line definition। 2) Story/example से समझाओ। 3) Key points bullets में। 4) Exam में कैसे पूछते हैं — example question दो। 5) Memory trick दो। सब Hindi में।`
+};
+
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mode-' + mode).classList.add('active');
+  const hints = {
+    ask: 'कोई भी Geography question पूछो।',
+    quiz: '"Start" भेजो — Quiz शुरू होगी! Claude तुमसे MCQ पूछेगा।',
+    explain: 'Topic लिखो जैसे "Davis Cycle" — पूरा explanation मिलेगा।'
+  };
+  document.getElementById('mode-hint').textContent = hints[mode];
+}
+
+function quickAsk(text) {
+  document.getElementById('chat-input').value = text;
+  sendMsg();
+}
+
+function addMsg(role, text) {
+  const box = document.getElementById('chat-box');
+  const div = document.createElement('div');
+  div.className = role === 'user' ? 'msg-user' : 'msg-ai';
+  div.innerHTML = `<div class="msg-bubble msg-bubble-${role==='user'?'user':'ai'}">${text.replace(/\n/g,'<br>')}</div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function showTyping() {
+  const box = document.getElementById('chat-box');
+  const div = document.createElement('div');
+  div.className = 'msg-ai';
+  div.id = 'typing-ind';
+  div.innerHTML = `<div class="msg-bubble msg-bubble-ai" style="display:flex;gap:4px;padding:12px 16px;"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-ind');
+  if(t) t.remove();
+}
+
+async function sendMsg() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  addMsg('user', text);
+  chatHistory.push({role:'user', content:text});
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true; btn.textContent = '⏳';
+  showTyping();
+
+  // Worker URL set नहीं है तो demo message
+  if(WORKER_URL === 'YOUR_WORKER_URL_HERE') {
+    removeTyping();
+    addMsg('ai', '⚠️ Worker URL अभी set नहीं है।\n\nStep 1: workers.cloudflare.com पर जाओ → Free account → Worker बनाओ\nStep 2: WORKER_URL में अपना URL डालो\n\nWorker code ऊपर conversation में दिया है।');
+    btn.disabled = false; btn.textContent = '➤';
+    return;
+  }
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        system: SYSTEM_PROMPTS[currentMode],
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    removeTyping();
+    if(data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      chatHistory.push({role:'assistant', content:reply});
+      if(chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+      addMsg('ai', reply);
+    } else {
+      addMsg('ai', '⚠️ Error: ' + JSON.stringify(data).substring(0,100));
+    }
+  } catch(err) {
+    removeTyping();
+    addMsg('ai', '⚠️ Connection error। Worker URL check करो।\n\nError: ' + err.message);
+  }
+  btn.disabled = false; btn.textContent = '➤';
 }
 function reveal(qi) {
   const q=QS[qi];
