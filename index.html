@@ -2166,9 +2166,12 @@ async function askAIaboutPYQ(i, question, answer, explanation) {
 }
 
 // PYQ lazy load
-document.querySelector('[onclick="go(\'pyq\',this)"]').addEventListener('click', () => {
-  setTimeout(renderPYQ, 100);
-});
+try {
+  const pyqBtn = document.querySelector('[onclick="go(\'pyq\',this)"]');
+  if(pyqBtn) pyqBtn.addEventListener('click', () => setTimeout(renderPYQ, 100));
+  const mockBtn = document.querySelector('[onclick="go(\'mock\',this)"]');
+  if(mockBtn) mockBtn.addEventListener('click', loadMockHistory);
+} catch(e) { console.log('Tab listener error:', e); }
 
 // ══════════════════════════════════
 //  MOCK TEST
@@ -2206,81 +2209,117 @@ function showMockPhase(id) {
   document.querySelectorAll('.mock-phase').forEach(p => p.classList.remove('on'));
   document.getElementById(id).classList.add('on');
 }
-
 async function startMock() {
-  if(mockState.subjects.length === 0) {
-    alert('कम से कम एक subject चुनो!');
-    return;
-  }
+  if(mockState.subjects.length === 0) { alert('कम से कम एक subject चुनो!'); return; }
+  if(WORKER_URL === 'YOUR_WORKER_URL_HERE') { alert('Worker URL set करो!'); return; }
   showMockPhase('mock-loading');
-
-  if(WORKER_URL === 'YOUR_WORKER_URL_HERE') {
-    alert('Worker URL set करो पहले!');
-    showMockPhase('mock-setup');
-    return;
-  }
-
   try {
     const subjectList = mockState.subjects.join(', ');
-    const res = await fetch(WORKER_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-      system: `You are a UGC NET Geography exam question generator. Generate MCQ questions in ENGLISH only. Output ONLY raw JSON array. No markdown, no explanation outside JSON, no extra text. Response must start with [ and end with ].
+    const totalNeeded = mockState.qNum;
+    const batchSize = 10; 
+    let allQuestions = [];
+    let attempts = 0; 
+    const maxAttempts = 100; 
 
-JSON format strictly:
-[{"q":"question","o":["opt1","opt2","opt3","opt4"],"a":0,"e":"explanation","s":"subject"}]
+    // 💡 NAYA FEATURE: Motivational Quotes Array
+    const quotes = [
+        "मंज़िल उन्हीं को मिलती है, जिनके सपनों में जान होती है। 🌟",
+        "Trust the process. Your hard work will pay off! 📚",
+        "रुकना मत, तुम्हारा JRF तुम्हारा इंतज़ार कर रहा है। 🎯",
+        "Every question you practice takes you closer to your goal. 🚀",
+        "मेहनत वो चाबी है जो किस्मत का ताला भी खोल देती है। 🗝️",
+        "Success is the sum of small efforts, repeated day in and day out. 💪",
+        "बस थोड़ा सा इंतज़ार... बेहतरीन सवाल चुन कर आ रहे हैं। ⏳",
+        "Consistency is what transforms average into excellence. 🔥",
+        "जीतने वाले कुछ अलग चीज़ें नहीं करते, बस चीज़ों को अलग तरीके से करते हैं। 💡"
+    ];
+    function getQuote() { return quotes[Math.floor(Math.random() * quotes.length)]; }
 
-- q: question string (English only, no quotes inside)
-- o: array of exactly 4 option strings
-- a: integer 0-3 (correct answer index)
-- e: brief explanation (English only, no quotes inside)
-- s: subject name
-- NO trailing commas
-- NO special characters inside strings
-- Use single meaning words, avoid apostrophes`,
-        messages: [{role:'user', content:`Generate exactly ${mockState.qNum} UGC NET Geography MCQ questions. Subjects: ${subjectList}. Start response with [ bracket only.`}]
-      })
-    });
-    const data = await res.json();
-  let text = data.content?.[0]?.text || '[]';
-    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
-    const start = text.indexOf('[');
-    const end = text.lastIndexOf(']');
-    if(start === -1 || end === -1) throw new Error('No JSON found');
-    text = text.substring(start, end+1);
-    // Aggressive cleanup
-    text = text
-      .replace(/,(\s*[}\]])/g,'$1')  // trailing commas
-      .replace(/([{,]\s*)(\w+)(\s*:)/g,'$1"$2"$3')  // unquoted keys
-      .replace(/:\s*'([^']*)'/g,':"$1"')  // single to double quotes
-      .replace(/[\u0900-\u097F]/g, function(c) { return c; }); // keep devanagari
-    try {
-      mockState.questions = JSON.parse(text);
-    } catch(parseErr) {
-      // Try to extract individual questions
-      const matches = text.match(/\{[^{}]+\}/g) || [];
-      mockState.questions = matches.map(m => {
-        try { return JSON.parse(m); } catch(e) { return null; }
-      }).filter(Boolean);
-      if(mockState.questions.length === 0) throw new Error('Parse failed completely');
+    const loadDiv = document.querySelector('.mock-loading div:nth-child(2)');
+    const loadSubDiv = document.querySelector('.mock-loading div:nth-child(3)');
+    if(loadSubDiv) loadSubDiv.textContent = getQuote(); // Pehla quote set karo
+
+    while(allQuestions.length < totalNeeded && attempts < maxAttempts) {
+      attempts++;
+      const remaining = totalNeeded - allQuestions.length;
+      const thisCount = Math.min(batchSize, remaining);
+
+      // Technical attempt numbers hata diye, clean UI
+      if(loadDiv) loadDiv.textContent = `Mock Test का पेपर तैयार हो रहा है... ${allQuestions.length} / ${totalNeeded}`;
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            max_tokens: 4000,
+            system: `You are a UGC NET Geography MCQ generator. Output ONLY a raw JSON array. Start with [ end with ]. No other text.\nFormat: [{"q":"[Hindi प्रश्न] / [English Question]","o":["[Hindi] / [English]","[Hindi] / [English]","[Hindi] / [English]","[Hindi] / [English]"],"a":0,"e":"Explanation in Hindi","s":"subject"}]\nRules: a=0-3 integer, no apostrophes in strings, valid JSON only. BILINGUAL IS MANDATORY. First Hindi, then English.`,
+            messages: [{role:'user', content:`Generate EXACTLY ${thisCount} UGC NET Geography MCQ questions. Subjects: ${subjectList}. Make questions completely different from previous batches. Question and Options MUST be in "Hindi / English" format. Output JSON array only.`}]
+          })
+        });
+        
+        if (!res.ok) {
+          // Rate limit lagne par quote change karo aur quietly wait karo
+          if(loadSubDiv) loadSubDiv.textContent = getQuote(); 
+          await new Promise(r => setTimeout(r, 15000)); 
+          continue; 
+        }
+
+        const data = await res.json();
+        let text = data.content?.[0]?.text || '[]';
+        text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+        const start = text.indexOf('[');
+        const end = text.lastIndexOf(']');
+        
+        if(start !== -1 && end !== -1) {
+          text = text.substring(start, end+1);
+          text = text.replace(/,(\s*[}\]])/g,'$1');
+          try {
+            const batch = JSON.parse(text);
+            if (Array.isArray(batch) && batch.length > 0) {
+                allQuestions = allQuestions.concat(batch);
+            }
+          } catch(e) {
+            const matches = text.match(/\{[^{}]+\}/g) || [];
+            const parsed = matches.map(m => { try { return JSON.parse(m); } catch(err) { return null; } }).filter(Boolean);
+            allQuestions = allQuestions.concat(parsed);
+          }
+        }
+
+        if(allQuestions.length < totalNeeded) {
+           // Normal wait mein bhi quote update karo
+           if(loadSubDiv) loadSubDiv.textContent = getQuote(); 
+           await new Promise(r => setTimeout(r, 6000));
+        }
+
+      } catch(err) {
+        if(loadSubDiv) loadSubDiv.textContent = "सवालों को लोड करने में थोड़ा समय लग रहा है, कृपया इंतज़ार करें... ⏳";
+        await new Promise(r => setTimeout(r, 10000));
+      }
     }
 
-    if(mockState.questions.length === 0) throw new Error('No questions');
-
+    if(allQuestions.length === 0) {
+        throw new Error('Network issue! कृपया अपना इंटरनेट चेक करें और दोबारा कोशिश करें।');
+    } else if (allQuestions.length < totalNeeded) {
+        // Technical error ki jagah user-friendly alert
+        alert(`Network थोड़ा स्लो होने की वजह से अभी ${allQuestions.length} सवाल ही लोड हो पाए हैं। चलिए इन्हीं के साथ टेस्ट शुरू करते हैं! 👍`);
+    }
+    
+    mockState.questions = allQuestions.slice(0, totalNeeded);
     mockState.answers = {};
     mockState.current = 0;
     mockState.timeLeft = mockState.timeLimit * 60;
     mockState.startTime = new Date();
+    
     showMockPhase('mock-test');
     renderMockQ();
     startTimer();
+    
   } catch(e) {
-    alert('Questions generate करने में error। फिर try करो।\n' + e.message);
+    alert('Error: ' + e.message + '\nफिर try करो।');
     showMockPhase('mock-setup');
   }
 }
-
 function renderMockQ() {
   const q = mockState.questions[mockState.current];
   if(!q) return;
@@ -2458,7 +2497,7 @@ function resetMock() {
   showMockPhase('mock-setup');
 }
 
-document.querySelector('[onclick="go(\'mock\',this)"]').addEventListener('click', loadMockHistory);
+
   
   
 function reveal(qi) {
