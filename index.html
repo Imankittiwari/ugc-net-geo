@@ -2226,28 +2226,45 @@ async function startMock() {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
-        system: `You are a UGC NET Geography expert. Generate exactly ${mockState.qNum} MCQ questions in Hindi for UGC NET Geography exam. Subjects: ${subjectList}. 
+      system: `You are a UGC NET Geography exam question generator. Generate MCQ questions in ENGLISH only. Output ONLY raw JSON array. No markdown, no explanation outside JSON, no extra text. Response must start with [ and end with ].
 
-Rules:
-1. Each question MUST be unique and NOT repeat
-2. Difficulty level: UGC NET actual exam level
-3. Each question has exactly 4 options (A,B,C,D)
-4. Return ONLY valid JSON array, no other text
-5. Format: [{"q":"question","o":["A","B","C","D"],"a":0,"e":"explanation in Hindi","s":"subject name"}]
-6. 'a' is 0-based index of correct answer
-7. Questions should cover important topics from: ${subjectList}
-8. Mix different difficulty levels
-9. Make sure questions are factually accurate`,
-        messages: [{role:'user', content:`Generate ${mockState.qNum} UGC NET Geography MCQ questions for subjects: ${subjectList}. Return only JSON array.`}]
+JSON format strictly:
+[{"q":"question","o":["opt1","opt2","opt3","opt4"],"a":0,"e":"explanation","s":"subject"}]
+
+- q: question string (English only, no quotes inside)
+- o: array of exactly 4 option strings
+- a: integer 0-3 (correct answer index)
+- e: brief explanation (English only, no quotes inside)
+- s: subject name
+- NO trailing commas
+- NO special characters inside strings
+- Use single meaning words, avoid apostrophes`,
+        messages: [{role:'user', content:`Generate exactly ${mockState.qNum} UGC NET Geography MCQ questions. Subjects: ${subjectList}. Start response with [ bracket only.`}]
       })
     });
     const data = await res.json();
-    let text = data.content?.[0]?.text || '[]';
-    text = text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+  let text = data.content?.[0]?.text || '[]';
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
     const start = text.indexOf('[');
     const end = text.lastIndexOf(']');
-    if(start !== -1 && end !== -1) text = text.substring(start, end+1);
-    mockState.questions = JSON.parse(text);
+    if(start === -1 || end === -1) throw new Error('No JSON found');
+    text = text.substring(start, end+1);
+    // Aggressive cleanup
+    text = text
+      .replace(/,(\s*[}\]])/g,'$1')  // trailing commas
+      .replace(/([{,]\s*)(\w+)(\s*:)/g,'$1"$2"$3')  // unquoted keys
+      .replace(/:\s*'([^']*)'/g,':"$1"')  // single to double quotes
+      .replace(/[\u0900-\u097F]/g, function(c) { return c; }); // keep devanagari
+    try {
+      mockState.questions = JSON.parse(text);
+    } catch(parseErr) {
+      // Try to extract individual questions
+      const matches = text.match(/\{[^{}]+\}/g) || [];
+      mockState.questions = matches.map(m => {
+        try { return JSON.parse(m); } catch(e) { return null; }
+      }).filter(Boolean);
+      if(mockState.questions.length === 0) throw new Error('Parse failed completely');
+    }
 
     if(mockState.questions.length === 0) throw new Error('No questions');
 
