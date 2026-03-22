@@ -315,7 +315,7 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
   <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
-  <button class="tb" onclick="go('map',this)"><span class="ti">🗺️</span>Map</button>
+  <button class="tb" onclick="go('map',this);window._mapTabInit()"><span class="ti">🗺️</span>Map</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -1501,12 +1501,12 @@ function initMap() {
   // Leaflet CSS load
   const css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  css.href = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
   document.head.appendChild(css);
 
   // Leaflet JS load
   const script = document.createElement('script');
-  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
   script.onload = buildMap;
   document.head.appendChild(script);
 }
@@ -1736,9 +1736,10 @@ function toggleLayer(name) {
 }
 
 // Map tab पर click होने पर init
-document.querySelector('[onclick="go(\'map\',this)"]').addEventListener('click', () => {
-  setTimeout(initMap, 100);
-});
+// Map init - multiple triggers
+window._mapTabInit = function() {
+  setTimeout(initMap, 200);
+};
   
 function reveal(qi) {
   const q=QS[qi];
