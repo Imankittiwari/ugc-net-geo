@@ -258,6 +258,23 @@ ul.si li strong{color:var(--text);}
 ```
 
 ---
+  /* MAP */
+#map-container{height:calc(100vh - 220px);border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.map-layers{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.layer-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:20px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;}
+.layer-btn.on{font-weight:700;}
+.layer-btn.lb-india{border-color:#4a90e8;}.layer-btn.lb-india.on{background:rgba(74,144,232,.2);color:#4a90e8;}
+.layer-btn.lb-mtn{border-color:#ff6b6b;}.layer-btn.lb-mtn.on{background:rgba(255,107,107,.2);color:#ff6b6b;}
+.layer-btn.lb-river{border-color:#00e5b5;}.layer-btn.lb-river.on{background:rgba(0,229,181,.2);color:#00e5b5;}
+.layer-btn.lb-ocean{border-color:#9b59b6;}.layer-btn.lb-ocean.on{background:rgba(155,89,182,.2);color:#c39bd3;}
+.layer-btn.lb-climate{border-color:#f0c040;}.layer-btn.lb-climate.on{background:rgba(240,192,64,.2);color:#f0c040;}
+.layer-btn.lb-world{border-color:#ff9f43;}.layer-btn.lb-world.on{background:rgba(255,159,67,.2);color:#ff9f43;}
+.map-info{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-top:10px;font-size:12px;color:var(--text2);min-height:60px;}
+.map-info strong{color:var(--gold);display:block;margin-bottom:4px;font-size:13px;}
+.leaflet-popup-content-wrapper{background:var(--bg2)!important;border:1px solid var(--border)!important;color:var(--text)!important;border-radius:10px!important;}
+.leaflet-popup-tip{background:var(--bg2)!important;}
+.leaflet-popup-content{color:var(--text)!important;font-family:'Noto Sans Devanagari',sans-serif!important;font-size:12px!important;line-height:1.6!important;}
+  
 </style>
 </head>
 <body>
@@ -298,6 +315,7 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
   <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
+  <button class="tb" onclick="go('map',this)"><span class="ti">🗺️</span>Map</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -1156,6 +1174,32 @@ ul.si li strong{color:var(--text);}
 ```
 
 ---
+  <!-- ══════════ MAP ══════════ -->
+<div id="map" class="page">
+
+<div class="al al-t">🗺️ <strong>Interactive Geography Map</strong> — Layer ON/OFF करो। Marker tap करो → UGC NET info मिलेगी।</div>
+
+<!-- LAYER BUTTONS -->
+<div class="map-layers">
+  <button class="layer-btn lb-india on" id="lb-india" onclick="toggleLayer('india')">🇮🇳 India States</button>
+  <button class="layer-btn lb-mtn on" id="lb-mtn" onclick="toggleLayer('mtn')">⛰️ पर्वत</button>
+  <button class="layer-btn lb-river on" id="lb-river" onclick="toggleLayer('river')">🌊 नदियाँ</button>
+  <button class="layer-btn lb-ocean" id="lb-ocean" onclick="toggleLayer('ocean')">🐠 Ocean</button>
+  <button class="layer-btn lb-climate" id="lb-climate" onclick="toggleLayer('climate')">🌡️ Climate</button>
+  <button class="layer-btn lb-world" id="lb-world" onclick="toggleLayer('world')">🌍 World</button>
+</div>
+
+<!-- MAP -->
+<div id="map-container"></div>
+
+<!-- INFO BOX -->
+<div class="map-info" id="map-info">
+  <strong>📍 किसी Marker पर tap करो</strong>
+  UGC NET relevant जानकारी यहाँ दिखेगी।
+</div>
+
+</div>
+<!-- ══════════ END MAP ══════════ -->
 
 </div><!-- end scroll -->
 
@@ -1443,6 +1487,259 @@ async function sendMsg() {
   }
   btn.disabled = false; btn.textContent = '➤';
 }
+// ══════════════════════════════════
+//  INTERACTIVE MAP
+// ══════════════════════════════════
+let mapInitialized = false;
+let gMap = null;
+const gLayers = {};
+
+function initMap() {
+  if (mapInitialized) return;
+  mapInitialized = true;
+
+  // Leaflet CSS load
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  document.head.appendChild(css);
+
+  // Leaflet JS load
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.onload = buildMap;
+  document.head.appendChild(script);
+}
+
+function buildMap() {
+  gMap = L.map('map-container', {
+    center: [22, 78],
+    zoom: 5,
+    zoomControl: true
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+    maxZoom: 18
+  }).addTo(gMap);
+
+  buildIndiaLayer();
+  buildMountainLayer();
+  buildRiverLayer();
+  buildOceanLayer();
+  buildClimateLayer();
+  buildWorldLayer();
+
+  // Default: India + Mountains + Rivers ON
+  gLayers.india.addTo(gMap);
+  gLayers.mtn.addTo(gMap);
+  gLayers.river.addTo(gMap);
+}
+
+function showInfo(title, text) {
+  document.getElementById('map-info').innerHTML =
+    `<strong>📍 ${title}</strong>${text}`;
+}
+
+// ── CUSTOM ICONS
+function makeIcon(emoji, color) {
+  return L.divIcon({
+    html: `<div style="background:${color};width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4);">${emoji}</div>`,
+    className: '',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -15]
+  });
+}
+
+// ── INDIA STATES
+function buildIndiaLayer() {
+  const states = [
+    {n:'Uttar Pradesh',lat:26.8,lng:80.9,cap:'Lucknow',info:'सबसे ज़्यादा जनसंख्या वाला राज्य। Ganga-Yamuna Doab। Alluvial soil। Rice, Wheat, Sugarcane।'},
+    {n:'Maharashtra',lat:19.7,lng:75.7,cap:'Mumbai',info:'Mumbai — Financial capital। Deccan Plateau। Black soil। Cotton, Sugarcane। Highest GDP राज्य।'},
+    {n:'Rajasthan',lat:27.0,lng:74.2,cap:'Jaipur',info:'सबसे बड़ा राज्य (area)। Thar Desert। Arid soil। Zinc, Copper minerals। BWh climate।'},
+    {n:'Madhya Pradesh',lat:22.9,lng:78.6,cap:'Bhopal',info:'India का दिल। Vindhya + Satpura ranges। Diamond (Panna), Coal। Narmada river।'},
+    {n:'Tamil Nadu',lat:11.1,lng:78.6,cap:'Chennai',info:'NE Monsoon से rain। Laterite + Alluvial soil। Rice, Cotton। Kaveri river। IT hub।'},
+    {n:'Karnataka',lat:15.3,lng:75.7,cap:'Bengaluru',info:'Western Ghats। Coffee, Silk। IT capital। Krishna, Cauvery rivers। Red soil।'},
+    {n:'West Bengal',lat:22.9,lng:87.8,cap:'Kolkata',info:'Highest rice producer। Sundarbans (Mangrove)। Alluvial soil। Hooghly river। Humid subtropical।'},
+    {n:'Gujarat',lat:22.3,lng:72.1,cap:'Gandhinagar',info:'सबसे लंबी coastline। Cotton, Groundnut। Petroleum। Rann of Kutch। Semi-arid climate।'},
+    {n:'Andhra Pradesh',lat:15.9,lng:79.7,cap:'Amaravati',info:'Rice bowl of India। Krishna, Godavari rivers। Tobacco, Chilli। Eastern Ghats।'},
+    {n:'Kerala',lat:10.8,lng:76.2,cap:'Thiruvananthapuram',info:'Highest literacy (94%). Highest sex ratio (1084). Coconut, Spices, Rubber। Backwaters।'},
+    {n:'Punjab',lat:31.1,lng:75.3,cap:'Chandigarh',info:'Green Revolution का केंद्र। Wheat, Rice। 5 rivers। Alluvial soil। Sub-humid climate।'},
+    {n:'Haryana',lat:29.0,lng:76.0,cap:'Chandigarh',info:'Highest per capita income (agriculture)। Wheat, Rice। Aravalli hills (S)। Sub-humid।'},
+    {n:'Bihar',lat:25.9,lng:85.1,cap:'Patna',info:'Ganga plains। Alluvial soil। Rice, Wheat, Maize। Highest population density।'},
+    {n:'Odisha',lat:20.9,lng:85.0,cap:'Bhubaneswar',info:'Iron ore, Manganese, Chromite। Mahanadi river। Chilika Lake (largest lagoon)।'},
+    {n:'Assam',lat:26.2,lng:92.9,cap:'Dispur',info:'Tea capital of India। Brahmaputra river। Oil reserves। Kaziranga National Park। High rainfall।'},
+    {n:'Jharkhand',lat:23.6,lng:85.2,cap:'Ranchi',info:'Coal, Iron ore, Mica, Copper। Damodar river। Chota Nagpur Plateau। Mineral rich।'},
+    {n:'Himachal Pradesh',lat:31.1,lng:77.1,cap:'Shimla',info:'Apple state। Himalayan ranges। Hydropower। Beas, Sutlej rivers। Alpine climate।'},
+    {n:'Uttarakhand',lat:30.3,lng:78.0,cap:'Dehradun',info:'Ganga, Yamuna origin। Char Dham। Chipko Movement (1973)। Alpine + Subtropical।'},
+    {n:'Goa',lat:15.2,lng:74.0,cap:'Panaji',info:'सबसे छोटा राज्य। Iron ore export। Tourism। Mandovi, Zuari rivers। Laterite soil। Tropical।'},
+    {n:'Jammu & Kashmir',lat:34.0,lng:76.0,cap:'Srinagar',info:'Dal Lake। Jhelum river। Saffron, Apple। Cold desert (Ladakh)। ET climate।'},
+  ];
+
+  gLayers.india = L.layerGroup();
+  states.forEach(s => {
+    const marker = L.marker([s.lat, s.lng], {icon: makeIcon('🏛️','#4a90e8')});
+    marker.bindPopup(`<strong style="color:#f0c040;font-size:13px;">${s.n}</strong><br><span style="color:#8b95b5;font-size:11px;">Capital: ${s.cap}</span><br><br>${s.info}`);
+    marker.on('click', () => showInfo(s.n, `Capital: ${s.cap} | ${s.info}`));
+    gLayers.india.addLayer(marker);
+  });
+}
+
+// ── MOUNTAINS
+function buildMountainLayer() {
+  const mountains = [
+    {n:'माउंट एवरेस्ट',lat:27.98,lng:86.92,h:'8,849m',info:'विश्व की सबसे ऊँची चोटी। Nepal-Tibet border। Greater Himalayas। Tethys Sea से बनी (Plate Tectonics)।'},
+    {n:'K2 (गॉडविन ऑस्टिन)',lat:35.88,lng:76.51,h:'8,611m',info:'भारत की सबसे ऊँची चोटी। Karakoram Range। PoK में। Second highest in world।'},
+    {n:'कंचनजंघा',lat:27.70,lng:88.14,h:'8,586m',info:'Third highest world। Sikkim-Nepal border। Greater Himalayas।'},
+    {n:'Siachen Glacier',lat:35.42,lng:77.10,h:'5,400m',info:'विश्व का दूसरा सबसे बड़ा non-polar glacier। Karakoram। सामरिक महत्व।'},
+    {n:'अरावली',lat:26.0,lng:73.5,h:'1,722m (Guru Shikhar)',info:'विश्व की सबसे पुरानी पर्वत श्रृंखला। Rajasthan। Pre-Cambrian। Zinc, Copper। Thar Desert को रोकती है।'},
+    {n:'विंध्याचल',lat:24.0,lng:80.0,h:'1,100m',info:'उत्तर-दक्षिण India को divide करती है। MP में। Narmada river के उत्तर में। Sedimentary rocks।'},
+    {n:'सतपुड़ा',lat:22.0,lng:78.0,h:'1,350m (Dhupgarh)',info:'Narmada और Tapti के बीच। Block mountain। MP में। Teak forest।'},
+    {n:'पश्चिमी घाट',lat:15.0,lng:74.5,h:'2,695m (Anamudi)',info:'UNESCO World Heritage। Biodiversity Hotspot। SW Monsoon को रोकती है। Western Tamil Nadu rain shadow।'},
+    {n:'पूर्वी घाट',lat:15.0,lng:80.0,h:'1,680m (Jindhagada)',info:'Discontinuous range। Mahanadi, Krishna, Godavari इसे काटती हैं। Lower than Western Ghats।'},
+    {n:'नीलगिरि',lat:11.4,lng:76.7,h:'2,637m (Doddabetta)',info:'Western + Eastern Ghats का मिलन बिंदु। Tamil Nadu। Tea, Coffee। Shola forests।'},
+    {n:'शिवालिक',lat:30.5,lng:78.5,h:'2,000m',info:'Himalayas की सबसे दक्षिणी और youngest range। Dun valleys। Bhabar + Terai belt।'},
+    {n:'जास्कर',lat:33.5,lng:77.0,h:'6,440m',info:'Trans-Himalayan range। Ladakh। Cold desert। Indus river के उत्तर में।'},
+  ];
+
+  gLayers.mtn = L.layerGroup();
+  mountains.forEach(m => {
+    const marker = L.marker([m.lat, m.lng], {icon: makeIcon('⛰️','#ff6b6b')});
+    marker.bindPopup(`<strong style="color:#f0c040;font-size:13px;">⛰️ ${m.n}</strong><br><span style="color:#00e5b5;">ऊँचाई: ${m.h}</span><br><br>${m.info}`);
+    marker.on('click', () => showInfo(`⛰️ ${m.n}`, `ऊँचाई: ${m.h} | ${m.info}`));
+    gLayers.mtn.addLayer(marker);
+  });
+}
+
+// ── RIVERS
+function buildRiverLayer() {
+  const rivers = [
+    {n:'गंगा',lat:25.4,lng:83.0,origin:'Gangotri Glacier',len:'2,525 km',info:'सबसे पवित्र नदी। Himalayan (perennial)। Alluvial IGP। Haridwar, Varanasi, Prayagraj। Bay of Bengal में गिरती है।'},
+    {n:'यमुना',lat:27.2,lng:78.5,origin:'Yamunotri',len:'1,376 km',info:'Ganga की सबसे बड़ी tributary। Delhi, Agra, Mathura। Chambal, Betwa, Ken इसमें मिलती हैं।'},
+    {n:'सिंधु (Indus)',lat:32.0,lng:76.0,origin:'Tibet (Mansarovar)',len:'3,180 km',info:'सबसे लंबी। Pakistan में ज़्यादा। Punjab की 5 rivers। Indus Valley Civilization। Arabian Sea।'},
+    {n:'ब्रह्मपुत्र',lat:27.5,lng:94.0,origin:'Angsi Glacier, Tibet',len:'2,900 km',info:'तीन names: Tibet (Tsangpo), Arunachal (Dihang), Assam (Brahmaputra)। World biggest island (Majuli)।'},
+    {n:'गोदावरी',lat:18.0,lng:80.5,origin:'Nasik, Maharashtra',len:'1,465 km',info:'Peninsular rivers में सबसे लंबी। "Dakshin Ganga"। AP + Telangana। Rice, Cotton। Bay of Bengal।'},
+    {n:'कृष्णा',lat:16.0,lng:78.0,origin:'Mahabaleshwar',len:'1,400 km',info:'Maharashtra, Karnataka, AP। Tungabhadra tributary (Hampi)। Krishna Delta — fertile। Bay of Bengal।'},
+    {n:'कावेरी',lat:12.0,lng:77.5,origin:'Kodagu, Karnataka',len:'800 km',info:'"Dakshin Ganga"। Karnataka-Tamil Nadu water dispute। Mettur Dam। Rice cultivation। Bay of Bengal।'},
+    {n:'महानदी',lat:20.5,lng:83.5,origin:'Raipur, Chhattisgarh',len:'858 km',info:'Hirakud Dam (longest dam in India)। Odisha। Chilika Lake nearby। Bay of Bengal।'},
+    {n:'नर्मदा',lat:22.5,lng:77.0,origin:'Amarkantak, MP',len:'1,312 km',info:'Rift valley नदी। Vindhya + Satpura के बीच। West flow → Arabian Sea। Sardar Sarovar Dam।'},
+    {n:'ताप्ती',lat:21.0,lng:76.0,origin:'Betul, MP',len:'724 km',info:'Narmada की तरह Rift valley। West flow → Arabian Sea। Surat के पास।'},
+    {n:'चम्बल',lat:25.5,lng:76.5,origin:'Vindhya Range',len:'960 km',info:'Yamuna tributary। Ravines। National Chambal Sanctuary। Gharial habitat। MP-Rajasthan।'},
+    {n:'दामोदर',lat:23.5,lng:86.5,origin:'Chota Nagpur',len:'592 km',info:'"Sorrow of Bengal"। DVC (Damodar Valley Corporation)। Coal region। Jharkhand-WB।'},
+  ];
+
+  gLayers.river = L.layerGroup();
+  rivers.forEach(r => {
+    const marker = L.marker([r.lat, r.lng], {icon: makeIcon('🌊','#00bfa5')});
+    marker.bindPopup(`<strong style="color:#00e5b5;font-size:13px;">🌊 ${r.n}</strong><br><span style="color:#8b95b5;">Origin: ${r.origin} | Length: ${r.len}</span><br><br>${r.info}`);
+    marker.on('click', () => showInfo(`🌊 ${r.n}`, `${r.len} | Origin: ${r.origin} | ${r.info}`));
+    gLayers.river.addLayer(marker);
+  });
+}
+
+// ── OCEAN FEATURES
+function buildOceanLayer() {
+  const ocean = [
+    {n:'Gulf Stream',lat:35.0,lng:-50.0,e:'🌡️',c:'#ff6b6b',info:'WARM current। N America → W Europe। Atlantic Ocean। London को mild climate देती है। UGC NET: हर साल आता है।'},
+    {n:'Labrador Current',lat:50.0,lng:-52.0,e:'❄️',c:'#4a90e8',info:'COLD current। NW Atlantic। Canada के east coast। Grand Banks → famous fishing zone। Gulf Stream को ठंडा करती है।'},
+    {n:'Benguela Current',lat:-25.0,lng:13.0,e:'❄️',c:'#4a90e8',info:'COLD current। SW Africa का west coast। Namib Desert का कारण। Upwelling → rich fishing।'},
+    {n:'Kuroshio Current',lat:30.0,lng:140.0,e:'🌡️',c:'#ff6b6b',info:'WARM current। Japan का east coast। "Japan Stream"। Pacific का Gulf Stream। N Pacific Drift बनती है।'},
+    {n:'Peru/Humboldt',lat:-15.0,lng:-78.0,e:'❄️',c:'#4a90e8',info:'COLD current। W South America। Atacama Desert का कारण। Anchovy fishing। El Nino इसे weaken करता है।'},
+    {n:'Mariana Trench',lat:11.0,lng:142.0,e:'🕳️',c:'#9b59b6',info:'विश्व का सबसे गहरा स्थान। 11,034m (Challenger Deep)। Pacific Ocean। Philippines के east में। Convergent boundary।'},
+    {n:'Great Barrier Reef',lat:-18.0,lng:147.0,e:'🐠',c:'#00e5b5',info:'विश्व की सबसे बड़ी Coral Reef। Australia। Barrier Reef type (lagoon है)। UNESCO World Heritage। 2,300 km।'},
+    {n:'Lakshadweep Reefs',lat:10.5,lng:72.5,e:'🐠',c:'#00e5b5',info:'India की Coral Reefs। Atoll type। Arabian Sea। 36 islands। Union Territory। Coral bleaching threat।'},
+    {n:'Andaman Reefs',lat:12.0,lng:93.0,e:'🐠',c:'#00e5b5',info:'Bay of Bengal। Fringing Reef type। Biodiversity hotspot। Earthquake prone area। 2004 Tsunami यहीं।'},
+    {n:'Mid-Atlantic Ridge',lat:0.0,lng:-20.0,e:'🌋',c:'#ff9f43',info:'Divergent boundary। Seafloor Spreading (Harry Hess 1962)। N America + Eurasia plates। Atlantic बढ़ रहा है।'},
+    {n:'El Nino Zone',lat:0.0,lng:-90.0,e:'🌊',c:'#ff6b6b',info:'Warm water Pacific में। Indian Monsoon weakens। 2002, 2009, 2014 → India drought। La Nina = opposite।'},
+    {n:'Arabian Sea',lat:15.0,lng:65.0,e:'🌊',c:'#4a90e8',info:'SW Monsoon का source। Warm water। Oil tanker routes। Mumbai High (petroleum)। Cyclone season: May-June।'},
+    {n:'Bay of Bengal',lat:15.0,lng:88.0,e:'🌊',c:'#4a90e8',info:'SW Monsoon की Bay of Bengal branch। Most cyclones यहाँ बनते हैं। Warm water। Major rivers delta here।'},
+  ];
+
+  gLayers.ocean = L.layerGroup();
+  ocean.forEach(o => {
+    const marker = L.marker([o.lat, o.lng], {icon: makeIcon(o.e, o.c)});
+    marker.bindPopup(`<strong style="color:#f0c040;font-size:13px;">${o.e} ${o.n}</strong><br><br>${o.info}`);
+    marker.on('click', () => showInfo(`${o.e} ${o.n}`, o.info));
+    gLayers.ocean.addLayer(marker);
+  });
+}
+
+// ── CLIMATE ZONES
+function buildClimateLayer() {
+  const climate = [
+    {n:'Af — Tropical Rainforest',lat:10.5,lng:76.5,c:'#2ecc71',info:'Kerala, W. Ghats, Andaman। Year-round rain (>60mm/month)। Tropical Evergreen forest। High temperature + humidity।'},
+    {n:'Am — Tropical Monsoon',lat:15.0,lng:74.0,info:'Konkan coast, Goa, SW India। Short dry season। >2500mm rain। Monsoon dominant।',c:'#27ae60'},
+    {n:'Aw — Tropical Savanna',lat:20.0,lng:77.0,c:'#f39c12',info:'Deccan Plateau, Central India। Dry winter, Wet summer। 750-1500mm rain। Savanna grassland।'},
+    {n:'BSh — Hot Semi-Arid',lat:25.0,lng:72.0,c:'#e67e22',info:'Rajasthan (east), Punjab (parts)। Low rainfall (250-500mm)। Hot summers। Thorn scrub।'},
+    {n:'BWh — Hot Desert',lat:27.0,lng:70.0,c:'#e74c3c',info:'Thar Desert (W Rajasthan)। <250mm rain। Extreme temperatures। Sand dunes। Arid landforms।'},
+    {n:'Cfa — Humid Subtropical',lat:25.0,lng:88.0,c:'#3498db',info:'W Bengal, Assam (lower)। Hot humid summers। Mild winters। Rice cultivation। Tea gardens।'},
+    {n:'Cs — Mediterranean',lat:36.0,lng:28.0,c:'#9b59b6',info:'Mediterranean Sea region। Hot dry summer, Mild wet winter। Olive, Grapes, Citrus। Portugal to Turkey।'},
+    {n:'ET — Tundra',lat:34.0,lng:77.5,c:'#95a5a6',info:'Ladakh, high Himalayas। Cold + dry। Sparse vegetation। Permafrost। Cold desert। EF = Glacial।'},
+    {n:'Df — Humid Continental',lat:55.0,lng:60.0,c:'#1abc9c',info:'Russia, Canada, N USA। Cold winters, Warm summers। Year-round rain। Taiga forest।'},
+    {n:'Dw — Cold Dry Winter',lat:50.0,lng:110.0,c:'#16a085',info:'Siberia, NE China। Very cold dry winters। Short warm summers। Coniferous forest।'},
+  ];
+
+  gLayers.climate = L.layerGroup();
+  climate.forEach(cl => {
+    const marker = L.marker([cl.lat, cl.lng], {
+      icon: L.divIcon({
+        html: `<div style="background:${cl.c};color:#fff;padding:3px 7px;border-radius:8px;font-size:10px;font-weight:700;white-space:nowrap;border:1px solid rgba(255,255,255,.3);box-shadow:0 2px 6px rgba(0,0,0,.4);">${cl.n.split('—')[0].trim()}</div>`,
+        className: '',
+        iconAnchor: [30, 10]
+      })
+    });
+    marker.bindPopup(`<strong style="color:#f0c040;font-size:13px;">🌡️ ${cl.n}</strong><br><br>${cl.info}`);
+    marker.on('click', () => showInfo(`🌡️ ${cl.n}`, cl.info));
+    gLayers.climate.addLayer(marker);
+  });
+}
+
+// ── WORLD FEATURES
+function buildWorldLayer() {
+  const world = [
+    {n:'Amazon Rainforest',lat:-3.0,lng:-60.0,e:'🌳',info:'विश्व का सबसे बड़ा Tropical Rainforest। Brazil। Af climate। Highest biodiversity। "Lungs of Earth"। 5.5M km²।'},
+    {n:'Sahara Desert',lat:23.0,lng:13.0,e:'🏜️',info:'विश्व का सबसे बड़ा Hot Desert। N Africa। BWh climate। 9.2M km²। Erg (sand) + Reg (rocky) + Hamada।'},
+    {n:'Siberian Taiga',lat:60.0,lng:90.0,e:'🌲',info:'विश्व का सबसे बड़ा Biome। Coniferous forest। Russia। Df/Dw climate। Permafrost। Pine, Spruce, Fir।'},
+    {n:'Arctic Tundra',lat:72.0,lng:0.0,e:'❄️',info:'ET climate। Permafrost। Lichens, mosses। Reindeer, Polar Bear। Summer: 24-hr sunlight। Short growing season।'},
+    {n:'Himalayas',lat:28.0,lng:84.0,e:'🏔️',info:'Youngest fold mountains। Convergent boundary (India-Eurasia)। Geologically active। 8 of 14 Eight-thousanders।'},
+    {n:'Andes Mountains',lat:-20.0,lng:-67.0,e:'⛰️',info:'विश्व की सबसे लंबी mountain range (7,000 km)। Fold mountains। Pacific plate + S American plate। Atacama Desert rain shadow।'},
+    {n:'Congo Basin',lat:-1.0,lng:24.0,e:'🌿',info:'World second largest Rainforest। Africa। Amazon के बाद। Congo River। Af climate। Great Apes habitat।'},
+    {n:'Gobi Desert',lat:43.0,lng:106.0,e:'🏜️',info:'Asia का सबसे बड़ा desert। China + Mongolia। Cold desert (BWk)। Rain shadow of Himalayas। Dinosaur fossils।'},
+    {n:'Wallace\'s Line',lat:5.0,lng:118.0,e:'📍',info:'Alfred Russel Wallace (1863)। Asian fauna (tigers, monkeys) को Australian fauna (kangaroos, marsupials) से separate करती है। Bali-Lombok के बीच।'},
+    {n:'Equator (0°)',lat:0.0,lng:35.0,e:'🌐',info:'ITCZ यहाँ होती है। Maximum solar radiation। Tropical Rainforest belt। Year-round high temperature। Doldrums (calm winds)।'},
+    {n:'Tropic of Cancer',lat:23.5,lng:80.0,e:'☀️',info:'23.5°N। June 21 को Sun directly overhead। India से गुज़रती है। Sub-tropical High Pressure। Hot deserts यहाँ।'},
+    {n:'Tropic of Capricorn',lat:-23.5,lng:25.0,e:'☀️',info:'23.5°S। December 22 को Sun directly overhead। Australia, S Africa, Brazil से गुज़रती है।'},
+    {n:'Savanna — Africa',lat:5.0,lng:25.0,e:'🦁',info:'Aw climate। Tropical Grassland। Wet summer + Dry winter। Acacia trees। Lions, Elephants, Giraffes। S of Sahara।'},
+    {n:'Mediterranean Region',lat:37.0,lng:15.0,e:'🫒',info:'Cs climate। Hot dry summer, Mild wet winter। Olive, Grapes, Citrus। 30-40°N West coasts। Italy, Spain, Greece।'},
+  ];
+
+  gLayers.world = L.layerGroup();
+  world.forEach(w => {
+    const marker = L.marker([w.lat, w.lng], {icon: makeIcon(w.e,'#ff9f43')});
+    marker.bindPopup(`<strong style="color:#f0c040;font-size:13px;">${w.e} ${w.n}</strong><br><br>${w.info}`);
+    marker.on('click', () => showInfo(`${w.e} ${w.n}`, w.info));
+    gLayers.world.addLayer(marker);
+  });
+}
+
+// ── TOGGLE LAYERS
+function toggleLayer(name) {
+  const btn = document.getElementById('lb-' + name);
+  if (gMap.hasLayer(gLayers[name])) {
+    gMap.removeLayer(gLayers[name]);
+    btn.classList.remove('on');
+  } else {
+    gLayers[name].addTo(gMap);
+    btn.classList.add('on');
+  }
+}
+
+// Map tab पर click होने पर init
+document.querySelector('[onclick="go(\'map\',this)"]').addEventListener('click', () => {
+  setTimeout(initMap, 100);
+});
+  
 function reveal(qi) {
   const q=QS[qi];
   document.getElementById('qo'+qi+'_'+q.a).classList.add('ok');
