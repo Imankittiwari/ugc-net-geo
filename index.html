@@ -9,6 +9,8 @@
 <meta name="apple-mobile-web-app-title" content="NET Geo 2026">
 <link rel="manifest" href="manifest.json">
 <title>UGC NET Geography JRF 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;600;700;900&family=Cinzel:wght@700&display=swap" rel="stylesheet">
 <style>
@@ -259,7 +261,7 @@ ul.si li strong{color:var(--text);}
 
 ---
   /* MAP */
-#map-container{height:380px;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+#map-container{height:400px;width:100%;background:#0e1528;border-radius:12px;overflow:hidden;border:1px solid var(--border);display:block;}
 .map-layers{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
 .layer-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:20px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;}
 .layer-btn.on{font-weight:700;}
@@ -315,7 +317,7 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
   <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
-  <button class="tb" onclick="go('map',this);window._mapTabInit()"><span class="ti">🗺️</span>Map</button>
+  <button class="tb" onclick="go('map',this);initMap()"><span class="ti">🗺️</span>Map</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -1496,19 +1498,12 @@ const gLayers = {};
 
 function initMap() {
   if (mapInitialized) return;
+  if (typeof L === 'undefined') {
+    setTimeout(initMap, 500);
+    return;
+  }
   mapInitialized = true;
-
-  // Leaflet CSS load
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
-  document.head.appendChild(css);
-
-  // Leaflet JS load
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
-  script.onload = buildMap;
-  document.head.appendChild(script);
+  buildMap();
 }
 
 function buildMap() {
