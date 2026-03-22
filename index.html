@@ -274,6 +274,61 @@ ul.si li strong{color:var(--text);}
 .leaflet-popup-content-wrapper{background:var(--bg2)!important;border:1px solid var(--border)!important;color:var(--text)!important;border-radius:10px!important;}
 .leaflet-popup-tip{background:var(--bg2)!important;}
 .leaflet-popup-content{color:var(--text)!important;font-family:'Noto Sans Devanagari',sans-serif!important;font-size:12px!important;line-height:1.6!important;}
+
+/* PYQ */
+.pyq-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.pyq-select{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;flex:1;min-width:100px;}
+.pyq-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:10px;}
+.pyq-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;align-items:center;}
+.pyq-year{background:rgba(240,192,64,.2);color:var(--gold);font-size:10px;padding:2px 8px;border-radius:6px;font-weight:700;}
+.pyq-subj{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:700;}
+.pyq-q{font-size:13px;font-weight:600;margin-bottom:10px;line-height:1.6;}
+.pyq-opts{list-style:none;margin-bottom:8px;}
+.pyq-o{padding:7px 12px;border-radius:8px;font-size:12px;margin-bottom:4px;border:1px solid var(--border);cursor:pointer;transition:all .15s;}
+.pyq-o:active{opacity:.8;}
+.pyq-o.ok{border-color:var(--teal);background:rgba(0,229,181,.12);color:var(--teal);font-weight:700;}
+.pyq-o.ng{border-color:var(--coral);background:rgba(255,107,107,.1);color:var(--coral);}
+.pyq-ans{display:none;margin-top:8px;padding:10px 12px;background:rgba(240,192,64,.07);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:12px;color:var(--text2);line-height:1.7;}
+.pyq-ans.show{display:block;}
+.pyq-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.pyq-btn{border:none;padding:6px 12px;border-radius:7px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;cursor:pointer;font-weight:600;}
+.pbtn-ans{background:var(--blue);color:#fff;}
+.pbtn-ai{background:rgba(0,229,181,.2);color:var(--teal);border:1px solid var(--teal);}
+.pyq-ai-box{display:none;margin-top:8px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:12px;color:var(--text2);line-height:1.7;}
+.pyq-ai-box.show{display:block;}
+.pyq-count{font-size:12px;color:var(--text2);margin-bottom:10px;}
+/* MOCK TEST */
+.mock-phase{display:none;}
+.mock-phase.on{display:block;}
+.mock-subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.mock-subj-btn{background:var(--bg3);border:2px solid var(--border);border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-size:12px;color:var(--text2);transition:all .2s;font-family:'Noto Sans Devanagari',sans-serif;}
+.mock-subj-btn.sel{border-color:var(--teal);background:rgba(0,229,181,.1);color:var(--teal);font-weight:700;}
+.mock-timer{font-family:'Cinzel',serif;font-size:32px;font-weight:700;color:var(--gold);text-align:center;padding:10px;background:var(--bg3);border-radius:12px;margin-bottom:12px;letter-spacing:2px;}
+.mock-timer.urgent{color:var(--coral);animation:pulse .5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.mock-q-num{font-size:10px;color:var(--teal);font-weight:700;margin-bottom:5px;}
+.mock-q-text{font-size:13px;font-weight:600;margin-bottom:10px;line-height:1.6;}
+.mock-opt{padding:9px 13px;border-radius:8px;font-size:12px;margin-bottom:6px;cursor:pointer;border:1px solid var(--border);transition:all .15s;display:flex;align-items:center;gap:8px;}
+.mock-opt.sel{border-color:var(--blue);background:rgba(74,144,232,.15);}
+.mock-opt.ok{border-color:var(--teal);background:rgba(0,229,181,.15);color:var(--teal);font-weight:700;}
+.mock-opt.ng{border-color:var(--coral);background:rgba(255,107,107,.1);color:var(--coral);}
+.mock-nav{display:flex;gap:8px;margin-top:12px;}
+.mock-nav-btn{flex:1;border:none;padding:12px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.mnb-prev{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.mnb-next{background:var(--blue);color:#fff;}
+.mnb-submit{background:var(--gold);color:#000;}
+.mock-prog{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:12px;overflow:hidden;}
+.mock-prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:2px;transition:width .3s;}
+.result-circle{width:120px;height:120px;border-radius:50%;background:var(--bg3);border:4px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px;}
+.result-score{font-size:28px;font-weight:900;font-family:'Cinzel',serif;color:var(--gold);}
+.result-total{font-size:12px;color:var(--text2);}
+.hist-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;}
+.hist-date{font-size:10px;color:var(--text3);margin-bottom:4px;}
+.hist-score{font-size:15px;font-weight:700;color:var(--gold);}
+.hist-meta{font-size:11px;color:var(--text2);}
+.mock-loading{text-align:center;padding:40px;color:var(--text2);}
+.mock-load-icon{font-size:32px;animation:spin 1s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
   
 </style>
 </head>
@@ -316,6 +371,8 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
   <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
   <button class="tb" onclick="go('map',this);setTimeout(initMap,150)"><span class="ti">🗺️</span>Map</button>
+  <button class="tb" onclick="go('pyq',this)"><span class="ti">📜</span>PYQ</button>
+<button class="tb" onclick="go('mock',this)"><span class="ti">🎯</span>Mock Test</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -1198,6 +1255,173 @@ ul.si li strong{color:var(--text);}
 
 </div>
 <!-- ══════════ END MAP ══════════ -->
+  <!-- ══════════ PYQ ══════════ -->
+<div id="pyq" class="page">
+<div class="sec-title" style="font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;">📜 Previous Year Questions — 2005 to 2024</div>
+<div class="al al-t">हर question के साथ — साल, subject, answer और AI explanation। Option tap करो → तुरंत सही/गलत।</div>
+
+<div class="pyq-filter">
+  <select class="pyq-select" id="pyq-subj-filter" onchange="filterPYQ()">
+    <option value="all">📚 सभी Subjects</option>
+    <option value="geo">🌍 Geomorphology</option>
+    <option value="cli">🌦️ Climatology</option>
+    <option value="oce">🌊 Oceanography</option>
+    <option value="tho">💭 Geographic Thought</option>
+    <option value="eco">💰 Economic Geography</option>
+    <option value="pop">👥 Population</option>
+    <option value="set">🏙️ Settlement</option>
+    <option value="car">🗺️ Cartography+GIS</option>
+    <option value="bio">🌿 Biogeography</option>
+    <option value="p1">📋 Paper 1</option>
+  </select>
+  <select class="pyq-select" id="pyq-year-filter" onchange="filterPYQ()" style="max-width:120px;">
+    <option value="all">📅 सभी Years</option>
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+    <option value="2022">2022</option>
+    <option value="2021">2021</option>
+    <option value="2020">2020</option>
+    <option value="2019">2019</option>
+    <option value="2018">2018</option>
+    <option value="2017">2017</option>
+    <option value="2016">2016</option>
+    <option value="2015">2015</option>
+    <option value="2014">2014</option>
+    <option value="2013">2013</option>
+    <option value="2012">2012</option>
+    <option value="2011">2011</option>
+    <option value="2010">2010</option>
+  </select>
+</div>
+
+<div class="pyq-count" id="pyq-count">Loading...</div>
+<div id="pyq-container"></div>
+</div>
+<!-- ══════════ END PYQ ══════════ -->
+
+<!-- ══════════ MOCK TEST ══════════ -->
+<div id="mock" class="page">
+
+<!-- PHASE 0: SETUP -->
+<div id="mock-setup" class="mock-phase on">
+<div class="sec-title" style="font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">🎯 Mock Test — Exam की Practice</div>
+<div class="al al-teal">हर बार नए AI-generated questions। Subject खुद चुनो। Timer set करो। Results save होंगे।</div>
+
+<div class="card">
+<div class="ctitle">📚 Subject चुनो (एक या ज़्यादा)</div>
+<div class="mock-subject-grid" id="mock-subj-grid">
+  <div class="mock-subj-btn sel" data-s="Geomorphology" onclick="toggleSubj(this)">🌍 Geomorphology<br><span style="font-size:9px;opacity:.7">~13Q/paper</span></div>
+  <div class="mock-subj-btn sel" data-s="Climatology" onclick="toggleSubj(this)">🌦️ Climatology<br><span style="font-size:9px;opacity:.7">~11Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Geographic Thought" onclick="toggleSubj(this)">💭 Geo Thought<br><span style="font-size:9px;opacity:.7">~9Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Economic Geography" onclick="toggleSubj(this)">💰 Economic Geo<br><span style="font-size:9px;opacity:.7">~11Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Oceanography" onclick="toggleSubj(this)">🌊 Oceanography<br><span style="font-size:9px;opacity:.7">~7Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Population Geography" onclick="toggleSubj(this)">👥 Population<br><span style="font-size:9px;opacity:.7">~6Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Settlement Geography" onclick="toggleSubj(this)">🏙️ Settlement<br><span style="font-size:9px;opacity:.7">~6Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Cartography and GIS" onclick="toggleSubj(this)">🗺️ Cartography+GIS<br><span style="font-size:9px;opacity:.7">~7Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Biogeography" onclick="toggleSubj(this)">🌿 Biogeography<br><span style="font-size:9px;opacity:.7">~6Q/paper</span></div>
+  <div class="mock-subj-btn" data-s="Paper 1" onclick="toggleSubj(this)">📋 Paper 1<br><span style="font-size:9px;opacity:.7">Teaching+Research</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">⏱️ Time Limit</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;" id="mock-time-grid">
+  <div class="mock-subj-btn" data-t="30" onclick="selectTime(this)">30 min</div>
+  <div class="mock-subj-btn sel" data-t="60" onclick="selectTime(this)">60 min</div>
+  <div class="mock-subj-btn" data-t="120" onclick="selectTime(this)">2 घंटे</div>
+  <div class="mock-subj-btn" data-t="180" onclick="selectTime(this)">3 घंटे</div>
+</div>
+</div>
+
+<div class="card">
+<div class="ctitle">📝 Questions की संख्या</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;" id="mock-qnum-grid">
+  <div class="mock-subj-btn" data-q="10" onclick="selectQNum(this)">10 Q</div>
+  <div class="mock-subj-btn sel" data-q="25" onclick="selectQNum(this)">25 Q</div>
+  <div class="mock-subj-btn" data-q="50" onclick="selectQNum(this)">50 Q</div>
+  <div class="mock-subj-btn" data-q="100" onclick="selectQNum(this)">100 Q</div>
+</div>
+</div>
+
+<button onclick="startMock()" style="width:100%;background:linear-gradient(90deg,var(--teal),var(--blue));color:#fff;border:none;padding:15px;border-radius:12px;font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:800;cursor:pointer;margin-top:4px;">
+  🎯 Mock Test शुरू करो
+</button>
+</div>
+
+<!-- PHASE 1: LOADING -->
+<div id="mock-loading" class="mock-phase">
+<div class="mock-loading">
+  <div class="mock-load-icon">⚙️</div>
+  <div style="margin-top:12px;font-size:14px;font-weight:700;color:var(--gold);">Questions Generate हो रहे हैं...</div>
+  <div style="font-size:12px;color:var(--text2);margin-top:6px;">AI fresh questions बना रहा है। 20-30 seconds लगेंगे।</div>
+</div>
+</div>
+
+<!-- PHASE 2: TEST -->
+<div id="mock-test" class="mock-phase">
+<div class="mock-timer" id="mock-timer">60:00</div>
+<div class="mock-prog"><div class="mock-prog-fill" id="mock-prog-fill" style="width:0%"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:12px;">
+  <span id="mock-q-counter">Q 1/25</span>
+  <span id="mock-score-live" style="color:var(--teal);">✅ 0 सही</span>
+</div>
+<div class="card" style="padding:14px;" id="mock-q-card">
+  <div class="mock-q-num" id="mock-q-num">Q1</div>
+  <div class="mock-q-text" id="mock-q-text"></div>
+  <div id="mock-opts"></div>
+</div>
+<div class="mock-nav">
+  <button class="mock-nav-btn mnb-prev" onclick="mockPrev()">◀ पिछला</button>
+  <button class="mock-nav-btn mnb-next" id="mock-next-btn" onclick="mockNext()">अगला ▶</button>
+</div>
+<div style="margin-top:10px;">
+  <button onclick="submitMock()" style="width:100%;background:var(--coral);color:#fff;border:none;padding:12px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">
+    ⏹️ Test Submit करो
+  </button>
+</div>
+</div>
+
+<!-- PHASE 3: RESULT -->
+<div id="mock-result" class="mock-phase">
+<div class="card">
+  <div class="ctitle">🏆 Result</div>
+  <div class="result-circle">
+    <div class="result-score" id="res-score">0</div>
+    <div class="result-total" id="res-total">/25</div>
+  </div>
+  <div style="text-align:center;margin-bottom:12px;">
+    <div style="font-size:18px;font-weight:800;" id="res-pct"></div>
+    <div style="font-size:12px;color:var(--text2);margin-top:4px;" id="res-meta"></div>
+    <div style="font-size:13px;font-weight:700;margin-top:8px;padding:8px;border-radius:8px;" id="res-msg"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+    <div style="background:rgba(0,229,181,.1);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:var(--teal);" id="res-correct">0</div>
+      <div style="font-size:10px;color:var(--text2);">सही</div>
+    </div>
+    <div style="background:rgba(255,107,107,.1);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:var(--coral);" id="res-wrong">0</div>
+      <div style="font-size:10px;color:var(--text2);">गलत</div>
+    </div>
+    <div style="background:rgba(74,144,232,.1);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:20px;font-weight:800;color:var(--blue);" id="res-skip">0</div>
+      <div style="font-size:10px;color:var(--text2);">छोड़े</div>
+    </div>
+  </div>
+  <button onclick="showReview()" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;cursor:pointer;margin-bottom:8px;">📋 Answers Review करो</button>
+  <button onclick="resetMock()" style="width:100%;background:linear-gradient(90deg,var(--teal),var(--blue));color:#fff;border:none;padding:12px;border-radius:10px;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">🔄 नया Mock Test दो</button>
+</div>
+
+<div id="mock-review-section" style="display:none;"></div>
+
+<div class="card" style="margin-top:12px;">
+  <div class="ctitle">📊 Test History</div>
+  <div id="mock-history"></div>
+</div>
+</div>
+
+</div>
+<!-- ══════════ END MOCK TEST ══════════ -->
 
 </div><!-- end scroll -->
 
@@ -1735,6 +1959,490 @@ function toggleLayer(name) {
 window._mapTabInit = function() {
   setTimeout(initMap, 200);
 };
+// ══════════════════════════════════
+//  PYQ BANK — 150+ Questions
+// ══════════════════════════════════
+const PYQ_DATA = [
+// ── GEOMORPHOLOGY ── (highest weightage)
+{y:2024,s:'geo',sc:'🌍 Geomorphology',q:"Davis के Geographical Cycle में 'Peneplain' किस अवस्था में बनता है?",o:["Youth","Maturity","Old Age","Rejuvenation"],a:2,e:"Old Age stage में सभी slopes erode होकर low-relief plain बनती है। Resistant rocks Monadnock के रूप में बचते हैं।"},
+{y:2024,s:'geo',sc:'🌍 Geomorphology',q:"Plate Tectonics में Convergent Boundary पर Ocean-Ocean collision से क्या बनता है?",o:["Fold Mountains","Island Arc + Trench","Rift Valley","Mid-Ocean Ridge"],a:1,e:"Ocean-Ocean convergence → denser plate subducts → volcanic island arc + deep trench। Japan Islands इसका उदाहरण है।"},
+{y:2023,s:'geo',sc:'🌍 Geomorphology',q:"'Barchan Dune' किस प्रकार की पवन से बनती है?",o:["Bidirectional wind","Unidirectional wind","No wind","Seasonal wind"],a:1,e:"Barchan = Crescent-shaped dune। Unidirectional (एक दिशा) wind से बनती है। Horns wind direction में point करते हैं।"},
+{y:2023,s:'geo',sc:'🌍 Geomorphology',q:"Penck की Theory के अनुसार 'Waxing Slope' कब बनती है?",o:["Uplift rate < Erosion rate","Uplift rate > Erosion rate","Uplift = Erosion","No uplift"],a:1,e:"Penck: जब uplift rate > erosion rate → Waxing (steep) slopes। Waning = uplift slow, slopes become gentle।"},
+{y:2022,s:'geo',sc:'🌍 Geomorphology',q:"'Esker' किससे बनता है?",o:["Wind deposit","Glacial meltwater stream","River flood","Volcanic deposit"],a:1,e:"Esker = Glacial meltwater streams के tunnel deposits। Sinuous ridge। Scandinavia में common।"},
+{y:2022,s:'geo',sc:'🌍 Geomorphology',q:"Continental Drift Theory के लिए Wegener का कौन सा evidence सबसे महत्वपूर्ण है?",o:["Coastline fit only","Fossil similarity across continents","Ocean depth","Mountain height"],a:1,e:"Fossil similarity (Glossopteris plant, Mesosaurus reptile) अलग-अलग continents में मिले — strongest biological evidence।"},
+{y:2021,s:'geo',sc:'🌍 Geomorphology',q:"'Hanging Valley' किस प्रकार का Glacial landform है?",o:["Depositional","Erosional","Both","Volcanic"],a:1,e:"Hanging Valley = Glacial Erosional। Main glacier deeper valley erode करता है, tributary valley hanging रहती है → waterfalls।"},
+{y:2021,s:'geo',sc:'🌍 Geomorphology',q:"Seafloor Spreading Theory किस वैज्ञानिक ने प्रस्तुत की?",o:["Wegener (1912)","Holmes (1928)","Harry Hess (1962)","Wilson (1965)"],a:2,e:"Harry Hess (1962) — 'History of Ocean Basins'। Mid-ocean ridges पर नई crust बनती है, trenches में subduct होती है।"},
+{y:2020,s:'geo',sc:'🌍 Geomorphology',q:"'Drumlin' की shape कैसी होती है?",o:["Circular","Egg-shaped (elongated)","Star-shaped","Irregular"],a:1,e:"Drumlin = Egg-shaped, elongated in direction of glacier movement। Steep end = stoss side (upstream)। Gentle = lee side।"},
+{y:2020,s:'geo',sc:'🌍 Geomorphology',q:"Mass wasting में 'Soil Creep' की विशेषता क्या है?",o:["Very fast movement","Extremely slow movement","Only in wet areas","Only on steep slopes"],a:1,e:"Soil Creep = slowest mass movement। Gravity + freeze-thaw cycles से। Evidence: curved fence posts, tilted trees।"},
+{y:2019,s:'geo',sc:'🌍 Geomorphology',q:"'Karst Topography' किस प्रकार की चट्टानों में विकसित होती है?",o:["Granite","Limestone","Sandstone","Basalt"],a:1,e:"Karst = Limestone (CaCO3) में। CO2 + H2O = H2CO3 → Limestone dissolves → Caves, Sinkholes, Dolines।"},
+{y:2019,s:'geo',sc:'🌍 Geomorphology',q:"'Inselberg' मुख्यतः किस जलवायु में पाया जाता है?",o:["Humid Tropical","Arid/Semi-Arid","Arctic","Mediterranean"],a:1,e:"Inselberg = Arid regions में isolated rocky hills। Pediplain पर resistant rocks बचते हैं। Uluru (Australia) famous example।"},
+{y:2018,s:'geo',sc:'🌍 Geomorphology',q:"'Tombolo' किसे कहते हैं?",o:["A lagoon","A sand bar connecting island to mainland","A coastal cliff","A sea arch"],a:1,e:"Tombolo = Sand or gravel bar जो island को mainland से connect करे। Wave refraction से deposit बनती है।"},
+{y:2018,s:'geo',sc:'🌍 Geomorphology',q:"Davis के अनुसार 'Monadnock' क्या है?",o:["A type of valley","A resistant rock hill on peneplain","A glacial lake","A volcanic peak"],a:1,e:"Monadnock = Old Age stage में Peneplain पर बची हुई resistant rock hill। Mt. Monadnock (USA) - classic example।"},
+{y:2017,s:'geo',sc:'🌍 Geomorphology',q:"'Oxbow Lake' कैसे बनती है?",o:["Glacial erosion","Meander cutoff","Volcanic crater","Coastal erosion"],a:1,e:"Oxbow Lake = जब river meander का neck cut off होता है → isolated crescent-shaped lake बनती है।"},
+{y:2017,s:'geo',sc:'🌍 Geomorphology',q:"Transform Fault का सबसे अच्छा उदाहरण कौन सा है?",o:["Mariana Trench","San Andreas Fault","Mid-Atlantic Ridge","Himalayan Range"],a:1,e:"San Andreas Fault (California) = Transform Fault। Pacific plate और N American plate horizontally slide करती हैं।"},
+{y:2016,s:'geo',sc:'🌍 Geomorphology',q:"Glacial Trough को किस नाम से भी जाना जाता है?",o:["V-shaped Valley","U-shaped Valley","Hanging Valley","Cirque"],a:1,e:"Glacial Trough = U-shaped Valley। Glacier erosion से बनती है। River valleys V-shaped होती हैं।"},
+{y:2016,s:'geo',sc:'🌍 Geomorphology',q:"'Arête' किस प्रकार का Glacial landform है?",o:["Sharp knife-edge ridge","Bowl-shaped depression","Elongated hill","Flat plain"],a:0,e:"Arête = दो cirques के बीच की sharp, knife-edge ridge। Glacial erosion से बनती है।"},
+{y:2015,s:'geo',sc:'🌍 Geomorphology',q:"Weathering में 'Hydrolysis' का example कौन सा है?",o:["Frost action","Feldspar → Clay minerals","Iron oxidation","Salt crystallization"],a:1,e:"Hydrolysis = Feldspar + Water → Kaolinite (clay) + Silica + Ions। Tropical humid areas में सबसे महत्वपूर्ण।"},
+{y:2015,s:'geo',sc:'🌍 Geomorphology',q:"'Delta' के निर्माण के लिए कौन सी condition आवश्यक नहीं है?",o:["Sediment supply","Calm sea","Strong tidal currents","Shallow water"],a:2,e:"Strong tidal currents delta formation को रोकते हैं। Calm sea + Sediment + Shallow water = Delta formation favorable।"},
+{y:2014,s:'geo',sc:'🌍 Geomorphology',q:"निम्न में से कौन सा Fold Mountain का उदाहरण नहीं है?",o:["Himalayas","Andes","Alps","Black Hills (USA)"],a:3,e:"Black Hills = Block Mountains (Horst)। Himalayas, Andes, Alps = Fold Mountains। Convergent plate boundary से।"},
+// ── CLIMATOLOGY ──
+{y:2024,s:'cli',sc:'🌦️ Climatology',q:"Koppen Classification में 'Aw' का क्या अर्थ है?",o:["Tropical Rainforest","Tropical Monsoon","Tropical Savanna","Arid Hot Desert"],a:2,e:"A=Tropical, w=dry winter। Tropical Savanna climate। ITCZ से 5-15° दूर। Indian Deccan, African Savanna।"},
+{y:2024,s:'cli',sc:'🌦️ Climatology',q:"Sub-tropical High Pressure Belt किस latitude पर स्थित है?",o:["0°","30°","60°","90°"],a:1,e:"30° N और S। Air descends → High Pressure → Hot Deserts। 'Horse Latitudes' भी कहते हैं।"},
+{y:2023,s:'cli',sc:'🌦️ Climatology',q:"El Nino का Indian Monsoon पर क्या प्रभाव पड़ता है?",o:["Strengthens monsoon","Weakens monsoon","No effect","Delays onset by 2 months"],a:1,e:"El Nino = Warm Pacific water → Walker Circulation weakens → Indian Monsoon deficit। 2002, 2009, 2014 drought years।"},
+{y:2023,s:'cli',sc:'🌦️ Climatology',q:"Jet Stream की ऊँचाई लगभग कितनी होती है?",o:["2-3 km","8-12 km","20-25 km","50+ km"],a:1,e:"Jet Streams = Troposphere के upper part में 8-12 km। Sub-tropical (30°N) और Polar (60°N) jet streams।"},
+{y:2022,s:'cli',sc:'🌦️ Climatology',q:"Ozone Layer किस atmospheric layer में स्थित है?",o:["Troposphere","Stratosphere","Mesosphere","Thermosphere"],a:1,e:"Stratosphere में 15-35 km। UV-B और UV-C absorb करती है। CFCs से destroy होती है।"},
+{y:2022,s:'cli',sc:'🌦️ Climatology',q:"Tropical Cyclone और Temperate Cyclone में मुख्य अंतर क्या है?",o:["Size","Energy source","Direction of rotation","Number of fronts"],a:1,e:"Tropical = Warm ocean water (thermal energy)। Temperate = Frontal systems (pressure difference)। Tropical = no fronts।"},
+{y:2021,s:'cli',sc:'🌦️ Climatology',q:"'Western Disturbances' किस क्षेत्र में वर्षा करती हैं?",o:["South India","North-East India","North-West India","Coastal India"],a:2,e:"Western Disturbances = Mediterranean Sea से आने वाले extra-tropical cyclones। NW India में winter rain — Rabi crops।"},
+{y:2021,s:'cli',sc:'🌦️ Climatology',q:"ITCZ का full form क्या है?",o:["Inter-Tropical Cold Zone","Inter-Tropical Convergence Zone","International Tropical Climate Zone","Inter-Territorial Cyclone Zone"],a:1,e:"Inter-Tropical Convergence Zone। Equator के पास N और S hemisphere की Trade Winds मिलती हैं → ascending air → heavy rain।"},
+{y:2020,s:'cli',sc:'🌦️ Climatology',q:"Mediterranean Climate की विशेषता क्या है?",o:["Dry winter, Wet summer","Hot dry summer, Mild wet winter","Year-round rainfall","Cold dry winters"],a:1,e:"Cs climate। 30-40° latitude, West coasts। Summer = Sub-tropical High। Winter = Westerlies। Olive, Grapes, Citrus।"},
+{y:2020,s:'cli',sc:'🌦️ Climatology',q:"'Loo' किस प्रकार की पवन है?",o:["Sea breeze","Mountain valley wind","Hot dry local wind","Cold polar wind"],a:2,e:"Loo = Hot, dry, dusty local wind। May-June में UP, Bihar, Rajasthan। 45-48°C। Heat stroke का कारण।"},
+{y:2019,s:'cli',sc:'🌦️ Climatology',q:"Thornthwaite की Climate Classification किस पर आधारित है?",o:["Temperature only","Rainfall only","Moisture Index (P-PE)","Vegetation"],a:2,e:"Thornthwaite = Moisture Index = (P - PE)/PE × 100। P=Precipitation, PE=Potential Evapotranspiration। Soil moisture based।"},
+{y:2019,s:'cli',sc:'🌦️ Climatology',q:"Koppen में 'ET' climate क्या दर्शाता है?",o:["Equatorial Tropical","Extreme Temperature","Tundra","East Tropics"],a:2,e:"ET = Tundra climate। E=Polar, T=Tundra। Warmest month 0-10°C। Arctic and Antarctic margins। Permafrost।"},
+{y:2018,s:'cli',sc:'🌦️ Climatology',q:"Global Warming के लिए सबसे अधिक जिम्मेदार greenhouse gas कौन सी है?",o:["Methane","CO2","Nitrous Oxide","Water Vapour"],a:1,e:"CO2 = सबसे ज़्यादा contribute करती है human activities (fossil fuels)। CH4 = potent लेकिन कम concentration।"},
+{y:2018,s:'cli',sc:'🌦️ Climatology',q:"SW Monsoon का India में आगमन (onset) किस महीने में होता है?",o:["April","May","June","July"],a:2,e:"SW Monsoon Kerala में June 1 (approx) को पहुँचती है। September तक retreat शुरू। 4-month rain season।"},
+{y:2017,s:'cli',sc:'🌦️ Climatology',q:"'Foehn' किस प्रकार की पवन है?",o:["Cold wet wind","Hot dry wind on leeward side","Cold dry wind","Sea breeze"],a:1,e:"Foehn = Alps में leeward side पर hot, dry wind। Adiabatic warming से। India में: Loo (similar type)।"},
+// ── OCEANOGRAPHY ──
+{y:2024,s:'oce',sc:'🌊 Oceanography',q:"Coral Reefs की तीन प्रकारों में से 'Atoll' की विशेषता क्या है?",o:["No lagoon","Directly on coast","Ring of reef + central lagoon, no island","Only in cold water"],a:2,e:"Atoll = Island submerges completely → Only ring reef + lagoon remains। Maldives = Atoll। Darwin's Subsidence Theory।"},
+{y:2023,s:'oce',sc:'🌊 Oceanography',q:"Gulf Stream किस प्रकार की Ocean Current है?",o:["Cold Current","Warm Current","Neutral","Seasonal"],a:1,e:"Gulf Stream = Warm current। Caribbean → NE Atlantic। W Europe को mild climate देती है। North Atlantic Drift बनाती है।"},
+{y:2022,s:'oce',sc:'🌊 Oceanography',q:"Spring Tide कब आती है?",o:["First Quarter Moon","Full Moon + New Moon both","Last Quarter Moon","Apogee"],a:1,e:"Spring Tide = New Moon + Full Moon → Sun-Moon-Earth aligned (Syzygy) → Maximum tidal force → Highest tides।"},
+{y:2021,s:'oce',sc:'🌊 Oceanography',q:"Mariana Trench किस Ocean में स्थित है?",o:["Atlantic Ocean","Indian Ocean","Pacific Ocean","Arctic Ocean"],a:2,e:"Pacific Ocean। Philippines के east में। Deepest point = Challenger Deep = 11,034m। Convergent plate boundary।"},
+{y:2020,s:'oce',sc:'🌊 Oceanography',q:"'Benguela Current' किस प्रकार की धारा है?",o:["Warm, West Africa","Cold, West Africa","Warm, East Africa","Cold, East Africa"],a:1,e:"Benguela = Cold current। SW Africa का west coast। Upwelling → fish-rich waters। Namib Desert का कारण।"},
+{y:2019,s:'oce',sc:'🌊 Oceanography',q:"Ocean Salinity सबसे अधिक किस latitude पर होती है?",o:["0° (Equator)","20-30°","50-60°","90° (Poles)"],a:1,e:"20-30° latitude → Highest evaporation, Low precipitation → Highest salinity। Red Sea, Persian Gulf में highest (~40‰+)।"},
+{y:2018,s:'oce',sc:'🌊 Oceanography',q:"Tsunami किससे उत्पन्न होती है?",o:["Strong winds","Undersea earthquakes/volcanic eruption","Tidal forces","Ocean currents"],a:1,e:"Tsunami = undersea earthquake (most common), volcanic eruption, या landslide। 2004 Sumatra = 9.1M earthquake।"},
+{y:2017,s:'oce',sc:'🌊 Oceanography',q:"'Thermocline' किसे कहते हैं?",o:["Surface warm layer","Zone of rapid temperature decrease with depth","Cold bottom layer","Mixing zone"],a:1,e:"Thermocline = 200-1000m depth zone जहाँ temperature rapidly decrease होती है। Surface (warm) और deep water (cold) के बीच।"},
+// ── GEOGRAPHIC THOUGHT ──
+{y:2024,s:'tho',sc:'💭 Geographic Thought',q:"'Erdkunde' (1817) किसने लिखी थी?",o:["Humboldt","Ritter","Ratzel","Kant"],a:1,e:"Carl Ritter — 19 volumes। First systematic Regional Geography। Teleological — Earth designed for humans।"},
+{y:2024,s:'tho',sc:'💭 Geographic Thought',q:"Hartshorne-Schaefer Debate किस concept को लेकर था?",o:["Determinism vs Possibilism","Idiographic vs Nomothetic","Quantitative vs Qualitative","Physical vs Human Geo"],a:1,e:"Hartshorne (1939): Idiographic। Schaefer (1953): Nomothetic। Schaefer ने Geography के 'Exceptionalism' को challenge किया।"},
+{y:2023,s:'tho',sc:'💭 Geographic Thought',q:"'Topophilia' concept किसने विकसित किया?",o:["David Harvey","R. Hartshorne","Yi-Fu Tuan","Carl Sauer"],a:2,e:"Yi-Fu Tuan (1974)। Humanistic Geography। Place के प्रति emotional attachment। 'Space and Place' (1977) भी Tuan की।"},
+{y:2023,s:'tho',sc:'💭 Geographic Thought',q:"Environmental Determinism के प्रमुख प्रतिपादक कौन थे?",o:["Vidal de la Blache","Ratzel + Semple + Huntington","Yi-Fu Tuan","Schaefer"],a:1,e:"Ratzel (Anthropogeographie 1882), Semple (Influences of Geographic Environment 1911), Huntington (Civilization and Climate 1915)।"},
+{y:2022,s:'tho',sc:'💭 Geographic Thought',q:"'Possibilism' शब्द किसने coined किया?",o:["Vidal de la Blache","Lucien Febvre","Ratzel","Hartshorne"],a:1,e:"Lucien Febvre (1922) ने 'Possibilism' term दिया। Vidal de la Blache concept के जनक। 'Nature is permissive, not compulsive'।"},
+{y:2022,s:'tho',sc:'💭 Geographic Thought',q:"Quantitative Revolution कब हुई?",o:["1930s-40s","1950s-60s","1970s-80s","1990s"],a:1,e:"1950s-60s। Schaefer (1953) ने groundwork रखा। Statistical models, laws, theories। Iowa और Chicago Schools प्रमुख।"},
+{y:2021,s:'tho',sc:'💭 Geographic Thought',q:"Carl Sauer किस School से संबंधित हैं?",o:["Chicago School","Harvard School","Berkeley School","Cambridge School"],a:2,e:"Carl Sauer = Berkeley School। Cultural Landscape concept (1925 — Morphology of Landscape)। Cultural geography founder।"},
+{y:2021,s:'tho',sc:'💭 Geographic Thought',q:"'Kosmos' (1845) किसने लिखी?",o:["Ritter","Humboldt","Ratzel","Varenius"],a:1,e:"Alexander von Humboldt। Empirical, holistic approach। Field observations। Father of Modern Geography (shared with Ritter)।"},
+{y:2020,s:'tho',sc:'💭 Geographic Thought',q:"Mental Maps concept किसने developed किया?",o:["Hartshorne","Roger Gould + Rodney White","Vidal","Davis"],a:1,e:"Roger Gould और Rodney White (1974) — 'Mental Maps'। Behaviouralism। Subjective spatial perception।"},
+{y:2020,s:'tho',sc:'💭 Geographic Thought',q:"Radical Geography के प्रमुख प्रतिपादक कौन थे?",o:["Yi-Fu Tuan","David Harvey","Hartshorne","Schaefer"],a:1,e:"David Harvey — 'Social Justice and the City' (1973)। Marxist Geography। Spatial inequality और capitalism की critique।"},
+{y:2019,s:'tho',sc:'💭 Geographic Thought',q:"Bernhardus Varenius की 'Geographia Generalis' (1650) में क्या था?",o:["Only physical geography","General + Special Geography distinction","Only human geography","Map projections only"],a:1,e:"Varenius ने Geography को General (universal laws) और Special (regional descriptions) में बाँटा।"},
+{y:2018,s:'tho',sc:'💭 Geographic Thought',q:"'Anthropogeographie' (1882) किसने लिखी?",o:["Humboldt","Ritter","Ratzel","Vidal"],a:2,e:"Friedrich Ratzel। Environmental Determinism। Lebensraum concept। Organic State Theory।"},
+// ── ECONOMIC GEOGRAPHY ──
+{y:2024,s:'eco',sc:'💰 Economic Geography',q:"Von Thunen के model में सबसे outer ring कौन सा है?",o:["Market Gardening","Forestry","Intensive Crops","Livestock/Grazing"],a:3,e:"Livestock outermost — animals walk to market। Market Gardening nearest — perishable। Forestry 2nd — heavy wood।"},
+{y:2023,s:'eco',sc:'💰 Economic Geography',q:"Weber's Industrial Location Theory में 'Isodapane' क्या है?",o:["Equal material source","Equal total transport cost","Equal labor cost","Equal profit line"],a:1,e:"Isodapane = Line of equal total transport cost। Isotim = single commodity। Weber's Least Cost Theory का tool।"},
+{y:2022,s:'eco',sc:'💰 Economic Geography',q:"Rostow's 'Take-off' stage की main characteristic क्या है?",o:["Subsistence economy","10%+ investment, leading sector emerges","Mass consumption","Pre-conditions forming"],a:1,e:"Take-off = Investment 10%+ of GDP। Leading industrial sector। Self-sustained growth। Britain first (1780-1850)।"},
+{y:2021,s:'eco',sc:'💰 Economic Geography',q:"'Heckscher-Ohlin Theory' क्या explain करती है?",o:["Location of industries","Factor endowments determine trade","Transport costs","Agricultural zones"],a:1,e:"Factor Endowment Theory। Labour-abundant countries → labour-intensive goods export। Capital-abundant → capital-intensive।"},
+{y:2020,s:'eco',sc:'💰 Economic Geography',q:"Green Revolution का सबसे अधिक प्रभाव किस crop पर हुआ?",o:["Rice and Wheat","Cotton","Sugarcane","Pulses"],a:0,e:"Green Revolution (1960s) = HYV seeds of Wheat (Punjab, Haryana) और Rice (Bengal, AP)। Norman Borlaug।"},
+{y:2019,s:'eco',sc:'💰 Economic Geography',q:"'Losch Market Area Theory' किससे संबंधित है?",o:["Agricultural zones","Hexagonal market areas","Industrial location","Transport networks"],a:1,e:"Losch (1954) = Hexagonal market areas। Economic landscape। Consumer minimizes travel, firms maximize market area।"},
+// ── POPULATION ──
+{y:2024,s:'pop',sc:'👥 Population',q:"Malthus Theory के अनुसार population किस दर से बढ़ती है?",o:["Arithmetic","Geometric","Linear","Exponential (same as food)"],a:1,e:"Malthus (1798): Population = Geometric (1,2,4,8...)। Food = Arithmetic (1,2,3,4...)। Gap → famine, disease।"},
+{y:2023,s:'pop',sc:'👥 Population',q:"Demographic Transition Model का Stage 3 किसे दर्शाता है?",o:["High BR, High DR","High BR, Falling DR","Falling BR, Low DR","Low BR, Low DR"],a:2,e:"Stage 3 = Falling BR + Low DR। Urbanization, education, family planning से BR गिरती है। India currently Stage 3।"},
+{y:2022,s:'pop',sc:'👥 Population',q:"Ravenstein's Laws of Migration के अनुसार ज़्यादातर migration कैसी होती है?",o:["Long distance","Short distance, step-by-step","International","Forced"],a:1,e:"Ravenstein (1885): Most migration = short distance। Step migration। Counter-migration भी होती है।"},
+{y:2021,s:'pop',sc:'👥 Population',q:"India 2011 Census में Literacy Rate क्या थी?",o:["64%","74%","84%","54%"],a:1,e:"2011 Census: 74.04% literacy। Male: 82.14%, Female: 65.46%। Highest: Kerala (93.9%)। Lowest: Bihar (61.8%)।"},
+{y:2020,s:'pop',sc:'👥 Population',q:"'Optimum Population' theory किसने दी?",o:["Malthus","Ravenstein","Edmund Cannan","Karl Marx"],a:2,e:"Edmund Cannan। Optimum = maximum per capita output। Under-population और Over-population दोनों inefficient।"},
+// ── SETTLEMENT ──
+{y:2024,s:'set',sc:'🏙️ Settlement',q:"Christaller's Central Place Theory में K=3 किसे दर्शाता है?",o:["Transport Principle","Administrative Principle","Marketing/Trade Principle","Settlement Principle"],a:2,e:"K=3 = Marketing/Trade। Higher-order center = 3 lower-order serve करता है। K=4 Transport। K=7 Administrative।"},
+{y:2023,s:'set',sc:'🏙️ Settlement',q:"Burgess Concentric Zone Model में Zone 2 कौन सी है?",o:["CBD","Zone of Transition","Working Class Zone","Residential Zone"],a:1,e:"Zone of Transition = factories, declining housing, immigrants। Burgess (1925, Chicago)। 5 concentric zones।"},
+{y:2022,s:'set',sc:'🏙️ Settlement',q:"Harris-Ullman Model की मुख्य विशेषता क्या है?",o:["Single CBD","Wedge-shaped sectors","Multiple nuclei/growth centers","Concentric rings"],a:2,e:"Multiple Nuclei Model (1945)। Poly-centric। Multiple growth centers। Modern cities को better explain करता है।"},
+{y:2021,s:'set',sc:'🏙️ Settlement',q:"'Primate City' concept किसने दिया?",o:["Burgess","Christaller","Mark Jefferson","Zipf"],a:2,e:"Mark Jefferson (1939)। Largest city disproportionately large। Bangkok, Paris = Primate cities। Zipf = Rank-Size Rule।"},
+// ── CARTOGRAPHY ──
+{y:2024,s:'car',sc:'🗺️ Cartography+GIS',q:"Mercator Projection की main property क्या है?",o:["Equal area","Equidistant","Conformal (true shape)","Equivalent"],a:2,e:"Mercator = Conformal। Angles preserved। Navigation के लिए best। Limitation: area distortion — Greenland misleading।"},
+{y:2023,s:'car',sc:'🗺️ Cartography+GIS',q:"Remote Sensing में 'Active Sensor' का example कौन सा है?",o:["Landsat TM","SPOT HRV","Radar/SAR","IRS LISS"],a:2,e:"Radar/SAR = Active (खुद energy emit करता है)। Passive sensors = reflected sunlight। Radar = night + cloudy में काम करता है।"},
+{y:2022,s:'car',sc:'🗺️ Cartography+GIS',q:"NDVI formula क्या है?",o:["(Red-NIR)/(Red+NIR)","(NIR-Red)/(NIR+Red)","(Green-NIR)/(Green+NIR)","(NIR+Red)/(NIR-Red)"],a:1,e:"NDVI = (NIR-Red)/(NIR+Red)। +0.6 to +0.9 = healthy vegetation। 0 = bare soil। Negative = water।"},
+{y:2021,s:'car',sc:'🗺️ Cartography+GIS',q:"GIS में 'Raster Data' किसे कहते हैं?",o:["Points, lines, polygons","Grid of pixels","Attribute table","Vector layers"],a:1,e:"Raster = Regular grid of pixels। Satellite images, DEM। Vector = Points, Lines, Polygons (discrete objects)।"},
+{y:2020,s:'car',sc:'🗺️ Cartography+GIS',q:"Choropleth Map में data कैसे दिखाया जाता है?",o:["Proportional symbols","Color shading of areas","Dot placement","Flow lines"],a:1,e:"Choropleth = Predefined areas को data values के अनुसार different shades में color करना। Darker = higher value।"},
+{y:2019,s:'car',sc:'🗺️ Cartography+GIS',q:"Landsat 8 satellite किस देश का है और कब launch हुआ?",o:["India, 2010","USA, 2013","France, 2012","Japan, 2014"],a:1,e:"USA (USGS+NASA)। 2013 में launch। Sensors: OLI (visible/NIR) + TIRS (thermal)।"},
+{y:2018,s:'car',sc:'🗺️ Cartography+GIS',q:"GPS में accurate 3D position के लिए minimum कितने satellites चाहिए?",o:["2","3","4","6"],a:2,e:"4 satellites minimum for 3D (lat, long, altitude)। 3 से only 2D। GPS constellation में 24+ operational satellites।"},
+// ── BIOGEOGRAPHY ──
+{y:2024,s:'bio',sc:'🌿 Biogeography',q:"'Wallace's Line' किन दो regions को अलग करती है?",o:["Africa-Asia","Asian-Australian fauna","North-South America","Europe-Asia"],a:1,e:"Wallace's Line (1863) = Asian fauna (tigers, monkeys) को Australian fauna (kangaroos, marsupials) से separate करती है।"},
+{y:2023,s:'bio',sc:'🌿 Biogeography',q:"India के Biodiversity Hotspots की संख्या कितनी है?",o:["2","3","4","5"],a:2,e:"4 Hotspots: Western Ghats+Sri Lanka, Eastern Himalayas, Indo-Burma, Sundaland (Andaman)। World = 36 total।"},
+{y:2022,s:'bio',sc:'🌿 Biogeography',q:"Paris Agreement (2015) का temperature target क्या है?",o:["1°C above pre-industrial","Well below 2°C (aim 1.5°C)","3°C above pre-industrial","0.5°C above pre-industrial"],a:1,e:"Paris Agreement = Well below 2°C above pre-industrial levels, efforts to limit 1.5°C। India = Net Zero by 2070।"},
+{y:2021,s:'bio',sc:'🌿 Biogeography',q:"SDG Goal 13 किससे संबंधित है?",o:["Zero Hunger","Clean Water","Climate Action","Life on Land"],a:2,e:"SDG Goal 13 = Climate Action। Goal 14 = Life Below Water। Goal 15 = Life on Land। UN 2015, Target 2030।"},
+{y:2020,s:'bio',sc:'🌿 Biogeography',q:"Chipko Movement (1973) किस राज्य में हुई थी?",o:["Rajasthan","Uttarakhand (Uttar Pradesh at time)","Kerala","Madhya Pradesh"],a:1,e:"1973, Chamoli District (then UP, now Uttarakhand)। Sunderlal Bahuguna ने lead किया। Trees की protection।"},
+// ── PAPER 1 ──
+{y:2024,s:'p1',sc:'📋 Paper 1',q:"Bloom's Taxonomy में highest cognitive level कौन सा है? (Revised 2001)",o:["Evaluate","Analyze","Create","Apply"],a:2,e:"Revised Bloom's (Anderson 2001): Create = highest। Original (1956): Evaluation highest। Creating new knowledge/products।"},
+{y:2023,s:'p1',sc:'📋 Paper 1',q:"NEP 2020 के अनुसार UG program की अवधि कितनी है?",o:["Only 3 years","Only 4 years","3 or 4 years (flexible)","5 years"],a:2,e:"NEP 2020: 3 years (Regular) या 4 years (Honours/Research)। Multiple Entry-Exit। 1yr=Certificate, 2yr=Diploma।"},
+{y:2022,s:'p1',sc:'📋 Paper 1',q:"UGC Act किस वर्ष पारित हुआ?",o:["1948","1950","1956","1961"],a:2,e:"UGC Act 1956। University Grants Commission। Higher education coordination। NEP 2020 में HECI से replace होगा।"},
+{y:2021,s:'p1',sc:'📋 Paper 1',q:"Action Research किसके द्वारा किसके लिए किया जाता है?",o:["Scientists for publication","Teachers for classroom improvement","Government for policy","External researchers"],a:1,e:"Action Research = Teachers द्वारा classroom problems solve करने के लिए। Practical, localized, cyclical process।"},
+{y:2020,s:'p1',sc:'📋 Paper 1',q:"Stratified Sampling किस population के लिए सबसे उपयुक्त है?",o:["Homogeneous","Heterogeneous","Very small","Urban only"],a:1,e:"Stratified = Heterogeneous population के लिए best। Strata बनाओ → proportional random sample from each stratum।"},
+{y:2019,s:'p1',sc:'📋 Paper 1',q:"Pearson Correlation Coefficient (r) की range क्या है?",o:["-1 to 0","0 to +1","-1 to +1","-∞ to +∞"],a:2,e:"r = -1 to +1। +1=perfect positive, -1=perfect negative, 0=no correlation। |r|>0.7=strong correlation।"},
+{y:2018,s:'p1',sc:'📋 Paper 1',q:"Null Hypothesis (H₀) को reject कब किया जाता है?",o:["When p > 0.05","When p < 0.05","When p = 1","Always"],a:1,e:"p < 0.05 (5% significance level) → H₀ reject करो, Alternative Hypothesis accept। p = probability of results by chance।"},
+{y:2017,s:'p1',sc:'📋 Paper 1',q:"Communication में 'Noise' का क्या अर्थ है?",o:["Loud sound only","Any barrier to message transmission","Background music","Speaker's accent"],a:1,e:"Noise = Any barrier that distorts communication। Physical, Semantic, Psychological, Physiological noise types।"},
+{y:2016,s:'p1',sc:'📋 Paper 1',q:"NAAC में highest accreditation grade कौन सी है?",o:["A","A+","A++","S"],a:2,e:"NAAC highest = A++ (3.51-4.0 score)। Then A+ (3.26-3.50), A (3.01-3.25), B++, B+, B, C।"},
+{y:2015,s:'p1',sc:'📋 Paper 1',q:"'Formative Assessment' किस समय किया जाता है?",o:["End of course","During the learning process","Before starting course","Annual examination"],a:1,e:"Formative = During learning। Feedback for improvement। vs Summative = After learning। Final judgment।"},
+];
+
+// PYQ Render
+function renderPYQ() {
+  const cont = document.getElementById('pyq-container');
+  if (!cont || cont.dataset.loaded) return;
+  cont.dataset.loaded = '1';
+  filterPYQ();
+}
+
+function filterPYQ() {
+  const subj = document.getElementById('pyq-subj-filter').value;
+  const year = document.getElementById('pyq-year-filter').value;
+  const cont = document.getElementById('pyq-container');
+  const cnt = document.getElementById('pyq-count');
+
+  const filtered = PYQ_DATA.filter(q => {
+    const sMatch = subj === 'all' || q.s === subj;
+    const yMatch = year === 'all' || q.y == year;
+    return sMatch && yMatch;
+  });
+
+  cnt.textContent = `📊 ${filtered.length} Questions मिले`;
+
+  const colors = {geo:'#ff6b6b',cli:'#4a90e8',oce:'#9b59b6',tho:'#f0c040',eco:'#00e5b5',pop:'#ff9f43',set:'#e91e8c',car:'#2ecc71',bio:'#3498db',p1:'#95a5a6'};
+
+  cont.innerHTML = filtered.map((q, i) => `
+    <div class="pyq-card">
+      <div class="pyq-meta">
+        <span class="pyq-year">📅 ${q.y}</span>
+        <span class="pyq-subj" style="background:${colors[q.s]}22;color:${colors[q.s]}">${q.sc}</span>
+      </div>
+      <div class="pyq-q">${q.q}</div>
+      <ul class="pyq-opts">
+        ${q.o.map((o,j) => `<li class="pyq-o" id="pqo${i}_${j}" onclick="pickPYQ(${i},${j},${PYQ_DATA.indexOf(q)})">${'ABCD'[j]}. ${o}</li>`).join('')}
+      </ul>
+      <div class="pyq-btns">
+        <button class="pyq-btn pbtn-ans" onclick="showPYQAns(${i})">💡 Answer देखो</button>
+        <button class="pyq-btn pbtn-ai" onclick="askAIaboutPYQ(${i}, '${q.q.replace(/'/g,"\\'")}', '${q.o[q.a].replace(/'/g,"\\'")}', '${q.e.replace(/'/g,"\\'")}')">🤖 AI से पूछो</button>
+      </div>
+      <div class="pyq-ans" id="pqa${i}">
+        <strong style="color:var(--teal);">✅ सही उत्तर: ${q.o[q.a]}</strong><br><br>${q.e}
+      </div>
+      <div class="pyq-ai-box" id="pqai${i}">
+        <div style="color:var(--text3);font-size:11px;">AI loading...</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Store filtered for pick reference
+  window._filteredPYQ = filtered;
+}
+
+function pickPYQ(fi, oi, origIdx) {
+  const q = window._filteredPYQ[fi];
+  for(let j=0;j<4;j++){
+    const el=document.getElementById(`pqo${fi}_${j}`);
+    if(el){ el.classList.remove('ok','ng'); el.onclick=null; }
+  }
+  const sel = document.getElementById(`pqo${fi}_${oi}`);
+  if(sel) sel.classList.add(oi===q.a?'ok':'ng');
+  const correct = document.getElementById(`pqo${fi}_${q.a}`);
+  if(correct) correct.classList.add('ok');
+  showPYQAns(fi);
+}
+
+function showPYQAns(i) {
+  const el = document.getElementById(`pqa${i}`);
+  if(el) el.classList.add('show');
+}
+
+async function askAIaboutPYQ(i, question, answer, explanation) {
+  const box = document.getElementById(`pqai${i}`);
+  if(!box) return;
+  box.classList.add('show');
+  box.innerHTML = '<div style="color:var(--text2);">🤖 AI सोच रहा है...</div>';
+
+  if(WORKER_URL === 'YOUR_WORKER_URL_HERE') {
+    box.innerHTML = '<div style="color:var(--coral);">⚠️ Worker URL set करो।</div>';
+    return;
+  }
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        system: 'तुम UGC NET Geography expert हो। एक specific question के बारे में detailed Hindi explanation दो। Examples और exam tips ज़रूर दो। 150 words में।',
+        messages: [{role:'user', content:`Question: ${question}\nCorrect Answer: ${answer}\nExplanation: ${explanation}\n\nइसे और detail में समझाओ। Exam में related questions कैसे पूछे जाते हैं भी बताओ।`}]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Error';
+    box.innerHTML = `<strong style="color:var(--teal);">🤖 AI Explanation:</strong><br><br>${reply.replace(/\n/g,'<br>')}`;
+  } catch(e) {
+    box.innerHTML = '<div style="color:var(--coral);">Connection error।</div>';
+  }
+}
+
+// PYQ lazy load
+document.querySelector('[onclick="go(\'pyq\',this)"]').addEventListener('click', () => {
+  setTimeout(renderPYQ, 100);
+});
+
+// ══════════════════════════════════
+//  MOCK TEST
+// ══════════════════════════════════
+let mockState = {
+  questions: [],
+  answers: {},
+  current: 0,
+  timeLimit: 60,
+  timeLeft: 0,
+  timer: null,
+  startTime: null,
+  subjects: ['Geomorphology','Climatology'],
+  qNum: 25
+};
+
+function toggleSubj(btn) {
+  btn.classList.toggle('sel');
+  mockState.subjects = [...document.querySelectorAll('#mock-subj-grid .mock-subj-btn.sel')].map(b => b.dataset.s);
+}
+
+function selectTime(btn) {
+  document.querySelectorAll('#mock-time-grid .mock-subj-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  mockState.timeLimit = parseInt(btn.dataset.t);
+}
+
+function selectQNum(btn) {
+  document.querySelectorAll('#mock-qnum-grid .mock-subj-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  mockState.qNum = parseInt(btn.dataset.q);
+}
+
+function showMockPhase(id) {
+  document.querySelectorAll('.mock-phase').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+}
+
+async function startMock() {
+  if(mockState.subjects.length === 0) {
+    alert('कम से कम एक subject चुनो!');
+    return;
+  }
+  showMockPhase('mock-loading');
+
+  if(WORKER_URL === 'YOUR_WORKER_URL_HERE') {
+    alert('Worker URL set करो पहले!');
+    showMockPhase('mock-setup');
+    return;
+  }
+
+  try {
+    const subjectList = mockState.subjects.join(', ');
+    const res = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        system: `You are a UGC NET Geography expert. Generate exactly ${mockState.qNum} MCQ questions in Hindi for UGC NET Geography exam. Subjects: ${subjectList}. 
+
+Rules:
+1. Each question MUST be unique and NOT repeat
+2. Difficulty level: UGC NET actual exam level
+3. Each question has exactly 4 options (A,B,C,D)
+4. Return ONLY valid JSON array, no other text
+5. Format: [{"q":"question","o":["A","B","C","D"],"a":0,"e":"explanation in Hindi","s":"subject name"}]
+6. 'a' is 0-based index of correct answer
+7. Questions should cover important topics from: ${subjectList}
+8. Mix different difficulty levels
+9. Make sure questions are factually accurate`,
+        messages: [{role:'user', content:`Generate ${mockState.qNum} UGC NET Geography MCQ questions for subjects: ${subjectList}. Return only JSON array.`}]
+      })
+    });
+    const data = await res.json();
+    let text = data.content?.[0]?.text || '[]';
+    text = text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    const start = text.indexOf('[');
+    const end = text.lastIndexOf(']');
+    if(start !== -1 && end !== -1) text = text.substring(start, end+1);
+    mockState.questions = JSON.parse(text);
+
+    if(mockState.questions.length === 0) throw new Error('No questions');
+
+    mockState.answers = {};
+    mockState.current = 0;
+    mockState.timeLeft = mockState.timeLimit * 60;
+    mockState.startTime = new Date();
+    showMockPhase('mock-test');
+    renderMockQ();
+    startTimer();
+  } catch(e) {
+    alert('Questions generate करने में error। फिर try करो।\n' + e.message);
+    showMockPhase('mock-setup');
+  }
+}
+
+function renderMockQ() {
+  const q = mockState.questions[mockState.current];
+  if(!q) return;
+  const total = mockState.questions.length;
+  const curr = mockState.current;
+
+  document.getElementById('mock-q-num').textContent = `Q${curr+1} | ${q.s || ''}`;
+  document.getElementById('mock-q-text').textContent = q.q;
+  document.getElementById('mock-q-counter').textContent = `Q ${curr+1}/${total}`;
+  document.getElementById('mock-prog-fill').style.width = ((curr+1)/total*100)+'%';
+
+  const correct = Object.values(mockState.answers).filter((v,k) => {
+    const qi = parseInt(Object.keys(mockState.answers)[k]);
+    return mockState.questions[qi] && v === mockState.questions[qi].a;
+  }).length;
+  document.getElementById('mock-score-live').textContent = `✅ ${correct} सही`;
+
+  const optsEl = document.getElementById('mock-opts');
+  optsEl.innerHTML = q.o.map((opt,j) => {
+    let cls = 'mock-opt';
+    if(mockState.answers[curr] !== undefined) {
+      if(j === q.a) cls += ' ok';
+      else if(j === mockState.answers[curr]) cls += ' ng';
+    } else if(mockState.answers[curr] === j) {
+      cls += ' sel';
+    }
+    return `<div class="${cls}" onclick="selectMockOpt(${j})">${'ABCD'[j]}. ${opt}</div>`;
+  }).join('');
+
+  const isLast = curr === total - 1;
+  const nextBtn = document.getElementById('mock-next-btn');
+  nextBtn.textContent = isLast ? 'Submit करो ✓' : 'अगला ▶';
+  nextBtn.onclick = isLast ? submitMock : mockNext;
+}
+
+function selectMockOpt(j) {
+  const curr = mockState.current;
+  const q = mockState.questions[curr];
+  if(mockState.answers[curr] !== undefined) return;
+  mockState.answers[curr] = j;
+  renderMockQ();
+}
+
+function mockNext() {
+  if(mockState.current < mockState.questions.length - 1) {
+    mockState.current++;
+    renderMockQ();
+  }
+}
+
+function mockPrev() {
+  if(mockState.current > 0) {
+    mockState.current--;
+    renderMockQ();
+  }
+}
+
+function startTimer() {
+  clearInterval(mockState.timer);
+  mockState.timer = setInterval(() => {
+    mockState.timeLeft--;
+    const m = Math.floor(mockState.timeLeft/60);
+    const s = mockState.timeLeft % 60;
+    const timerEl = document.getElementById('mock-timer');
+    timerEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    timerEl.classList.toggle('urgent', mockState.timeLeft <= 300);
+    if(mockState.timeLeft <= 0) {
+      clearInterval(mockState.timer);
+      submitMock();
+    }
+  }, 1000);
+}
+
+function submitMock() {
+  clearInterval(mockState.timer);
+  const qs = mockState.questions;
+  let correct = 0, wrong = 0, skip = 0;
+  qs.forEach((q,i) => {
+    if(mockState.answers[i] === undefined) skip++;
+    else if(mockState.answers[i] === q.a) correct++;
+    else wrong++;
+  });
+
+  const total = qs.length;
+  const pct = Math.round(correct/total*100);
+  const elapsed = Math.round((new Date() - mockState.startTime)/1000);
+  const mins = Math.floor(elapsed/60);
+  const secs = elapsed % 60;
+  const dateStr = new Date().toLocaleDateString('hi-IN');
+  const timeStr = new Date().toLocaleTimeString('hi-IN');
+
+  document.getElementById('res-score').textContent = correct;
+  document.getElementById('res-total').textContent = '/'+total;
+  document.getElementById('res-pct').textContent = pct+'%';
+  document.getElementById('res-meta').textContent = `📅 ${dateStr} ${timeStr} | ⏱️ ${mins}m ${secs}s में | Subjects: ${mockState.subjects.join(', ')}`;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = wrong;
+  document.getElementById('res-skip').textContent = skip;
+
+  let msg, bg;
+  if(pct>=85){msg='🏆 Excellent! JRF level performance!';bg='rgba(0,229,181,.15)';}
+  else if(pct>=70){msg='🎯 Very Good! थोड़ी और practice।';bg='rgba(74,144,232,.12)';}
+  else if(pct>=50){msg='📚 Average। Weak topics focus करो।';bg='rgba(240,192,64,.1)';}
+  else{msg='💪 और practice चाहिए। हिम्मत मत हारो!';bg='rgba(255,107,107,.1)';}
+  const msgEl = document.getElementById('res-msg');
+  msgEl.textContent = msg;
+  msgEl.style.background = bg;
+
+  // Save to localStorage
+  try {
+    const history = JSON.parse(localStorage.getItem('mock_history') || '[]');
+    history.unshift({
+      date: dateStr,
+      time: timeStr,
+      score: correct,
+      total,
+      pct,
+      elapsed: `${mins}m ${secs}s`,
+      subjects: mockState.subjects.join(', ')
+    });
+    if(history.length > 20) history.splice(20);
+    localStorage.setItem('mock_history', JSON.stringify(history));
+  } catch(e){}
+
+  loadMockHistory();
+  showMockPhase('mock-result');
+}
+
+function showReview() {
+  const rev = document.getElementById('mock-review-section');
+  rev.style.display = rev.style.display === 'none' ? 'block' : 'none';
+  if(rev.style.display === 'none') return;
+
+  rev.innerHTML = mockState.questions.map((q,i) => {
+    const ans = mockState.answers[i];
+    const correct = ans === q.a;
+    const skipped = ans === undefined;
+    const color = skipped ? 'var(--text3)' : correct ? 'var(--teal)' : 'var(--coral)';
+    const icon = skipped ? '⬜' : correct ? '✅' : '❌';
+    return `<div class="card" style="border-color:${color};padding:12px;margin-bottom:8px;">
+      <div style="font-size:11px;color:${color};margin-bottom:5px;">${icon} Q${i+1} ${skipped?'(छोड़ा)':correct?'(सही)':'(गलत)'}</div>
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px;">${q.q}</div>
+      ${q.o.map((o,j)=>`<div style="font-size:11px;padding:5px 8px;margin-bottom:3px;border-radius:6px;background:${j===q.a?'rgba(0,229,181,.12)':j===ans&&!correct?'rgba(255,107,107,.1)':'transparent'};color:${j===q.a?'var(--teal)':j===ans&&!correct?'var(--coral)':'var(--text2)'}">${'ABCD'[j]}. ${o}</div>`).join('')}
+      <div style="margin-top:8px;padding:8px;background:rgba(240,192,64,.07);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;font-size:11px;color:var(--text2);">${q.e}</div>
+    </div>`;
+  }).join('');
+}
+
+function loadMockHistory() {
+  const histEl = document.getElementById('mock-history');
+  try {
+    const history = JSON.parse(localStorage.getItem('mock_history') || '[]');
+    if(history.length === 0) {
+      histEl.innerHTML = '<div style="font-size:12px;color:var(--text3);text-align:center;padding:10px;">अभी कोई test नहीं दिया।</div>';
+      return;
+    }
+    histEl.innerHTML = history.map((h,i) => `
+      <div class="hist-card">
+        <div class="hist-date">📅 ${h.date} ${h.time}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="hist-score">${h.score}/${h.total} (${h.pct}%)</div>
+          <div class="hist-meta">⏱️ ${h.elapsed}</div>
+        </div>
+        <div class="hist-meta" style="margin-top:3px;">📚 ${h.subjects}</div>
+      </div>
+    `).join('');
+  } catch(e) {
+    histEl.innerHTML = '<div style="font-size:12px;color:var(--text3);">History load error।</div>';
+  }
+}
+
+function resetMock() {
+  mockState = {...mockState, questions:[], answers:{}, current:0};
+  document.getElementById('mock-review-section').style.display = 'none';
+  showMockPhase('mock-setup');
+}
+
+document.querySelector('[onclick="go(\'mock\',this)"]').addEventListener('click', loadMockHistory);
+  
   
 function reveal(qi) {
   const q=QS[qi];
