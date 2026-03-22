@@ -1,4 +1,4 @@
-const CACHE = 'ugc-net-geo-v10';
+const CACHE = 'ugc-net-geo-v15';
 const ASSETS = ['./index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
