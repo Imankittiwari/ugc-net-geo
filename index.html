@@ -317,7 +317,7 @@ ul.si li strong{color:var(--text);}
   <button class="tb" onclick="go('memory',this)"><span class="ti">🧠</span>Memory</button>
   <button class="tb" onclick="go('calculator',this)"><span class="ti">📊</span>Score</button>
   <button class="tb" onclick="go('aitutor',this)"><span class="ti">🤖</span>AI Tutor</button>
-  <button class="tb" onclick="go('map',this);initMap()"><span class="ti">🗺️</span>Map</button>
+  <button class="tb" onclick="go('map',this);setTimeout(initMap,150)"><span class="ti">🗺️</span>Map</button><span class="ti">🗺️</span>Map</button>
 </div>
 
 <!-- SCROLL AREA -->
@@ -1507,6 +1507,9 @@ function initMap() {
 }
 
 function buildMap() {
+  const mc = document.getElementById('map-container');
+  mc.style.height = '420px';
+  mc.style.width = '100%';
   gMap = L.map('map-container', {
     center: [22, 78],
     zoom: 5,
@@ -1529,6 +1532,7 @@ function buildMap() {
   gLayers.india.addTo(gMap);
   gLayers.mtn.addTo(gMap);
   gLayers.river.addTo(gMap);
+  setTimeout(() => { if(gMap) gMap.invalidateSize(); }, 400);
 }
 
 function showInfo(title, text) {
